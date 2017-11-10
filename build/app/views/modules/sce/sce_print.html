@@ -1,0 +1,391 @@
+<div id="print-container">
+    <div class="container">
+        <div class="print-header">
+            <div class="row flex">
+                <div class="col-xs-2 logo petronas">
+                    <img alt="petronas logo" src="/content/images/logo-petronas.jpg" class="center-block" />
+                </div>
+                <div class="col-xs-8 col-mid">
+                    <div class="row text-center">
+                        <h3>PETRONAS PENAPISAN MELAKA SDN. BHD.</h3>
+                    </div>
+                    <div class="row text-center">
+                        <h2>PRD-OPP-CP-012-F01</h2>
+                    </div>
+                </div>
+                <div class="col-xs-2 logo company">
+                    <img alt="logo-1" src="/content/images/logo-1.png" class="center-block" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 title">
+                    <div class="row">
+                        <div class="col-xs-9">
+                            <h3>Permit For Bypassing Of Safety Critical Equipment (SCE)</h3>
+                        </div>
+                        <div class="col-xs-3 text-right">
+                            <h3 data-ng-bind="sceDetail.sceNo"></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="print-content">
+            <section>
+                <div class="section-title">
+                    <h3>APPLICATION</h3>
+                </div>
+                <div class="row bg-left">
+                    <div class="col-xs-2">
+                        <div class="col-left">
+                            <h5>Applicant</h5>
+                            <p>
+                                <strong data-ng-bind="sceDetail.applicant.userName" class="username"></strong><br />
+                                <span data-ng-bind="sceDetail.applicant.staffNo"></span>
+                            </p>
+                            <h5>Dept</h5>
+                            <p data-ng-bind="sceDetail.applicant.dept"></p>
+                            <h5>Office Telephone</h5>
+                            <p data-ng-bind="sceDetail.applicant.contactNo"></p>
+                            <h5>Mobile No.</h5>
+                            <p data-ng-bind="sceDetail.applicant.mobileNo"></p>
+                        </div>
+                    </div>
+                    <div class="col-xs-10 bg-right col-application">
+                        <div class="row">
+                            <div class="col-xs-12 process-flow-title-first-section">
+                                <h4>Requisition</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <h5>Area</h5>
+                                <p>Area <span data-ng-bind="sceDetail.areaName"></span></p>
+                            </div>
+                            <div class="col-xs-3">
+                                <h5>Unit</h5>
+                                <p data-ng-bind="sceDetail.unit"></p>
+                            </div>
+                            <div class="col-xs-3">
+                                <h5>Tag No.</h5>
+                                <p data-ng-bind="sceDetail.tagNo"></p>
+                            </div>
+                            <div class="col-xs-3">
+                                <h5>Equipment No.</h5>
+                                <p data-ng-bind="sceDetail.equipmentNo"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <h5>Type of SCE Bypass</h5>
+                                <p data-ng-bind="sceDetail.typeName == null ? sceDetail.othersTypesOfByPass : sceDetail.typeName"></p>
+                            </div>
+                            <div class="col-xs-3">
+                                <h5>Estimated Duration for Bypass</h5>
+                                <p data-ng-bind="sceDetail.estimationDurationForByPass"></p>
+                            </div>
+                            <div class="col-xs-3">
+                                <h5>Category</h5>
+                                <p data-ng-bind="sceDetail.categoryName"></p>
+                            </div>
+                            <div class="col-xs-3">
+                                <h5>Safety Integrity Level</h5>
+                                <p data-ng-bind="sceDetail.silName"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 process-flow-title">
+                                <h4>Work Description</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <h5>Date Required</h5>
+                                <p data-ng-bind="sceDetail.dateRequired | date: 'dd MMM yyyy'"></p>
+                            </div>
+                            <div class="col-xs-4">
+                                <h5>Expected Date To Normalize</h5>
+                                <p data-ng-bind="sceDetail.expectedDateToNormalize | date: 'dd MMM yyyy'"></p>
+                            </div>
+                            <div class="col-xs-4">
+                                <h5>Method of Bypass</h5>
+                                <p data-ng-bind="sceDetail.methodName == null ? sceDetail.othersMethodOfByPass : sceDetail.methodName"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h5>Reason for Conducting Bypass</h5>
+                                <p data-ng-bind="sceDetail.reasonForConductingByPass"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="section-title ">
+                    <h3>MITIGATION PLAN</h3>
+                </div>
+                <div class="row bg-left">
+                    <div class="col-xs-2">
+                        <div class="col-left">
+                            <h5>Reviewed By</h5>
+                            <p>
+                                <strong data-ng-bind="sceDetail.reviewer.userName" class="username"></strong><br />
+                                <span data-ng-bind="sceDetail.reviewer.staffNo"></span><br />
+                                <small>{{sceDetail.reviewedDateTime | date: "dd MMM yyyy 'at' hh:mm a"}}</small>
+                            </p>
+                            <h5>Endorsed By</h5>
+                            <p>
+                                <strong data-ng-bind="sceDetail.endorser.userName" class="username"></strong><br />
+                                <span data-ng-bind="sceDetail.endorser.staffNo"></span><br />
+                                <small>{{sceDetail.endorsedDateTime | date: "dd MMM yyyy 'at' hh:mm a"}}</small>
+                            </p>
+                            <h5>Approved By</h5>
+                            <p>
+                                <strong data-ng-bind="sceDetail.approver.userName" class="username"></strong><br />
+                                <span data-ng-bind="sceDetail.approver.staffNo"></span><br />
+                                <small>{{sceDetail.approvedDateTime | date: "dd MMM yyyy 'at' hh:mm a"}}</small>
+                            </p>
+                            <h5>Re-Approved By</h5>
+                            <p>
+                                <strong data-ng-bind="sceDetail.approver.userName" class="username"></strong><br />
+                                <span data-ng-bind="sceDetail.approver.staffNo"></span><br />
+                                <small>{{sceDetail.approvedDateTime | date: "dd MMM yyyy 'at' hh:mm a"}}</small>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-xs-10 bg-right">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h5>Consequences</h5>
+                                <p data-ng-bind="sceDetail.consequences"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h5>Precautions By Applicant</h5>
+                                <p data-ng-bind="sceDetail.precautionsByApplicant"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h5>Precautions By Operations</h5>
+                                <p data-ng-bind="sceDetail.precautionsByOperations"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h5>Precautions By Endorser</h5>
+                                <p data-ng-bind="sceDetail.precautionsByEndorser"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h5>Precautions By Approver</h5>
+                                <p data-ng-bind="sceDetail.precautionsByAuthority"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table>
+                                    <tr>
+                                        <td colspan="3">
+                                            <h5>APPROVER'S ASSESSMENT OF CRITICAL DOCUMENT'S REQUIREMENTS</h5>
+                                            <p><i>(If YES shall be provided by the permit applicant and briefed to relevant parties)</i></p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h5>Is temporary operating procedure required?</h5>
+                                            <p data-ng-bind="sceDetail.isTempOperatingProcedureRequired ? 'Yes' : 'No'"></p>
+                                        </td>
+                                        <td>
+                                            <h5>Detail Risk Assessment i.e. SWIFT required?</h5>
+                                            <p data-ng-bind="sceDetail.isDetailRARequired ? 'Yes' : 'No'"></p>
+                                        </td>
+                                        <td>
+                                            <h5>Special standing instruction required?</h5>
+                                            <p data-ng-bind="sceDetail.isSpecialSIRequired ? 'Yes' : 'No'"></p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="row section-title">
+                    <h3>LIVE</h3>
+                </div>
+                <div class="row bg-left live">
+                    <div class="col-xs-12">
+                        <div class="row flex">
+                            <div class="col-xs-2">
+                                <div class="col-left">
+                                    <h5>Acknowledgment</h5>
+                                    <p><small>SCE to be re-acknowledged once every shift</small></p>
+                                </div>
+                            </div>
+                            <div class="col-xs-10 bg-right">
+                                <div class="row">
+                                    <div class="col-xs-6" data-ng-hide="reAcknowledgeHistoriesLeft == null || reAcknowledgeHistoriesLeft.length == 0">
+                                        <table class="table-half">
+                                            <thead>
+                                                <tr>
+                                                    <th class="col-1">SHIFT</th>
+                                                    <th class="col-2">ACKNOWLEDGED BY</th>
+                                                    <th class="col-3">TIME ACKNOWLEDGED</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody data-ng-repeat="rackLeft in reAcknowledgeHistoriesLeft">
+                                                <tr>
+                                                    <td data-ng-bind="rackLeft.shift" class="col-1"></td>
+                                                    <td class="col-2">
+                                                        <strong data-ng-bind="rackLeft.updatedBy" class="username"></strong>
+                                                    </td>
+                                                    <td class="col-3">{{rackLeft.updatedDateTime | date: "dd MMM yyyy 'at' hh:mm a"}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-xs-6" data-ng-hide="reAcknowledgeHistoriesRight == null || reAcknowledgeHistoriesRight.length == 0">
+                                        <table class="table-half">
+                                            <thead>
+                                                <tr>
+                                                    <th class="col-1">SHIFT</th>
+                                                    <th class="col-2">ACKNOWLEDGED BY</th>
+                                                    <th class="col-3">TIME ACKNOWLEDGED</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr data-ng-repeat="rackRight in reAcknowledgeHistoriesRight">
+                                                    <td data-ng-bind="rackRight.shift" class="col-1"></td>
+                                                    <td class="col-2">
+                                                        <strong data-ng-bind="rackRight.updatedBy" class="username"></strong>
+                                                    </td>
+                                                    <td class="col-3">{{rackRight.updatedDateTime | date: "dd MMM yyyy 'at' hh:mm a"}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row flex">
+                            <div class="col-xs-2">
+                                <div class="col-left">
+                                    <h5>Re-Approval</h5>
+                                    <p><small>For SCE Bypass extended beyond 7 days</small></p>
+                                </div>
+                            </div>
+                            <div class="col-xs-10 bg-right">
+                                <div class="row">
+                                    <div class="col-xs-6" data-ng-hide="reApproveHistoriesLeft == null || reApproveHistoriesLeft.length == 0">
+                                        <table class="table-half">
+                                            <thead>
+                                                <tr>
+                                                    <th class="col-1">WEEK</th>
+                                                    <th class="col-2">APPROVED BY</th>
+                                                    <th class="col-3">TIME APPROVED</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr data-ng-repeat="rappLeft in reApproveHistoriesLeft">
+                                                    <td data-ng-bind="rappLeft.week" class="col-1"></td>
+                                                    <td class="col-2">
+                                                        <strong data-ng-bind="rappLeft.updatedBy" class="username"></strong>
+                                                    </td>
+                                                    <td class="col-3">{{rappLeft.updatedDateTime | date: "dd MMM yyyy 'at' hh:mm a"}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-xs-6" data-ng-hide="reApproveHistoriesRight == null || reApproveHistoriesRight.length == 0">
+                                        <table class="table-half">
+                                            <thead>
+                                                <tr>
+                                                    <th class="col-1">WEEK</th>
+                                                    <th class="col-2">APPROVED BY</th>
+                                                    <th class="col-3">TIME APPROVED</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr data-ng-repeat="rappRight in reApproveHistoriesRight">
+                                                    <td data-ng-bind="rappRight.week" class="col-1"></td>
+                                                    <td class="col-2">
+                                                        <strong data-ng-bind="rappRight.updatedBy" class="username"></strong>
+                                                    </td>
+                                                    <td class="col-3">{{rappRight.updatedDateTime | date: "dd MMM yyyy 'at' hh:mm a"}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row flex">
+                            <div class="col-xs-2">
+                                <div class="col-left">
+                                    <h5>PTW</h5>
+                                </div>
+                            </div>
+                            <div class="col-xs-10 bg-right">
+                                <table data-ng-hide="sceDetail.scePtw == null || sceDetail.scePtw.length == 0" class="table-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-1">PTW #</th>
+                                            <th class="col-2">BYPASSED BY</th>
+                                            <th class="col-3">TIME</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr data-ng-repeat="ptw in sceDetail.scePtw">
+                                            <td class="col-1" data-ng-bind="ptw.ptwNo"></td>
+                                            <td class="col-2">
+                                                <strong data-ng-bind="ptw.byPassBy" class="username"></strong>
+                                            </td>
+                                            <td class="col-3">
+                                                {{ptw.byPassTime | date: "dd MMMM yyyy 'at' hh:mm a"}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row flex">
+                            <div class="col-xs-2">
+                                <div class="col-left">
+                                    <h5>Normalize</h5>
+                                </div>
+                            </div>
+                            <div class="col-xs-10 bg-right">
+                                <table data-ng-hide="normalizedPTW == null" class="table-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-1">PTW #</th>
+                                            <th class="col-2">ACTION BY</th>
+                                            <th class="col-3">TIME NORMALIZED</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td data-ng-bind="normalizedPTW.ptwNo" class="col-1"></td>
+                                            <td class="col-2">
+                                                <strong class="username" data-ng-bind="normalizedPTW.byPassBy"></strong>
+                                            </td>
+                                            <td class="col-3">
+                                                {{normalizedPTW.byPassTime | date:"dd MMMM yyyy 'at' hh:mm a"}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="row_end"></div>
+        </div>
+    </div>
+</div>

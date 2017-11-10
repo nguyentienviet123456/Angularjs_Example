@@ -1,0 +1,55 @@
+﻿#dowload_app {
+    text-align: center;
+    color: #fff !important;
+    margin-top: 20px;
+
+    .mobile-download {
+        zoom: 1;
+        margin-top: 40px;
+
+        :after {
+            display: block;
+            visibility: hidden;
+            height: 0;
+            clear: both;
+            content: ".";
+        }
+
+        h2 {
+            font-size: 22px;
+            font-size: 1.375rem;
+            margin-bottom: 40px;
+            color: #fff !important;
+        }
+
+        .ios, .android {
+            height: 45px;
+            width: 152px;
+            text-align: center;
+            margin: 0 auto;
+            margin-top: 10px !important;
+        }
+
+        a {
+            display: block;
+            margin-bottom: 20px;
+        }
+    }
+}
+
+@media only screen and (max-width: 760px) {
+    #dowload_app {
+
+        .mobile-download {
+            ul {
+                margin-bottom: 20px;
+                width: auto;
+            }
+
+            li {
+                float: none;
+                margin: 0 auto 10px;
+            }
+        }
+    }
+}

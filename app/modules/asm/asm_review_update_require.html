@@ -1,0 +1,132 @@
+﻿<div class="asm-box">
+    <h4 class="box-title">
+        <a href="#" class="visible-button">Review <i class="icon-arr-down visible-button"></i></a>
+    </h4>
+    <div class="box-body">
+        <section>
+            <div class="row">
+                <div class="col-xs-4">
+                    <h5 class="control-label">Date and Time Occurence</h5>
+                </div>
+                <div class="col-xs-8" data-ng-show="(userProfile.userProfileId === model.reviewer.userProfileId) && checkUserRole.asmReviewer && (model.asmDetail.isRequiredUpdate === true)">                    
+                    <input kendo-date-time-picker
+                           data-ng-model="reviewModel.occurence"
+                           class="datepicker txt"
+                           required
+                           name="reviewDate"
+                           data-required-msg="Date and Time Occurence is required" />
+                </div>
+                <div class="col-xs-8" data-ng-hide="(userProfile.userProfileId === model.reviewer.userProfileId) && checkUserRole.asmReviewer && (model.asmDetail.isRequiredUpdate === true)">
+                    <p data-ng-bind="model.asmDetail.occurence | date:'dd MMM yyyy h:mm a' "></p>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="row">
+                <div class="col-xs-4">
+                    <h5 class="control-label">SAP Notification No</h5>
+                </div>
+                <div class="col-xs-8" data-ng-show="(userProfile.userProfileId === model.reviewer.userProfileId) && checkUserRole.asmReviewer && (model.asmDetail.isRequiredUpdate === true)">
+                    <textarea name="SAPNotificationNo" maxlength="100" class="k-editor-textarea txt" data-ng-model="reviewModel.sapNo" required data-required-msg="SAP Notification No is required" style="width: 100%"></textarea>
+                </div>
+                <div class="col-xs-8" data-ng-hide="(userProfile.userProfileId === model.reviewer.userProfileId) && checkUserRole.asmReviewer && (model.asmDetail.isRequiredUpdate === true)">
+                    <p data-ng-bind="model.asmDetail.sapNo"></p>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="row">
+                <div class="col-xs-4">
+                    <div class="control-label">
+                        Equipment has been verified faulty.
+                    </div>
+                    <div class="control-label">
+                        Describe fault condition and plans for rectification.
+                    </div>
+                </div>
+              
+                <div class="col-xs-8" data-ng-show="(userProfile.userProfileId === model.reviewer.userProfileId) && checkUserRole.asmReviewer && (model.asmDetail.isRequiredUpdate === true)">
+                    <textarea name="faultCOnditionAndPlansForRectification" maxlength="2000" class="k-editor-textarea txt" data-ng-model="reviewModel.faultCondition" required data-required-msg="fault condition and plans for rectification is required" style="width: 100%" maxlength="2000"></textarea>
+                </div>
+                <div class="col-xs-8" data-ng-hide="(userProfile.userProfileId === model.reviewer.userProfileId) && checkUserRole.asmReviewer && (model.asmDetail.isRequiredUpdate === true)">
+                    <p data-ng-bind="model.asmDetail.faultCondition"></p>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="row">
+                <div class="col-xs-4">
+                    <h5 class="control-label"> Potential Consequences</h5>
+                </div>
+                <div class="col-xs-8" data-ng-show="(userProfile.userProfileId === model.reviewer.userProfileId) && checkUserRole.asmReviewer && (model.asmDetail.isRequiredUpdate === true)">
+                    <textarea name="potentialConsequences" maxlength="2000" class="k-editor-textarea txt" data-ng-model="reviewModel.consequences" required data-required-msg="Potential Consequences is required" style="width: 100%" maxlength="2000"></textarea>
+                </div>
+                <div class="col-xs-8" data-ng-hide="(userProfile.userProfileId === model.reviewer.userProfileId) && checkUserRole.asmReviewer && (model.asmDetail.isRequiredUpdate === true)">
+                    <p data-ng-bind="model.asmDetail.consequences"></p>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="row">
+                <div class="col-xs-4">
+                    <h5 class="control-label">Endorser Assigned</h5>
+                </div>
+                <div class="col-xs-8" data-ng-show="(userProfile.userProfileId === model.reviewer.userProfileId) && checkUserRole.asmReviewer && (model.asmDetail.isRequiredUpdate === true)">
+                    <select kendo-drop-down-list
+                            id="asm-endorser"
+                            name="endorser"
+                            required
+                            data-required-msg="Endorser is required"
+                            k-options="endorserOptions"
+                            k-ng-model="reviewModel.endorser"
+                            class="dd_avatar txt"></select>
+                </div>
+                <div class="col-xs-8" data-ng-hide="(userProfile.userProfileId === model.reviewer.userProfileId) && checkUserRole.asmReviewer && (model.asmDetail.isRequiredUpdate === true)">
+                    <p>
+                        <a data-ng-href="/profile/{{model.endorser.userProfileId}}" data-ng-bind="model.endorser.userName"></a><br>
+                        <span data-ng-bind="model.endorser.staffNo"></span>
+                    </p>
+                </div>
+            </div>
+
+        </section>
+        <section>
+            <div class="row">
+                <div class="col-xs-4">
+                    <h5 class="control-label">Approver Assigned</h5>
+                </div>
+                <div class="col-xs-8" data-ng-show="(userProfile.userProfileId === model.reviewer.userProfileId) && checkUserRole.asmReviewer && (model.asmDetail.isRequiredUpdate === true)">
+                    <select kendo-drop-down-list
+                            id="asm-approver"
+                            name="approver"
+                            required
+                            data-required-msg="Approver is required"
+                            k-options="approverOptions"
+                            k-ng-model="reviewModel.approver"
+                            class="dd_avatar txt"></select>
+                </div>
+                <div class="col-xs-8" data-ng-hide="(userProfile.userProfileId === model.reviewer.userProfileId) && checkUserRole.asmReviewer && (model.asmDetail.isRequiredUpdate === true)">
+                    <p>
+                        <a data-ng-href="/profile/{{model.approver.userProfileId}}" data-ng-bind="model.approver.userName"></a><br>
+                        <span data-ng-bind="model.approver.staffNo"></span>
+                    </p>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="row">
+                <div class="col-xs-4">
+                    <h5 class="control-label"><strong>Reviewer</strong></h5>
+                    <p class="ng-binding text_avatar">
+                        <img src="data:image/jpg;base64,{{model.reviewer.image}}" alt="{{model.reviewer.userName}}" />
+                        <a data-ng-href="/profile/{{model.reviewer.userProfileId}}" data-ng-bind="model.reviewer.userName"></a><br>
+                        <span data-ng-bind="model.reviewer.staffNo"></span>
+                    </p>
+                </div>
+                <div class="col-xs-8 text-right" data-ng-if="visibleButton.submitForEndorser">
+                    <button class="btn btn-sd k-button btn-purple" type="button" data-ng-click="updateReviewDialog.open()">Update</button>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

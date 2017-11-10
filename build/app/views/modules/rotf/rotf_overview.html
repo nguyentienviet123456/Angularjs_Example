@@ -1,0 +1,131 @@
+<div class="cf rotf" id="TopMenu">
+    <ul class="top_menu">
+        <li class="menu_item active">
+            <a class="active">Overview</a>
+            <span class="landing active"></span>
+        </li>
+        <li class="menu_item">
+            <a>Hightlights</a>
+            <span class="landing"></span>
+        </li>
+        <li class="menu_item">
+            <a>Operations</a>
+            <span class="landing"></span>
+        </li>
+    </ul>
+
+    <div class="statistics_info">
+        <div class="statistic_info" ng-repeat="npat in NPATList">
+            <div>
+                <span class="name">{{npat.name}}</span>
+                <span class="unit">{{npat.unit}}</span>
+            </div>
+
+            <span class="value">{{npat.value}}</span>
+        </div>
+    </div>
+</div>
+<div class="cf rotf_overview_page" id="Section3">
+    <div class="Oee_data_container">
+        <span class="complex_name">PSR1</span>
+        <span class="oee">OEE</span>
+        <span class="target_icon">o</span>
+        <span class="target_value">{{OEEList.psr1.target.value}}%</span>
+        <span class="value">{{OEEList.psr1.throughput.value}}</span>
+        <span class="fa fa-chevron-up sign up_sign"></span>
+    </div>
+    <div class="Oee_data_container">
+        <span class="complex_name">PSR2</span>
+        <span class="oee">OEE</span>
+        <span class="target_icon">o</span>
+        <span class="target_value">{{OEEList.psr2.target.value}}%</span>
+        <span class="value">{{OEEList.psr2.throughput.value}}</span>
+        <span class="fa fa-chevron-up sign up_sign"></span>
+    </div>
+    <div class="Oee_data_container">
+        <span class="complex_name">MG3</span>
+        <span class="oee">OEE</span>
+        <span class="target_icon">o</span>
+        <span class="target_value">{{OEEList.mg3.target.value}}%</span>
+        <span class="value">{{OEEList.mg3.throughput.value}}</span>
+        <span class="fa fa-chevron-down sign down_sign"></span>
+    </div>
+</div>
+
+<!-- Main contents-->
+<section class="ng-scope rotf_overview_page"  id="Panel">
+    <div class="panel_header">
+        <span class="title">MRCSB Good Day Summary</span>
+        <a class="btn btn-sd  view_leaderboard">
+            <i class="fa fa-trophy" aria-hidden="true"></i>
+            <span>View Leaderboard</span>
+        </a>
+        <span class="cf"></span>
+    </div>
+
+    <main class="cf main_wrapper row" dnd-list="areasList" dnd-drop="callback({targetList: areasList, targetIndex: index})">
+        <article class="col-md-4" ng-repeat="area in areasList track by $index" dnd-draggable="null" dnd-callback="onDrop(areasList, $index, targetList, targetIndex)"
+                 dnd-selected="onSelected(areasList, $index)">
+            <div class="area box_shadow">
+                <div class="main_content">
+                    <span class="area_name">{{area.areaName}} </span>
+                    <img class="area_trophy" ng-show="area.trophy !== 0" ng-src="Content/images/{{ area.trophy === 1 ? 'golden' : (area.trophy === 2 ? 'silver' : 'bronze')}}-trophy.png" />
+
+                    <img class="flag" ng-src="{{area.numOfGoodDayStreak > 0 ? 'content/images/good-day-flag.png' :  'content/images/bad-day-flag.png'}}" />
+                    <div class="goodday_wrapper">
+                        <span class="good_day"> {{area.numOfGoodDayStreak}} days</span>
+                        <span class="good_day_txt">Good Day streak</span>
+                    </div>
+
+
+                    <span class="cf" />
+                </div>
+                <div class="area_footer">
+                    <div class="area_unit" ng-repeat="unit in area.listOfUnits" ng-switch="unit.type">
+                        <div ng-switch-when="throughput_taget">
+                            <span class="unit_name"> {{unit.name}}</span>
+                            <div class="unit_value_wrapper">
+                                <span class="unit_value_throughput {{unit.value.throughput < unit.value.target ? 'warning_highlight' : ''}}"> {{unit.value.throughput}}</span>
+                                <span class="unit_value_target"> O {{unit.value.target}} kbpd</span>
+                            </div>
+                        </div>
+                        <div ng-switch-when="pressure">
+                            <span class="unit_name"> {{unit.name}}</span>
+                            <div class="unit_value_wrapper">
+                                <span class="unit_value_actual {{unit.value.actual < unit.value.target ? 'warning_highlight' : ''}}"> {{unit.value.actual}}</span>
+                                <span class="unit_value_target"> O {{unit.value.target}} kg/cm2g</span>
+                            </div>
+                        </div>
+                        <div ng-switch-when="on_off">
+                            <span class="unit_name"> {{unit.name}}</span>
+                            <span class="unit_value {{unit.value === 'OFF' ? 'warning_highlight' : ''}}"> {{unit.value}}</span>
+                        </div>
+                        <div ng-switch-when="percentage">
+                            <span class="unit_name"> {{unit.name}}</span>
+                            <span class="unit_value"> {{unit.value}}%</span>
+                        </div>
+                        <div ng-switch-when="number">
+                            <span class="unit_name"> {{unit.name}}</span>
+                            <span class="unit_value"> {{unit.value}}</span>
+                        </div>
+                        <div ng-switch-when="TPD">
+                            <span class="unit_name"> {{unit.name}}</span>
+                            <div class="unit_value_wrapper">
+                                <span class="unit_value_actual {{unit.value.actual < unit.value.target ? 'warning_highlight' : ''}}"> {{unit.value.actual}}</span>
+                                <span class="unit_value_target"> O {{unit.value.target}} TPD</span>
+                            </div>
+                        </div>
+                        <div ng-switch-when="MDW">
+                            <span class="unit_name"> {{unit.name}}</span>
+                            <div class="unit_value_wrapper">
+                                <span class="unit_value_actual {{unit.value.actual < unit.value.target ? 'warning_highlight' : ''}}"> {{unit.value.actual}}</span>
+                                <span class="unit_value_target"> O {{unit.value.target}} MDW</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </main>
+
+</section>

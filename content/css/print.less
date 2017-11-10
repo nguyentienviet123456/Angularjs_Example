@@ -1,0 +1,390 @@
+﻿@color_1: #00a09b;
+@color_2: #000;
+@color_3: #fff;
+@font_family_1: Verdana, Geneva, Tahoma, sans-serif;
+@background_color_1: #666;
+@background_color_2: #bcbec0;
+@background_color_3: #e6e7e8;
+@background_color_4: #fff;
+@background_color_5: #00a09b;
+@background_color_6: #615e9b;
+
+html,
+body {
+    font-family: @font_family_1;
+    background-color: @background_color_1;
+}
+
+.h1 {
+    margin: 0;
+    line-height: 200%;
+    font-weight: 700;
+}
+
+.h2 {
+    margin: 0;
+    line-height: 200%;
+    font-weight: 700;
+}
+
+.h3 {
+    margin: 0;
+    line-height: 200%;
+    font-weight: 700;
+}
+
+.h4 {
+    margin: 0;
+    line-height: 200%;
+    font-weight: 700;
+    font-size: 1.2em;
+}
+
+.h5 {
+    margin: 0 0 5px 0;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: normal;
+}
+
+.h6 {
+    margin: 0;
+    line-height: 200%;
+    font-weight: 700;
+}
+
+h1 {
+    margin: 0;
+    line-height: 200%;
+    font-weight: 700;
+}
+
+h2 {
+    margin: 0;
+    line-height: 200%;
+    font-weight: 700;
+}
+
+h3 {
+    margin: 0;
+    line-height: 200%;
+    font-weight: 700;
+}
+
+h4 {
+    margin: 0;
+    line-height: 200%;
+    font-weight: 700;
+    font-size: 1.2em;
+}
+
+h5 {
+    margin: 0 0 5px 0;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: normal;
+}
+
+h6 {
+    margin: 0;
+    line-height: 200%;
+    font-weight: 700;
+}
+
+p {
+    margin-bottom: 15px;
+}
+
+.flex {
+    display: flex;
+}
+
+.center-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+strong.username {
+    color: @color_1;
+}
+
+.print-content {
+    p {
+        font-size: 15px;
+        line-height: normal;
+    }
+
+    h5 {
+        small {
+            font-size: 12px;
+            font-weight: 300;
+        }
+    }
+}
+
+.process-flow-title {
+    background-color: @background_color_2 !important;
+    margin-bottom: 15px;
+
+    h4 {
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 30px;
+        text-transform: uppercase;
+    }
+}
+
+.process-flow-title-first-section {
+    background-color: @background_color_2 !important;
+    margin-bottom: 15px;
+
+    h4 {
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 30px;
+        text-transform: uppercase;
+    }
+}
+
+.bg-left {
+    background-color: @background_color_3 !important;
+}
+
+.bg-right {
+    background-color: @background_color_4 !important;
+    padding-top: 15px;
+    padding-bottom: 15px;
+
+    &.col-application {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+
+table {
+    border-collapse: collapse;
+    border: 1px solid black;
+    width: 100%;
+    text-align: left;
+    margin-top: 10px;
+
+    thead {
+        background-color: @background_color_2 !important;
+        color: @color_2;
+        font-weight: 700;
+        text-transform: uppercase;
+        vertical-align: middle;
+    }
+
+    td {
+        padding: 5px 10px;
+        border: 1px solid black;
+        vertical-align: top;
+    }
+
+    th {
+        border: 1px solid black;
+        padding: 5px 10px;
+    }
+
+    h5 small {
+        font-size: 15px;
+    }
+}
+
+.table-half {
+    margin: 0;
+    table-layout: fixed;
+
+    .col-1 {
+        text-align: center;
+        width: 13%;
+    }
+
+    .col-2 {
+        width: 37.5%;
+    }
+}
+
+.table-full {
+    margin: 0;
+    table-layout: fixed;
+
+    .col-1 {
+        width: 16.2%;
+    }
+
+    .col-2 {
+        width: 36.4%;
+    }
+}
+
+.table-info {
+
+    .col-1 {
+        width: 18.4%;
+    }
+
+    .col-2 {
+        width: 22.3%;
+    }
+
+    .col-3 {
+        width: 36.6%;
+    }
+}
+
+.risk-label {
+    padding: 0 15px;
+    line-height: 33px;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 15px;
+    color: #fff;
+    margin: 0;
+
+    &.bg-green {
+        background: #61bd6d;
+    }
+
+    &.bg-yellow {
+        background: #fac51c;
+    }
+
+    &.bg-orange {
+        background: #fba026;
+    }
+
+    &.bg-red {
+        background: #ff0000;
+    }
+}
+
+.risk-summary {
+    padding: 15px 0;
+
+    h5 {
+        margin-bottom: 0;
+
+        strong {
+            display: inline-block;
+            margin-left: 20px;
+        }
+    }
+}
+
+.risk-table {
+    margin-bottom: 15px;
+}
+
+.section-title {
+    background-color: @background_color_5 !important;
+    margin: 0 -15px;
+    padding: 0 15px;
+
+    h3 {
+        font-weight: bold;
+        font-size: 16px;
+        margin: 0;
+        line-height: 30px;
+        color: @color_3 !important;
+    }
+}
+
+#print-container {
+    padding: 20px;
+    min-width: 1336px;
+    background: #fff;
+
+    .container {
+        width: 100%;
+    }
+
+    .print-header {
+        > .row {
+            &:first-child {
+                border: 1px solid #808285;
+            }
+        }
+
+        .logo {
+            padding: 5px;
+            overflow: hidden;
+            height: 195px;
+
+            img {
+                max-width: 100%;
+                position: relative;
+                top: 50%;
+                -moz-transform: translateY(-50%);
+                -webkit-transform: translateY(-50%);
+                -o-transform: translateY(-50%);
+                -ms-transform: translateY(-50%);
+                transform: translateY(-50%);
+            }
+        }
+
+        .petronas {
+            border-right: 1px solid #808285;
+
+            img {
+                max-height: 147px;
+            }
+        }
+
+        .company {
+            border-left: 1px solid #808285;
+
+            img {
+                max-height: 145px;
+            }
+        }
+
+        .col-mid {
+            > .row {
+                &:first-child {
+                    border-bottom: 1px solid #808285;
+                }
+
+                &:nth-child(2) {
+                    span {
+                        font-size: 2em;
+                        font-weight: 900;
+                    }
+                }
+            }
+
+            h3 {
+                font-family: @font_family_1;
+                font-size: 30px;
+                font-weight: 300;
+                line-height: 86px;
+            }
+
+            h2 {
+                font-size: 40px;
+                line-height: 108px;
+            }
+        }
+
+        .title {
+            background-color: @background_color_6 !important;
+            color: @color_3 !important;
+            padding: 0 15px;
+
+            h3 {
+                display: inline-block;
+                color: @color_3 !important;
+                font-size: 20px;
+                font-weight: 700;
+                line-height: 40px;
+                text-transform: uppercase;
+            }
+        }
+    }
+}
+
+.col-left {
+    padding: 15px 0;
+}

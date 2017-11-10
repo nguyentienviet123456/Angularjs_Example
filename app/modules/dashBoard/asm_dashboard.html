@@ -1,0 +1,248 @@
+﻿<div id="wrapper">
+    <div class="ng-scope" id="Panel">
+        <div class="panel_content panel_dashboard">
+            <!-- Right Column -->
+            <div class="col-right">
+                <div class="panel_head cf">
+                    <div class="panel_head_right">
+                        <a class="btn btn-sd btn-sm" data-ng-hide="hideActionCreateNewAsm" href="javascript:void(0)" data-ng-click="goToCreateAsm($event)">Create New Shelving</a>
+                    </div>
+                </div>
+                <div class="box_shadow box_side">
+                    <div class="box_side_head">
+                        <h5>Pending My Action <span data-ng-bind="'('+ myPendingAsm +')'"></span></h5>
+                    </div>
+                    <div id="pending-action-tab" kendo-tab-strip class="action_tab" k-animation="false">
+                        <ul ng-show="false">
+                            <li class="k-state-active"></li>
+                        </ul>
+                        <div style="height: 370px;">
+                            <ul>
+                                <li data-ng-repeat="asm in pendingAsmDataSource">
+                                    <p data-ng-bind="asm.reason"></p>
+                                    <p>
+                                        <a data-ng-href="/asm_detail/{{asm.asmId}}" data-ng-bind="asm.status"></a>
+                                    </p>
+                                </li>
+                            </ul>
+                            <a href="/asmlist">View all ASM listing -></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="box_shadow message_box" data-module="ASM" my-custom src="app/views/modules/message/message_box.html" data-ng-controller="messageBoxController">
+                </div>
+            </div><!-- Right Column -->
+            <!-- Form Box -->
+            <div class="col-left">
+                <div class="panel_head cf">
+                    <div class="panel_head_left">
+                        <h2 class="panel_title">Dashboard Alarm Shelving Management (ASM)</h2>
+                    </div>
+                    <div class="panel_head_right k-content">
+                        <ul id="multipleAreasMenu" class="dropdown_block">
+                            <li>
+                                Multiple Areas
+                                <ul>
+                                    <li>
+                                        <div class="dropdown_item">
+                                            <h6>Select an area</h6>
+                                            <ul class="checkboxes">
+                                                <li data-ng-repeat="area in subscribedAreas">
+                                                    <label class="cb-lbl">
+                                                        <input type="checkbox" data-ng-disabled="area.isDefault" data-ng-model="area.isChecked" data-ng-change="$parent.selectedChange()" /><span data-ng-bind="area.areaName"></span>
+                                                    </label>
+                                                </li>
+                                            </ul>
+
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="dashboard_item">
+                    <div class="box_shadow">
+                        <div class="row_block row_sce">
+                            <div class="cell" data-ng-click="filter($event)" data-module="asm" data-status="22">
+                                <i class="icon-list-sce"></i>
+                                <h1 data-ng-bind="dashboard.asmRequiredUpdate"></h1>
+                                <div class="cell_text">
+                                    <h4>ASM</h4>
+                                    <p>Require Update</p>
+                                </div>
+                            </div>
+                            <div class="cell" data-ng-click="filter($event)" data-module="asm" data-status="24">
+                                <h2 data-ng-bind="dashboard.asmPendingReview"></h2>
+                                <div class="cell_text">
+                                    <p>
+                                        Pending<br />
+                                        Review
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="cell" data-ng-click="filter($event)" data-module="asm" data-status="23">
+                                <h2 data-ng-bind="dashboard.asmPendingEndorsement"></h2>
+                                <div class="cell_text">
+                                    <p>
+                                        Pending<br />
+                                        Endorsement
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="cell" data-ng-click="filter($event)" data-module="asm" data-status="25">
+                                <h2 data-ng-bind="dashboard.asmPendingApproval"></h2>
+                                <div class="cell_text">
+                                    <p>
+                                        Pending<br />
+                                        Approval
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="cell" data-ng-click="filter($event)" data-module="asm" data-status="26">
+                                <h2 data-ng-bind="dashboard.asmPendingShelving"></h2>
+                                <div class="cell_text">
+                                    <p>
+                                        Pending<br />
+                                        Shelving
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box_shadow">
+                        <div class="row_block row_live_sce">
+                            <div class="cell" data-ng-click="filter($event)" data-module="asm" data-status="28">
+                                <h1 data-ng-bind="dashboard.liveASM"></h1>
+                                <div class="cell_text">
+                                    <h4>LIVE ALARM SHELVED</h4>
+                                </div>
+                            </div>
+                            <div class="cell">
+                                <div id="asmLivePieChart" style="position:absolute!important"></div>
+                            </div>
+                            <div class="cell" data-ng-click="filter($event)" data-module="asm" data-status="28" data-pending-re-shelving="true">
+                                <h2 data-ng-bind="dashboard.livePendingReShelving"></h2>
+                                <div class="cell_text">
+                                    <p>
+                                        Pending<br />
+                                        Re-Shelving
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="cell" data-ng-click="filter($event)" data-module="asm" data-status="28" data-pending-re-approve="true">
+                                <h2 data-ng-bind="dashboard.livePendingReApproval"></h2>
+                                <div class="cell_text">
+                                    <p>
+                                        Pending <br />
+                                        Re-Approval
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="cell" data-ng-click="filter($event)" data-module="asm" data-status="31,33" data-pending-moc="true">
+                                <h2 data-ng-bind="dashboard.livePendingMOC"></h2>
+                                <div class="cell_text">
+                                    <p>Pending MOC</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="dashboard_chart box_shadow">
+                    <div id="barChart"></div>
+                </div>-->
+                <div class="dashboard_chart box_shadow" style="position: relative;">
+                    <div style="float: left"><b>Engineering Equipment and Materials Users Association (EEMUA) Standard</b></div>
+                    <div style="float: right" ng-if="showEditEemuaButton">
+                        <button class="btn btn-info" style="border-color: #E2E3E4; color: black; background: white; position: inherit; float: right; " type="button" data-ng-click="openItemMenuAsmDashboard($event)"><i class="icon-dot-3 icon-btn-grid-item-menu"></i></button>
+                        <ul id="ulContextMenuAsmEEMUAChart" class="grid-item-menu" style="display: none;  background-color: #fff; border: 1px solid #ccc; position: absolute; top: 65px; right: 45px; z-index: 99999;">
+                            <li><a href="javascript:void(0)" data-ng-click="editEEMUA($event)">Edit</a></li>
+                        </ul>
+                    </div>
+                    <div style="clear: both"></div>
+                    <div id="chart" style="z-index: 1;"></div>
+                    <div id="model-eemua" style="display: none">
+                        <div class="background-eemua"></div>
+                        <div class="eemua-table" id="eemuaTable">
+                            <b>Engineering Equipment and Materials Users Association (EEMUA) Standard</b>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th></th>
+                                    <th>JAN</th>
+                                    <th>FEB</th>
+                                    <th>MAR</th>
+                                    <th>APR</th>
+                                    <th>MAY</th>
+                                    <th>JUN</th>
+                                    <th>JUL</th>
+                                    <th>AUG</th>
+                                    <th>SEP</th>
+                                    <th>OCT</th>
+                                    <th>NOV</th>
+                                    <th>DEC</th>
+                                </tr>
+                                <tr ng-repeat="item in eemuaList">
+                                    <td class="td-head">
+                                        <input type="text" ng-model="item.type"/>
+                                    </td>
+                                    <td>
+                                        <input type="number" ng-model="item.jan" ng-if="currentMonth >= 1"/>
+                                        <span ng-if="currentMonth < 1">{{item.jan}}</span>
+                                    </td>
+                                    <td>
+                                        <input type="number" ng-model="item.feb" ng-if="currentMonth >= 2"/>
+                                        <span ng-if="currentMonth < 2">{{item.feb}}</span>
+                                    </td>
+                                    <td>
+                                        <input type="number" ng-model="item.mar" ng-if="currentMonth >= 3"/>
+                                        <span ng-if="currentMonth < 3">{{item.mar}}</span>
+                                    </td>
+                                    <td>
+                                        <input type="number" ng-model="item.apr" ng-if="currentMonth >= 4"/>
+                                        <span ng-if="currentMonth < 4">{{item.apr}}</span>
+                                    </td>
+                                    <td>
+                                        <input type="number" ng-model="item.may" ng-if="currentMonth >= 5"/>
+                                        <span ng-if="currentMonth < 5">{{item.may}}</span>
+                                    </td>
+                                    <td>
+                                        <input type="number" ng-model="item.jun" ng-if="currentMonth >= 6"/>
+                                        <span ng-if="currentMonth < 6">{{item.jun}}</span>
+                                    </td>
+                                    <td>
+                                        <input type="number" ng-model="item.jul" ng-if="currentMonth >= 7"/>
+                                        <span ng-if="currentMonth < 7">{{item.jul}}</span>
+                                    </td>
+                                    <td>
+                                        <input type="number" ng-model="item.aug" ng-if="currentMonth >= 8"/>
+                                        <span ng-if="currentMonth < 8">{{item.aug}}</span>
+                                    </td>
+                                    <td>
+                                        <input type="number" ng-model="item.sep" ng-if="currentMonth >= 9"/>
+                                        <span ng-if="currentMonth < 9">{{item.sep}}</span>
+                                    </td>
+                                    <td>
+                                        <input type="number" ng-model="item.oct" ng-if="currentMonth >= 10"/>
+                                        <span ng-if="currentMonth < 10">{{item.oct}}</span>
+                                    </td>
+                                    <td>
+                                        <input type="number" ng-model="item.nov" ng-if="currentMonth >= 11"/>
+                                        <span ng-if="currentMonth < 11">{{item.nov}}</span>
+                                    </td>
+                                    <td>
+                                        <input type="number" ng-model="item.dec" ng-if="currentMonth >= 12"/>
+                                        <span ng-if="currentMonth < 12">{{item.dec}}</span>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="toolbar">
+                                <a class="btn btn-sd btn-sm" data-ng-hide="" href="javascript:void(0)" data-ng-click="cancelEEMUA($event)">Cancel</a>
+                                <a class="btn btn-sd btn-sm" data-ng-hide="" href="javascript:void(0)" data-ng-click="saveEEMUA($event)">Save</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

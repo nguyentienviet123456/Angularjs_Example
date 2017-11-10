@@ -1,0 +1,58 @@
+﻿<div class="box_shadow">
+    <div class="asm-box">
+        <h4 class="box-title">
+            <a href="#" class="visible-button">MOC<i class="icon-arr-down"></i></a>
+        </h4>
+        <div class="box-body">
+            <form>
+                <section>
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <h5 class="control-label">ASM bypass <span>ASM bypass allowed for extension of more than 90 days via MOC</span></h5>
+                        </div>
+                        <div class="col-xs-4 switch">
+                            <input kendo-mobile-switch type="checkbox" k-on-label="'YES'" k-off-label="'NO'" data-ng-model="model.asmDetail.allowByPassViaMOC" />
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <div class="control-label">
+                                MOC No.
+                            </div>
+                            <input type="text" name="mocNo" class="txt" maxlength="50" required data-required-msg="MOC No is required" data-ng-model="model.asmDetail.mocNO" />
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="control-label">MOC Meeting Date & Time</div>
+                            <input kendo-date-time-picker
+                                   data-ng-model="model.asmDetail.mocMeetingDate"
+                                   class="datepicker txt"
+                                   required
+                                   name="mocDate"
+                                   data-required-msg="Moc Meeting Date Time is required" />
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <div class="form-group">
+                                <label>Assign MOC Approver</label>
+                                <select kendo-drop-down-list
+                                        id="moc-approvers"
+                                        class="dd_avatar txt"
+                                        name="MocApprovers"
+                                        data-required-msg="MOC Approver is required"
+                                        required
+                                        k-options="mocApproversOptions"
+                                        k-ng-model="model.mocApprover"></select>
+                                <span class="k-invalid-msg" data-for="MocApprovers"></span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </form>
+        </div>
+    </div>
+</div>

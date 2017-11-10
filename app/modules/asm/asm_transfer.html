@@ -1,0 +1,65 @@
+﻿<div data-ng-controller="asmListController">
+    <a href="#" data-ng-click="transferAlarm(alarmId)">Transfer</a>
+    <div id="transfer-dialog" kendo-dialog="transferDialog" k-title="'Transfer ASM'" k-on-open="dialogVisible = true"
+         k-on-close="dialogVisible = false" k-width="490" k-actions="transferAlarmAction" k-modal="true" k-visible="false">
+        <form id="transfer-alarm" kendo-validator="transfer_alarm_validator">
+            <ul class="review_listing">
+                <li>
+                    Transferring ASM to a new applicant will remove you from this ASM. This action will be irreversible. You will still be able to view this ASM
+                </li>
+                <li>
+                    <div class="control-label">Transfer to New Applicant</div>
+                    <select kendo-drop-down-list
+                            id="alarm-new-applicant"
+                            class="txt dd_avatar"
+                            name="newApplicant"
+                            required
+                            data-required-msg="New Applicant is required"
+                            k-options="newApplicantForApplicantOptions"
+                            k-ng-model="transferAlarmModel.newApplicantId"
+                            k-filter="'contains'"
+                            k-value-primitive="true"></select>
+                </li>
+                <li>
+                    <div class="control-label">Comment <span>(optional)</span></div>
+                    <textarea rows="5" class="k-editor-textarea txt" data-ng-model="transferAlarmModel.comment" maxlength="2000"></textarea>
+                </li>
+            </ul>
+        </form>
+    </div>
+    <div id="transferResultForm" kendo-dialog="transferResultDialog" k-title="'ASM Roles Transferred'" k-on-open="dialogVisible = true"
+         k-on-close="dialogVisible = false" k-width="435"
+         k-actions="transferResultActions" k-modal="true" k-visible="false">
+        <p>The following ASM roles are now transferred and the new person in charge is notified.</p>
+        <ul class="review_listing">
+            <li data-ng-show="applicantIsTransfered">
+                <div class="control-label">New Applicant</div>
+                <p class="text_avatar k-state-default">
+                    <img data-ng-src="data:image/jpeg;base64,{{applicantToTransfer.image}}" alt="{{applicantToTransfer.userName}}" />
+                    <a data-ng-href="/profile/{{applicantToTransfer.userProfileId}}" data-ng-bind="applicantToTransfer.userName"></a>
+                </p>
+            </li>
+            <li data-ng-show="reviewerIsTransfered">
+                <div class="control-label">New Reviewer</div>
+                <p class="text_avatar">
+                    <img data-ng-src="data:image/jpeg;base64,{{reviewerToTransfer.image}}" alt="{{reviewerToTransfer.userName}}" />
+                    <a data-ng-href="/profile/{{reviewerToTransfer.userProfileId}}" data-ng-bind="reviewerToTransfer.userName"></a>
+                </p>
+            </li>
+            <li data-ng-show="endorserIsTransfered">
+                <div class="control-label">New Endorser</div>
+                <p class="text_avatar">
+                    <img data-ng-src="data:image/jpeg;base64,{{endorserToTransfer.image}}" alt="{{endorserToTransfer.userName}}" />
+                    <a data-ng-href="/profile/{{endorserToTransfer.userProfileId}}" data-ng-bind="endorserToTransfer.userName"></a>
+                </p>
+            </li>
+            <li data-ng-show="approverIsTransfered">
+                <div class="control-label">New Approver</div>
+                <p class="text_avatar">
+                    <img data-ng-src="data:image/jpeg;base64,{{approverToTransfer.image}}" alt="{{approverToTransfer.userName}}" />
+                    <a data-ng-href="/profile/{{approverToTransfer.userProfileId}}" data-ng-bind="approverToTransfer.userName"></a>
+                </p>
+            </li>
+        </ul>
+    </div>
+</div>

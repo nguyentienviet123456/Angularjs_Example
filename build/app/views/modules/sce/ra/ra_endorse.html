@@ -1,0 +1,480 @@
+<div id="Panel">
+    <div class="panel_content panel_action_bar">
+        <!-- Floating Process Flow -->
+        <div class="process_flow affix_top box_shadow" data-offset="50">
+            <h5>Process Flow</h5>
+            <ul class="flow_step">
+                <li class="completed">
+                    <p>Application</p>
+                </li>
+                <li class="completed">
+                    <p>Review</p>
+                </li>
+                <li class="current">
+                    <p>Endorsement</p>
+                </li>
+                <li>
+                    <p>Approval</p>
+                </li>                
+            </ul>
+        </div>
+        <!-- End Floating Process Flow -->
+        <!--Form Box-->
+        <div class="col-left">
+            <div class="box_shadow">
+                <div class="box_head block cf">
+                    <h6>
+                        <strong>RA</strong>
+                        <span data-ng-bind-template="{{raDetail.raHeaderDetail.raNo}}"></span>
+                    </h6>
+                    <p data-ng-bind="raDetail.raHeaderDetail.workDescription"></p>
+                    <div class="dd_options">
+                        <div class="dd_block">
+                            <button class="dropdown_toggle dd_dotv" type="button"><i class="icon-dotv"></i></button>
+                            <ul class="dropdown_menu">
+                                <li data-ng-show="isAdmin"> <a href="" data-ng-click="showTransferRolesKendoDiaglog()">Transfer Roles...</a> </li>
+                                <li><a href="#" data-ng-click="statusLog()">Status Log</a></li>
+                                <li><a href="#" data-ng-click="raPrint()">Print</a></li>
+                                <li data-ng-show="(((isApplicant && hasApplicantRole) || isAdmin) && raDetail.raHeaderDetail.raStatusKey!='20')"><a href="#" data-ng-click="cancelRA($event)">Cancel RA</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="box_highlight block cf">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <h4>{{RaStatus}}</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="block">
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Area</h5>
+                            <p data-ng-bind="raDetail.raHeaderDetail.area"></p>
+                        </div>
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Application Date</h5>
+                            <p>{{raDetail.raHeaderDetail.sceApplicationDate | date: 'dd MMM yyyy'}}</p>
+                        </div>
+                        <div class="col-xs-2">
+                            <h5 class="control-label">SCE</h5>
+                            <p><a href="{{sceLink}}"><strong data-ng-bind="raDetail.raHeaderDetail.sceNo"></strong></a></p>
+                        </div>
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Tag No</h5>
+                            <p data-ng-bind="raDetail.raHeaderDetail.tagNo"></p>
+                        </div>
+                        <div class="col-md-4">
+                            <p>
+                                <span id="riskDescription" data-ng-bind="raDetail.riskIdentification.riskDescription">
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="block">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <h5 class="control-label">Applicant</h5>
+                            <p class="ng-binding text_avatar">
+                                <img src="data:image/jpg;base64,{{raDetail.raHeaderDetail.applicantImage}}" alt="{{raDetail.raHeaderDetail.applicantName}}" />
+                                <a data-ng-href="/profile/{{raDetail.raHeaderDetail.applicantUserProfileId}}" data-ng-bind="raDetail.raHeaderDetail.applicantName"></a><br>
+                                {{raDetail.raHeaderDetail.applicantStaffNo}}
+                            </p>
+                        </div>
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Dept</h5>
+                            <p data-ng-bind="raDetail.raHeaderDetail.applicantDept"></p>
+                        </div>
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Office Telephone</h5>
+                            <p data-ng-bind="raDetail.raHeaderDetail.applicantContactNo"></p>
+                        </div>
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Mobile No.</h5>
+                            <p data-ng-bind="raDetail.raHeaderDetail.applicantMobileNo"></p>
+                        </div>
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Radio</h5>
+                            <p data-ng-bind="raDetail.raHeaderDetail.radio"></p>
+                        </div>
+                    </div>
+                </div>
+                <!--Only can update MOC once RA is approved-->
+                <!--<div class="block block_info" data-ng-show="isApplicant && isMOCRequired">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <h4>Pending MOC</h4>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <button class="k-button btn-sm btn-sd btn-purple" type="button" data-ng-click="showUpdateMOCKendoDialog()">Update</button>
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+            <div class="foot_info text-right">
+                <p class="ng-binding">Created by <a data-ng-href="/profile/{{raDetail.raHeaderDetail.applicantUserProfileId}}" data-ng-bind="raDetail.raHeaderDetail.applicantName"></a> | Last update {{raDetail.raHeaderDetail.modifiedDateTime | date: 'dd MMM yyyy'}} at {{raDetail.raHeaderDetail.modifiedDateTime | date: 'h:mm a'}}</p>
+            </div>
+            <div class="panel_head cf panel_head_middle">
+                <div class="panel_head_left">
+                    <h6 class="panel_title text-uppercase">process flow</h6>
+                </div>
+                <div class="panel_head_right">
+                    <a href="#" id="toogleBody" class="visible-button">Expand All</a>
+                </div>
+            </div>
+            <div class="box_shadow">
+                <div class="sce-box">
+                    <h4 class="box-title">
+                        <a href="#" class="visible-button">Application <i class="icon-arr-down visible-button"></i></a>
+                    </h4>
+                    <div class="box-body">
+                        <h4 class="group_title">Requisition</h4>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">RA Facilitator Assigned</h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p>
+                                        <strong data-ng-bind="raDetail.reviewer.userName"></strong>
+                                        <br />{{raDetail.reviewer.staffNo}}
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">RA Endorser Assigned</h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p>
+                                        <strong data-ng-bind="raDetail.endorser.userName"></strong>
+                                        <br />{{raDetail.endorser.staffNo}}
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">RA Approver Assigned</h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p>
+                                        <strong data-ng-bind="raDetail.approver.userName"></strong>
+                                        <br />{{raDetail.approver.staffNo}}
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Work Description</h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p data-ng-bind="raDetail.raHeaderDetail.workDescription"></p>
+                                </div>
+                            </div>
+                        </section>
+                        <h4 class="group_title">Risk Identification</h4>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Consequences</h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p data-ng-bind="raDetail.raHeaderDetail.consequences"></p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Consequences (People)</h5>
+                                </div>
+                                <div class="col-xs-4">
+                                    <p>
+                                        <span id="peopleRisk" data-ng-bind-template="{{raDetail.peopleLikelihood.value}}{{raDetail.peopleSeverity.value}}"></span>
+                                        {{raDetail.peopleSeverity.severity}}
+                                    </p>
+                                </div>
+                                <div class="col-xs-4">
+                                    <p data-ng-bind="raDetail.peopleLikelihood.likelihood"></p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Consequences (Environment)</h5>
+                                </div>
+                                <div class="col-xs-4">
+                                    <p>
+                                        <span id="environmentRisk" data-ng-bind-template="{{raDetail.environmentLikelihood.value}}{{raDetail.environmentSeverity.value}}">
+                                        </span>
+                                        {{raDetail.environmentSeverity.severity}}
+                                    </p>
+                                </div>
+                                <div class="col-xs-4">
+                                    <p data-ng-bind="raDetail.environmentLikelihood.likelihood"></p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Consequences (Assets)</h5>
+                                </div>
+                                <div class="col-xs-4">
+                                    <p>
+                                        <span id="assetRisk" data-ng-bind-template="{{raDetail.assetLikelihood.value}}{{raDetail.assetSeverity.value}}"></span>
+                                        {{raDetail.assetSeverity.severity}}
+                                    </p>
+                                </div>
+                                <div class="col-xs-4">
+                                    <p data-ng-bind="raDetail.assetLikelihood.likelihood"></p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Consequences (Reputation)</h5>
+                                </div>
+                                <div class="col-xs-4">
+                                    <p>
+                                        <span id="reputationRisk" data-ng-bind-template="{{raDetail.reputationLikelihood.value}}{{raDetail.reputationSeverity.value}}">
+                                        </span>
+                                        {{raDetail.reputationSeverity.severity}}
+                                    </p>
+                                </div>
+                                <div class="col-xs-4">
+                                    <p data-ng-bind="raDetail.reputationLikelihood.likelihood"></p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Risk Identified As</h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p>
+                                        <span id="riskLevel" data-ng-bind="raDetail.riskIdentification.riskDescription">
+                                        </span>
+                                    </p>
+                                    <p>
+                                        <br />
+                                        <img alt="RiskTable" src="/content/images/RiskTable.png" />
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
+                        <h4 class="group_title">Risk Mitigation</h4>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Process Monitoring <span>How will the process be monitored be ensure that it is operating within the required operating windows?</span></h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p data-ng-bind="raDetail.raHeaderDetail.processMonitoring"></p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Process Trips <span>How will the process be tripped or shutdown in the absence of the IPF that is bypassed?</span></h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p data-ng-bind="raDetail.raHeaderDetail.processTrips"></p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Recovery Measures <span>Are any additional/ alternative recovery measures required? e.g. fire protection, gas detection, etc.</span></h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p data-ng-bind="raDetail.raHeaderDetail.recoveryMeasures"></p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Specific Instructions for Operations/Maintenance <span>Any specific instructions for operations and / or maintenance?</span></h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p data-ng-bind="raDetail.raHeaderDetail.instructionOfOperation"></p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Do any Instrument/Hardware Issue impact on the pre-defined mitigation plan?</h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p data-ng-bind="raDetail.raHeaderDetail.instrumentImpact"></p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <p><strong>Team Member</strong></p>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p data-ng-repeat="member in teamMembers">
+                                        <strong>{{member.teamMember.userName}}</strong>
+                                        <br />
+                                        {{member.teamMember.position}}
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div class="sce-box">
+                    <h4 class="box-title">
+                        <a href="#" class="visible-button">Review<i class="icon-arr-down visible-button"></i></a>
+                    </h4>
+                    <div class="box-body">
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <p>
+                                        <strong>Comment</strong>
+                                    </p>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p data-ng-bind="raDetail.reviewer.remarks"></p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Reviewer</h5>
+                                    <p class="ng-binding text_avatar">
+                                        <img src="data:image/jpg;base64,{{raDetail.reviewer.image}}" alt="{{raDetail.reviewer.userName}}" />
+                                        <a href="#" data-ng-bind="raDetail.reviewer.userName"></a><br>
+                                        {{raDetail.reviewer.staffNo}}
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>                
+            </div>
+        </div>
+        <div class="action_bar cf" data-ng-show="isApplicant || isEndorser">
+            <div class="action_status">
+                <h4 data-ng-bind="RaStatus"></h4>
+            </div>
+            <div class="action_applicant">
+                <h6>{{isApplicant ? 'Applicant' : 'Endorser'}}</h6>
+                <p><strong>{{isApplicant ? raDetail.raHeaderDetail.applicantName : raDetail.endorser.userName}}</strong><br>{{isApplicant? raDetail.raHeaderDetail.applicantStaffNo : raDetail.endorser.staffNo}}</p>
+            </div>
+            <div class="action_button">
+                <button class="btn btn-sd btn-sd-ghost k-button cancel-button" data-ng-show="(isApplicant && (hasApplicantRole || isAdmin))">Cancel RA</button>
+                <button class="btn btn-sd btn-sd-ghost k-button reject-button" data-ng-show="isEndorser && hasEndorserRole" type="button">Reject</button>
+                <button class="btn btn-sd btn-sd-ghost k-button approve-button" data-ng-show="isEndorser && hasEndorserRole" type="button">Approve</button>
+            </div>
+        </div>
+        <!--End Form Box-->
+        <div id="raTransferRoles" kendo-dialog="transferRolesKendoDiaglog" k-title="'Transfer Roles...'" k-on-open="dialogVisible = true"
+             k-on-close="dialogVisible = false" k-width="435"
+             k-actions="raTransferRoles" k-modal="true" k-visible="false">
+            <form id="raTransferRolesForm" kendo-validator="validators.raTransfer">
+                <ul class="review_listing">
+                    <li data-ng-show="pendingReview">
+                        <div class="control-label">RA Facilitator</div>
+                        <select kendo-drop-down-list
+                                class="dd_avatar txt"
+                                k-options="facilitatorOptions"
+                                k-ng-model="reviewerToTransfer"
+                                k-filter="'contains'"></select>
+                    </li>
+                    <li data-ng-show="pendingEndorse">
+                        <div class="control-label">RA Endorser</div>
+                        <select kendo-drop-down-list
+                                class="dd_avatar txt"
+                                k-options="endorsersOptions"
+                                k-ng-model="endorserToTransfer"
+                                k-filter="'contains'"></select>
+                    </li>
+                    <li data-ng-show="pendingApprove">
+                        <div class="control-label">RA Approver</div>
+                        <select kendo-drop-down-list
+                                class="dd_avatar txt"
+                                data-required-msg="Approver is required"
+                                k-options="approversOptions"
+                                k-ng-model="approverToTransfer"
+                                k-filter="'contains'"></select>
+                    </li>
+                    <li>
+                        <div class="control-label">
+                            Comment <span>(optional)</span>
+                        </div>
+                        <textarea rows="5" class="k-editor-textarea txt" data-ng-model="adminComment" maxlength="2000"></textarea>
+                    </li>
+                </ul>
+            </form>
+        </div>
+        <div id="transferResultForm" kendo-dialog="transferResultDialog" k-title="'RA Roles Transferred'" k-on-open="dialogVisible = true"
+             k-on-close="dialogVisible = false" k-width="435"
+             k-actions="transferResultActions" k-modal="true" k-visible="false">
+            <p>The following RA roles are now transferred and the new person in charge is notified.</p>
+            <ul class="review_listing">
+                <li data-ng-show="reviewerIsTransfered">
+                    <div class="control-label">New Facilitator</div>
+                    <p class="text_avatar k-state-default">
+                        <img data-ng-src="data:image/jpeg;base64,{{reviewerToTransfer.image}}" alt="{{reviewerToTransfer.userName}}" />
+                        <a data-ng-href="/profile/{{reviewerToTransfer.userProfileId}}" data-ng-bind="reviewerToTransfer.userName"></a>
+                    </p>
+                </li>
+                <li data-ng-show="endorserIsTransfered">
+                    <div class="control-label">New Endorser</div>
+                    <p class="text_avatar">
+                        <img data-ng-src="data:image/jpeg;base64,{{endorserToTransfer.image}}" alt="{{endorserToTransfer.userName}}" />
+                        <a data-ng-href="/profile/{{endorserToTransfer.userProfileId}}" data-ng-bind="endorserToTransfer.userName"></a>
+                    </p>
+                </li>
+                <li data-ng-show="approverIsTransfered">
+                    <div class="control-label">New Approver</div>
+                    <p class="text_avatar">
+                        <img data-ng-src="data:image/jpeg;base64,{{approverToTransfer.image}}" alt="{{approverToTransfer.userName}}" />
+                        <a data-ng-href="/profile/{{approverToTransfer.userProfileId}}" data-ng-bind="approverToTransfer.userName"></a>
+                    </p>
+                </li>
+            </ul>
+        </div>        
+        <div id="approveDialog" kendo-dialog="dialog" k-title="'RA Endorsement'" k-on-open="dialogVisible = true"
+             k-on-close="dialogVisible = false" k-width="435"
+             k-actions="endorseApproveActions" k-modal="true" k-visible="false">
+            <form id="ra-approve" kendo-validator="validators.approve">
+                <div class="control-label">
+                    Comment <span>(optional)</span>
+                </div>
+                <textarea class="k-editor-textarea txt" data-ng-model="approveComment"></textarea>
+            </form>
+        </div>
+        <div id="rejectDialog" kendo-dialog="dialog" k-title="'RA Endorsement'" k-on-open="dialogVisible = true"
+             k-on-close="dialogVisible = false" k-width="435"
+             k-actions="endorseRejectActions" k-modal="true" k-visible="false">
+            <form id="ra-reject" kendo-validator="validators.reject">
+                <div class="control-label">
+                    Comment
+                </div>
+                <textarea class="k-editor-textarea txt" name="Comment" required data-required-msg="Comment is required" data-ng-model="rejectComment"></textarea>
+            </form>
+        </div>
+    </div>
+</div>

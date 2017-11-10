@@ -1,0 +1,22 @@
+﻿<div data-ng-controller="notificationListController">
+    <div id="Panel">
+        <div class="notification row">
+            <div class="col-md-12">
+                <div class="panel_content panel_action_bar panel_full">
+                    <div class="form_block box_shadow">
+                        <div class="notification-group-heading">
+                            <span>Notifications</span>
+                            <a href="javascript:void(0)" data-ng-click="markAsAllReadNotification($event)">Mark all read</a>
+                        </div>
+                        <div class="panel_content">
+                            <kendo-grid class="notification-listing" options="mainGridOptions">
+                            </kendo-grid>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+﻿<div class="asm-box">
+    <h4 class="box-title">
+        <a href="#" class="visible-button">Approval <i class="icon-arr-down visible-button"></i></a>
+    </h4>
+    <div class="box-body">
+        <section>
+            <div class="row">
+                <div class="col-xs-4">
+                    <h5 class="control-label">Mitigation and precaution by Approving Authority</h5>
+                </div>
+                <div class="col-xs-8">
+                    <p data-ng-bind="model.asmDetail.precautionByApproval"></p>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="row">
+                <div class="col-xs-4">
+                    <h5 class="control-label"><strong>Approver</strong></h5>
+                    <p class="ng-binding text_avatar">
+                        <img src="data:image/jpg;base64,{{model.approver.image}}" alt="{{model.approver.userName}}" />
+                        <a data-ng-href="/profile/{{model.approver.userProfileId}}" data-ng-bind="model.approver.userName"></a><br>
+                        <span data-ng-bind="model.approver.staffNo"></span>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

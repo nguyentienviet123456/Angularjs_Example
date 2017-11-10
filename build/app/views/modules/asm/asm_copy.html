@@ -1,0 +1,237 @@
+<div id="Panel">
+    <div class="panel_head cf">
+        <div class="panel_head_left">
+            <h2 class="panel_title">New Shelving Application</h2>
+        </div>
+    </div>
+    <div class="panel_content panel_action_bar panel-new">
+        <form id="createasmForm" class="asm-form" kendo-validator="validators.createasmForm">
+            <!-- Floating Process Flow -->
+            <div class="process_flow affix_top box_shadow" data-offset="98">
+                <h5>Process Flow</h5>
+                <ul class="flow_step">
+                    <li class="current">
+                        <p>Application</p>
+                    </li>
+                    <li>
+                        <p>Review</p>
+                    </li>
+                    <li>
+                        <p>Endorsement</p>
+                    </li>
+                    <li>
+                        <p>Approval</p>
+                    </li>
+                    <li>
+                        <p>Shelving</p>
+                    </li>
+                    <li>
+                        <p>Live</p>
+                    </li>
+                </ul>
+            </div>
+            <!-- End Floating Process Flow -->
+            <!-- Form Box -->
+            <div class="col-left form_block box_shadow">
+                <h3 class="flow_title" style="margin-bottom: 7px">Application</h3>
+                <div style="padding-left: 38px;padding-bottom: 38px">
+                    <ol tyle="1">
+                        <li style="padding-bottom: 5px">Alarm which comply to the following condition may be shelved.</li>
+                        <p style="padding-bottom: 5px">a. Chattering alarm (repeated transitions between alarm state and normal state three (3) times or more with in a one minute period).</p>
+                        <p style="padding-bottom:25px">b. Giving false indication due to faulty equipment. Equipment generating chattering alarm will require verification that is truly faulty.</p>
+                        <li style="padding-top: 0px;padding-bottom: 25px"> Chattering alarms due to process conditions shall NOT be shelved as it is presenting a true process situation and has to be resolved through other means.</li>
+                        <li> A maximum of 10 concurrent alarms are allowed to be shelved per console.</li>
+                    </ol>
+                </div>
+                <fieldset>
+                    <h4 class="group_title">Requisition</h4>
+                    <div class="applicant_details block_group">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <h5 class="lbl">Applicant</h5>
+                                <p><strong data-ng-bind="userProfile.userName"></strong><br><span data-ng-bind="userProfile.staffNo"></span></p>
+                            </div>
+                            <div class="col-xs-2">
+                                <h5 class="lbl">Dept</h5>
+                                <p data-ng-bind="userProfile.dept"></p>
+                            </div>
+                            <div class="col-xs-3">
+                                <h5 class="lbl">Office Telephone</h5>
+                                <p data-ng-bind="userProfile.contactNo"></p>
+                            </div>
+                            <div class="col-xs-2">
+                                <h5 class="lbl">Mobile No.</h5>
+                                <p data-ng-bind="userProfile.mobileNo"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label for="Radio">Radio <span class="opt">(optional)</span></label>
+                                    <input id="Radio" name="Radio" type="text" class="txt k-textbox" data-ng-model="model.radio" maxlength="50" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block_group">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <label for="asmArea">Area</label>
+                                <input kendo-drop-down-list
+                                       id="asmArea"
+                                       class="txt"
+                                       name="area"
+                                       required
+                                       data-required-msg="Area is required"
+                                       k-option-label="'Select area ...'"
+                                       k-data-text-field="'description'"
+                                       k-data-value-field="'lookupAreaId'"
+                                       k-ng-model="selectedArea"
+                                       k-data-source="areasDataSource"
+                                       k-on-open="onAreaOpen()"
+                                       k-on-change="onAreaChange()"
+                                       k-on-close="onAreaClose()"
+                                       k-filter="'contains'"
+                                       k-value-primitive="true" />
+                            </div>
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label for="UnitNo">Unit No.</label>
+                                    <input kendo-drop-down-list
+                                           id="UnitNo"
+                                           class="txt"
+                                           name="unitNo"
+                                           required
+                                           data-required-msg="Unit No is required"
+                                           k-option-label="'Select UnitNo ...'"
+                                           k-data-text-field="'description'"
+                                           k-data-value-field="'lookupUnitId'"
+                                           k-data-source="unitDataSource"
+                                           k-ng-model="selectedUnitNo"
+                                           k-on-change="onUnitChange()"
+                                           k-filter="'contains'"
+                                           k-value-primitive="true" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label for="TagNo">Tag No.</label>
+                                    <input kendo-drop-down-list
+                                           id="TagNo"
+                                           class="txt"
+                                           name="tagNo"
+                                           required
+                                           data-required-msg="Tag No. is required"
+                                           k-option-label="'Select TagNo. ...'"
+                                           k-data-text-field="'description'"
+                                           k-data-value-field="'lookupTagId'"
+                                           k-ng-model="selectedTagNo"
+                                           k-data-source="tagNoDataSource"
+                                           k-on-change="onTagNoChange()"
+                                           k-filter="'contains'"
+                                           k-value-primitive="true" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" id="otherTagNo" name="tagNo" class="txt k-textbox" data-ng-model="model.otherTagNo" maxlength="250" data-ng-hide="selectedTagNo != '0'" data-ng-show="selectedTagNo == '0'" />
+                                </div>
+                                <span class="k-invalid-msg" data-for="tagNo"></span>
+                            </div>
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label for="EquipmentNo">Equipment No.</label>
+                                    <input id="EquipmentNo" name="equipmentNo" type="text" class="txt k-textbox" data-ng-model="model.equipmentNo" norequired="Draft" required
+                                           data-required-msg="Equipment No. is required" maxlength="300" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="block_group">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <h5 class="lbl">Alarm Class</h5>
+                                <div class="cb" data-ng-repeat="alarmClass in AlarmClassesDataSource">
+                                    <input type="radio" name="AlarmClass" norequired="Draft" required data-required-msg="Alarm Class is required" id="{{alarmClass.lookupId}}" class="k-radio" data-ng-model="$parent.selectedAlarmClass" data-ng-value="alarmClass.lookupId" />
+
+                                    <label class="k-radio-label" for="{{alarmClass.lookupId}}" data-ng-bind="alarmClass.description"></label>
+                                </div>
+                                <span class="k-invalid-msg" data-for="AlarmClass"></span>
+                            </div>
+                            <div class="col-xs-5">
+                                <div class="form-group form_loading">
+                                    <label>Type</label>
+                                    <select kendo-drop-down-list
+                                            id="Type"
+                                            class="txt"
+                                            name="TypeofAlarm"
+                                            norequired="Draft"
+                                            required
+                                            validationMessage="Type is required"
+                                            k-option-label="'Select Type'"
+                                            k-data-text-field="'description'"
+                                            k-data-value-field="'lookupId'"
+                                            k-data-source="alarmTypesDataSource"
+                                            k-on-open="onTypeOpen()"
+                                            k-on-change="onSelectedAlarmTypeChange()"
+                                            k-ng-model="selectedType"
+                                            k-filter="'contains'"
+                                            k-value-primitive="true"></select>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" id="otherType" name="TypeofAlarm" class="txt k-textbox" data-ng-model="model.otherType" maxlength="300" data-ng-hide="selectedType != '0'" data-ng-show="selectedType == '0'" />
+                                </div>
+                                <span class="k-invalid-msg" data-for="TypeofAlarm"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-10">
+                                <div class="form-group">
+                                    <label>Alarm Description</label>
+                                    <textarea rows="5" name="AlarmDescription" class="txt k-textbox k-editor-textarea" data-ng-model="model.description" norequired="Draft" required data-required-msg="Alarm Description is required" maxlength="300"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block_group">
+                        <div class="row">
+                            <div class="col-xs-10">
+                                <div class="form-group">
+                                    <label>Reviewer</label>
+                                    <select kendo-drop-down-list
+                                            id="asm-reviewer"
+                                            class="txt dd_avatar"
+                                            name="reviewer"
+                                            k-value-primitive="true"
+                                            required
+                                            norequired="Draft"
+                                            data-required-msg="Reviewer is required"
+                                            k-ng-model="selectedReviewer"
+                                            k-options="reviewerOptions"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="action_bar cf">
+                <div class="action_status">
+                    <h4>Draft</h4>
+                </div>
+                <div class="action_applicant">
+                    <h6>Applicant</h6>
+                    <p><strong data-ng-bind="userProfile.userName"></strong><br><span data-ng-bind="userProfile.staffNo"></span></p>
+                </div>
+                <div class="action_button">
+                    <button class="btn btn-sd btn-sd-ghost k-button" type="button" data-ng-click="backToList($event)" data-ng-disabled="inProgress">Cancel</button>
+                    <button class="btn btn-sd btn-sd-ghost k-button" type="button" data-ng-click="saveFormData($event, false)" data-ng-disabled="inProgress">Save Draft</button>
+                    <button class="btn btn-sd btn-sd-ghost k-button" type="button" data-ng-click="saveFormData($event, true)" data-ng-disabled="inProgress">Submit</button>
+                </div>
+            </div>
+            <div kendo-dialog="loaDialog" k-title="'PP(M)SB ASM Bypass Level of Authority'" k-on-open="dialogVisible = true"
+                 k-on-close="dialogVisible = false" k-width="650" k-height="480" k-modal="true" k-visible="false">
+            </div>
+        </form>
+    </div>
+</div>

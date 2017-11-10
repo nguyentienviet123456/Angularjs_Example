@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html data-ng-app="UnifiedPlantInstructionApp" data-ng-class="isLoading==true?'isLoading':''" dir="ltr">
+<head>
+    <base href="/" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="content/images/favicon.ico" type="image/vnd.microsoft.icon" />
+    <title data-ng-bind="$app.title"></title>
+    <link href="content/css/bootstrap.min.css?v=1.0" rel="stylesheet" type="text/css" />
+    <link href="content/css/print.min.css?v=1.0" rel="stylesheet" type="text/css" />
+    <link href="content/css/toastr.min.css?v=1.0" rel="stylesheet" type="text/css" />
+    <link href="content/css/print-out.min.css?v=1.0" rel="stylesheet" type="text/css" media="print" />
+    <!-- 3rd party libraries -->
+    <script src="content/libs/jquery.min.js?v=1.0"></script>
+    <script src="content/libs/angular.min.js?v=1.0"></script>
+    <script src="content/libs/underscore-min.js?v=1.0"></script>
+    <script src="content/libs/angular-underscore-module.js?v=1.0"></script>
+    <script src="content/libs/kendo-ui/kendo.all.min.js?v=1.0"></script>
+    <script src="content/libs/kendo-ui/jszip.min.js?v=1.0"></script>
+    <script src="content/libs/angular-ui-router.min.js?v=1.0"></script>
+    <script src="content/libs/angular-animate.min.js?v=1.0"></script>
+    <script src="content/libs/kendo-ui/kendo.timezones.min.js?v=1.0"></script>
+    <script src="content/libs/jquery-dateFormat.min.js?v=1.0"></script>
+    <script src="content/libs/toastr.min.js?v=1.0"></script>
+    <script src="app/libs.min.js?v=1.0"></script>
+    <script src="content/libs/angular-drag-and-drop-lists.min.js?v=1.0"></script>
+
+    <!-- Load app main script -->
+    <script src="app/app.min.js?v=1.0"></script>
+    <script src="app/shared.min.js?v=1.0"></script>
+    <!-- Load services -->
+    <script src="app/services.min.js?v=1.0"></script>
+    <!-- Load controllers -->
+    <script src="app/controllers.min.js?v=1.0"></script>
+</head>
+<body data-ng-class="$app.checkLogin==true?'check_login_loading':''">
+    <div class="loading_screen">
+        <div class="loading_screen_logo"></div>
+    </div>
+    <ui-view></ui-view>
+</body>
+</html>

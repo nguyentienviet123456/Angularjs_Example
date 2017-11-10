@@ -1,0 +1,523 @@
+﻿<div id="Panel">
+    <div class="panel_content panel_action_bar">
+        <!-- Floating Process Flow -->
+        <div class="process_flow affix_top box_shadow" data-offset="50">
+            <h5>Process Flow</h5>
+            <ul class="flow_step">
+                <li class='completed'>
+                    <p>Application</p>
+                </li>
+                <li class="current">
+                    <p>Review</p>
+                </li>
+                <li>
+                    <p>Endorsement</p>
+                </li>
+                <li>
+                    <p>Approval</p>
+                </li>
+                <li>
+                    <p>Acknowledgment</p>
+                </li>
+                <li>
+                    <p>Live</p>
+                </li>
+            </ul>
+        </div>
+        <!-- End Floating Process Flow -->
+        <!-- Form Box -->
+        <div class="col-left">
+            <div class="box_shadow">
+                <div class="box_head block cf">
+                    <h6><strong>SCE</strong> <span data-ng-bind="sceDetail.sceNo"> </span></h6>
+                    <p data-ng-bind="sceDetail.reasonForConductingByPass"></p>
+                    <div class="dd_options">
+                        <div class="dd_block">
+                            <button class="dropdown_toggle dd_dotv" type="button"><i class="icon-dotv"></i></button>
+                            <ul class="dropdown_menu">
+                                <li data-ng-hide="!hasApplicantRole ||!isApplicant || sceDetail.statusKey == '10' || sceDetail.raNo != null"><a href="#" data-ng-click="requestRa()">Request RA</a></li>
+                                <li data-ng-hide="!isApplicant && sceDetail.statusKey != '10'"><a href="#" data-ng-click="transferDialog.open()">Transfer</a></li>
+                                <li data-ng-show="isAdmin"> <a href="#" data-ng-click="showTransferRolesKendoDiaglog()">Transfer Roles...</a> </li>                                
+                                <li><a href="#" data-ng-click="statusLog()">Status Log</a></li>
+                                <li><a href="#" data-ng-click="scePrint()">Print</a></li>                                
+                                <li data-ng-show="(((isApplicant && hasApplicantRole) || isAdmin )  && sceDetail.statusKey != '10' && sceDetail.statusKey != '7')"><a href="#" data-ng-click="cancelSce($event)">Cancel SCE</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="box_highlight block cf">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <h4 data-ng-bind="sceDetail.status"></h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="block">
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Area</h5>
+                            <p data-ng-bind="sceDetail.areaName"></p>
+                        </div>
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Unit</h5>
+                            <p data-ng-bind="sceDetail.unit"></p>
+                        </div>
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Tag No.</h5>
+                            <p data-ng-bind="(sceDetail.tagNo == null || sceDetail.tagNo == '') ? sceDetail.otherTagNo : sceDetail.tagNo"></p>
+                        </div>
+                        <div class="col-xs-3">
+                            <h5 class="control-label">Equipment No.</h5>
+                            <p data-ng-bind="sceDetail.equipmentNo"></p>
+                        </div>
+                        <div class="col-xs-3">
+                            <h5 class="control-label">Category</h5>
+                            <p data-ng-bind="sceDetail.categoryName"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Application Date</h5>
+                            <p data-ng-bind="sceDetail.applicantDate | date: 'dd MMM yyyy'"></p>
+                        </div>
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Date Required</h5>
+                            <p data-ng-bind="sceDetail.dateRequired | date: 'dd MMM yyyy'"></p>
+                        </div>
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Expected to Normalize</h5>
+                            <p data-ng-bind="sceDetail.expectedDateToNormalize | date: 'dd MMM yyyy'"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="block">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <h5 class="control-label">Applicant</h5>
+                            <p class="ng-binding text_avatar">
+                                <img data-ng-src="data:image/jpg;base64,{{sceDetail.applicant.image}}" alt="{{sceDetail.applicant.userName}}" />
+                                <a data-ng-href="/profile/{{sceDetail.applicant.userProfileId}}" data-ng-bind="sceDetail.applicant.userName"></a><br>
+                                <span data-ng-bind="sceDetail.applicant.staffNo"></span>
+                            </p>
+                        </div>
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Dept</h5>
+                            <p data-ng-bind="sceDetail.applicant.dept"></p>
+                        </div>
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Office Telephone</h5>
+                            <p data-ng-bind="sceDetail.applicant.contactNo"></p>
+                        </div>
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Mobile No.</h5>
+                            <p data-ng-bind="sceDetail.applicant.mobileNo"></p>
+                        </div>
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Radio</h5>
+                            <p data-ng-bind="sceDetail.radio"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="block block_info">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <h4>Risk Assessment (RA)</h4>
+                        </div>
+                        <div class="col-xs-6 text-right" data-ng-hide="showNewRa==false || showNewRa===null || showNewRa=== undefined" data-ng-bind-html="raInfo"></div>
+                        <div class="col-xs-6 text-right" data-ng-hide="showCopyRa==false || showCopyRa===null || showCopyRa=== undefined">
+                            <ul class='menu-select' id='menuRequestRa'>
+                                <li>
+                                    Select your actions
+                                    <ul>
+                                        <li> <a href='javascript:void(0)' data-ng-click="copyExitstingRa();">Copy Existing RA</a></li>
+                                        <li data-ng-bind-html="raInfo"> </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="foot_info text-right">
+                <p class="ng-binding">Created by <a data-ng-href="/profile/{{sceDetail.applicant.userProfileId}}" data-ng-bind="sceDetail.applicant.userName"></a> | Last update <span data-ng-bind="sceDetail.modifiedDate | date: 'dd MMM yyyy'"></span> at <span data-ng-bind="sceDetail.modifiedDate | date: 'h:mm a'"></span></p>
+            </div>
+            <div class="panel_head cf panel_head_middle">
+                <div class="panel_head_left">
+                    <h6 class="panel_title text-uppercase">process flow</h6>
+                </div>
+                <div class="panel_head_right">
+                    <a href="#" id="toogleBody" class="visible-button">Expand All</a>
+                </div>
+            </div>
+            <div class="box_shadow">
+                <div class="sce-box">
+                    <h4 class="box-title">
+                        <a href="#" class="visible-button">Application <i class="icon-arr-down visible-button"></i></a>
+                    </h4>
+                    <div class="box-body">
+                        <h4 class="group_title">Requisition</h4>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Type of SCE Bypass</h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p data-ng-bind="sceDetail.typeName == null ? sceDetail.othersTypesOfByPass : sceDetail.typeName"></p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Estimated Duration for Bypass</h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p data-ng-bind="sceDetail.estimationDurationForByPass"></p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">
+                                        Safety Integrity Level
+                                        <span>Instrumented system only</span>
+                                    </h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p data-ng-bind="sceDetail.silName"></p>
+                                </div>
+                            </div>
+                        </section>
+                        <h4 class="group_title">Work Description </h4>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Date Required</h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p data-ng-bind="sceDetail.dateRequired | date: 'dd MMM yyyy'"></p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Expected Date to Normalize</h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p data-ng-bind="sceDetail.expectedDateToNormalize | date: 'dd MMM yyyy'"></p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Reason for Conducting Bypass</h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p data-ng-bind="sceDetail.reasonForConductingByPass"></p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Precautions by Applicant</h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p data-ng-bind="sceDetail.precautionsByApplicant"></p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Method of Bypass</h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p data-ng-bind="sceDetail.methodName == null ? sceDetail.othersMethodOfByPass : sceDetail.methodName"></p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Reviewer</h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p><a data-ng-href="/profile/{{sceDetail.reviewer.userProfileId}}" data-ng-bind="sceDetail.reviewer.userName"></a><br><span data-ng-bind="sceDetail.reviewer.staffNo"></span></p>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="action_bar cf" data-ng-show="isPic">
+            <div class="action_status">
+                <h4 data-ng-bind="sceDetail.status"></h4>
+            </div>
+            <div class="action_applicant">
+                <h6 data-ng-bind="panelOperatorRole"></h6>
+                <p><strong data-ng-bind="userProfile.userName"></strong><br><span data-ng-bind="userProfile.staffNo"></span></p>
+            </div>
+            <div class="action_button">
+                <button class="btn btn-sd btn-sd-ghost k-button" type="button" data-ng-show="(((isApplicant && hasApplicantRole) || isAdmin) && sceDetail.statusKey != '10' && sceDetail.statusKey != '7')" data-ng-click="cancelSce($event)" data-ng-disabled="inProgress">Cancel SCE</button>
+                <button class="btn btn-sd btn-sd-ghost k-button" type="button" data-ng-hide="isHidden" data-ng-click="rejectReviewDialog.open()">Reject</button>
+                <button class="btn btn-sd btn-sd-ghost k-button" type="button" data-ng-hide="isHidden" data-ng-click="reviewDialog.open()">Approve</button>
+            </div>
+        </div>
+        <!-- End Form Box -->
+        <!-- Form Dialog -->
+        <div id="sceTransferRoles" kendo-dialog="sceTransferRolesKendoDiaglog" k-title="'Transfer Roles...'" k-on-open="dialogVisible = true"
+             k-on-close="dialogVisible = false" k-width="435"
+             k-actions="sceTransferRoles" k-modal="true" k-visible="false">
+            <form id="sceTransferRolesForm" kendo-validator="validators.sceTransfer">
+                <ul class="review_listing">
+                    <li>
+                        <div class="control-label">Applicant</div>
+                        <select kendo-drop-down-list
+                                class="dd_avatar txt"
+                                k-options="newApplicantOptions"
+                                k-ng-model="applicantToTransfer"></select>
+                    </li>
+                    <li data-ng-show="pendingReview">
+                        <div class="control-label">Reviewer</div>
+                        <select kendo-drop-down-list
+                                id="transfer-review"
+                                class="dd_avatar txt"
+                                k-options="reviewerForTransferOptions"
+                                k-ng-model="reviewerToTransfer"></select>
+                    </li>
+                    <li data-ng-show="pendingEndorse">
+                        <div class="control-label">Endorser</div>
+                        <select kendo-drop-down-list
+                                class="dd_avatar txt"
+                                k-options="endorserOptions"
+                                k-ng-model="endorserToTransfer"></select>
+                    </li>
+                    <li data-ng-show="pendingApprove">
+                        <div class="control-label">Approver</div>
+                        <select kendo-drop-down-list
+                                class="dd_avatar txt"
+                                data-required-msg="Approver is required"
+                                k-options="approverOptions"
+                                k-ng-model="approverToTransfer"></select>
+                    </li>
+                    <li>
+                        <div class="control-label">
+                            Comment <span>(optional)</span>
+                        </div>
+                        <textarea rows="5" class="k-editor-textarea txt" data-ng-model="adminComment" maxlength="2000"></textarea>
+                    </li>
+                </ul>
+            </form>
+        </div>
+        <div id="transferResultForm" kendo-dialog="dialog" k-title="'SCE Roles Transferred'" k-on-open="dialogVisible = true"
+             k-on-close="dialogVisible = false" k-width="435"
+             k-actions="transferResultActions" k-modal="true" k-visible="false">
+            <p>The following SCE roles are now transferred and the new person in charge is notified.</p>
+            <ul class="review_listing">
+                <li data-ng-show="applicantIsTransfered">
+                    <div class="control-label">New Applicant</div>
+                    <p class="text_avatar k-state-default">
+                        <img data-ng-src="data:image/jpeg;base64,{{applicantToTransfer.image}}" alt="{{applicantToTransfer.userName}}" />
+                        <a data-ng-href="/profile/{{applicantToTransfer.userProfileId}}" data-ng-bind="applicantToTransfer.userName"></a>
+                    </p>
+                </li>
+                <li data-ng-show="reviewerIsTransfered">
+                    <div class="control-label">New Reviewer</div>
+                    <p class="text_avatar">
+                        <img data-ng-src="data:image/jpeg;base64,{{reviewerToTransfer.image}}" alt="{{reviewerToTransfer.userName}}" />
+                        <a data-ng-href="/profile/{{reviewerToTransfer.userProfileId}}" data-ng-bind="reviewerToTransfer.userName"></a>
+                    </p>
+                </li>
+                <li data-ng-show="endorserIsTransfered">
+                    <div class="control-label">New Endorser</div>
+                    <p class="text_avatar">
+                        <img data-ng-src="data:image/jpeg;base64,{{endorserToTransfer.image}}" alt="{{endorserToTransfer.userName}}" />
+                        <a data-ng-href="/profile/{{endorserToTransfer.userProfileId}}" data-ng-bind="endorserToTransfer.userName"></a>
+                    </p>
+                </li>
+                <li data-ng-show="approverIsTransfered">
+                    <div class="control-label">New Approver</div>
+                    <p class="text_avatar">
+                        <img data-ng-src="data:image/jpeg;base64,{{approverToTransfer.image}}" alt="{{approverToTransfer.userName}}" />
+                        <a data-ng-href="/profile/{{approverToTransfer.userProfileId}}" data-ng-bind="approverToTransfer.userName"></a>
+                    </p>
+                </li>
+            </ul>
+        </div>
+        <div id="approveDialog" class="review-approve-dialog" kendo-dialog="reviewDialog" k-title="'SCE Review'" k-on-open="dialogVisible = true"
+             k-on-close="dialogVisible = false" k-width="435"
+             k-actions="reviewActions" k-modal="true" k-visible="false">
+            <form id="sce-review-approve" kendo-validator="validators.approveReview">
+                <ul class="review_listing">
+                    <li>
+                        <div class="control-label">
+                            Consequences
+                            <span>(People, Environment, Asset Damage, Reputation)</span>
+                        </div>
+                        <textarea name="consequences" class="k-editor-textarea txt" data-ng-model="reviewModel.consequences" style="width: 100%" required data-required-msg="Consequences is required" maxlength="2000"></textarea>
+                    </li>
+                    <li>
+                        <div class="control-label">Precautions by Operations</div>
+                        <textarea name="precautionsByOperations" class="k-editor-textarea txt" data-ng-model="reviewModel.precautionsByOperations" required data-required-msg="Precautions by Operations is required" style="width: 100%" maxlength="2000"></textarea>
+                    </li>
+                    <li>
+                        <div class="control-label">
+                            Approver's Assessment of SCE Requirement
+                        </div>
+                        <p class="red">If YES shall be provided by the permit applicant and briefed to relevant parties</p>
+                    </li>
+                    <li class="switch">
+                        <label>Is temporary operating procedure required?</label>
+                        <input id="isTempOperatingSwitch" kendo-mobile-switch k-on-label="'YES'" k-off-label="'NO'" k-change="onSwitchChange" data-group="temporay" data-ng-model="reviewModel.isTempOperatingProcedureRequired" />
+                        <ul data-ng-show="(fileModel | filter : {groupKey: 'Temporay'}).length > 0 && reviewModel.isTempOperatingProcedureRequired" class="upload-file-list">
+                            <li data-ng-repeat="file in fileModel | filter : {groupKey: 'Temporay'}" class="uploaded-file" id="{{file.fileId}}">
+                                <span data-ng-click="openFile($event)" ng-class="'file-icon ' + file.fileType.toLowerCase()"></span>
+                                <a data-ng-click="openFile($event)" data-ng-bind="file.fileName"></a>
+                                <button type="button" class="k-button remove-upload-file" data-identifier="{{file.fileId}}" data-ng-click="removeUploadedFile($event)">
+                                    <span class="k-icon k-i-close k-i-x" title="Remove" aria-label="Remove"></span>
+                                </button>
+                            </li>
+                        </ul>
+                        <div class="k-rtl">
+                            <input data-ng-show="reviewModel.isTempOperatingProcedureRequired && fileModel.length <= 15"
+                                   id="temporayUpload"
+                                   name="temporayUpload"
+                                   type="file"
+                                   kendo-upload
+                                   k-async="{autoUpload: false, saveUrl: uploadTemporayUrl}"
+                                   k-validation="{allowedExtensions: ['.pdf', '.xls', '.xlsx', '.doc', '.docx', '.jpeg', '.jpg', '.png']}"
+                                   k-complete="onComplete"
+                                   k-success="onUploadSuccess"
+                                   k-template="uploadFileListTemplate"
+                                   k-localization="{dropFilesHere: 'Upload temporary operating procedure'}" />
+                        </div>
+                    </li>
+                    <li class="switch">
+                        <label>Detail Risk Assessment i.e SWIFT required?</label>
+                        <input id="isDetailRARequiredSwitch" kendo-mobile-switch k-on-label="'YES'" k-off-label="'NO'" k-change="onSwitchChange" data-group="swift" data-ng-model="reviewModel.isDetailRARequired" />
+                        <ul data-ng-show="(fileModel | filter : {groupKey: 'SWIFT'}).length > 0 && reviewModel.isDetailRARequired" class="upload-file-list">
+                            <li data-ng-repeat="file in fileModel | filter : {groupKey: 'SWIFT'}" class="uploaded-file" id="{{file.fileId}}">
+                                <span data-ng-click="openFile($event)" ng-class="'file-icon ' + file.fileType.toLowerCase()"></span>
+                                <a data-ng-click="openFile($event)" data-ng-bind="file.fileName"></a>
+                                <button type="button" class="k-button remove-upload-file" data-identifier="{{file.fileId}}" data-ng-click="removeUploadedFile($event)">
+                                    <span class="k-icon k-i-close k-i-x" title="Remove" aria-label="Remove"></span>
+                                </button>
+                            </li>
+                        </ul>
+                        <div class="k-rtl">
+                            <input data-ng-show="reviewModel.isDetailRARequired && fileModel.length <= 15"
+                                   id="swiftUpload"
+                                   name="swiftUpload"
+                                   type="file"
+                                   kendo-upload
+                                   k-async="{autoUpload: false, saveUrl: uploadSwiftUrl}"
+                                   k-validation="{allowedExtensions: ['.pdf', '.xls', '.xlsx', '.doc', '.docx', '.jpeg', '.jpg', '.png']}"
+                                   k-complete="onComplete"
+                                   k-success="onUploadSuccess"
+                                   k-template="uploadFileListTemplate"
+                                   k-localization="{dropFilesHere: 'Upload detail risk assessment'}" />
+                        </div>
+                    </li>
+                    <li class="switch">
+                        <label>Special standing instruction required?</label>
+                        <input id="isSpecialSIRequiredSwitch" kendo-mobile-switch k-on-label="'YES'" k-off-label="'NO'" k-change="onSwitchChange" data-group="special" data-ng-model="reviewModel.isSpecialSIRequired" />
+                        <ul data-ng-show="(fileModel | filter : {groupKey: 'SpecialStandingInstruction'}).length > 0 && reviewModel.isSpecialSIRequired" class="upload-file-list">
+                            <li data-ng-repeat="file in fileModel | filter : {groupKey: 'SpecialStandingInstruction'}" class="uploaded-file" id="{{file.fileId}}">
+                                <span data-ng-click="openFile($event)" ng-class="'file-icon ' + file.fileType.toLowerCase()"></span>
+                                <a data-ng-click="openFile($event)" data-ng-bind="file.fileName"></a>
+                                <button type="button" class="k-button remove-upload-file" data-identifier="{{file.fileId}}" data-ng-click="removeUploadedFile($event)">
+                                    <span class="k-icon k-i-close k-i-x" title="Remove" aria-label="Remove"></span>
+                                </button>
+                            </li>
+                        </ul>
+                        <div class="k-rtl">
+                            <input data-ng-show="reviewModel.isSpecialSIRequired && fileModel.length <= 15"
+                                   id="specialUpload"
+                                   name="specialUpload"
+                                   type="file"
+                                   kendo-upload
+                                   k-async="{autoUpload: false, saveUrl: uploadSpecialUrl}"
+                                   k-validation="{allowedExtensions: ['.pdf', '.xls', '.xlsx', '.doc', '.docx', '.jpeg', '.jpg', '.png']}"
+                                   k-complete="onComplete"
+                                   k-success="onUploadSuccess"
+                                   k-template="uploadFileListTemplate"
+                                   k-localization="{dropFilesHere: 'Upload special standing instruction'}" />
+                        </div>
+                    </li>
+                    <li>
+                        <div class="control-label">Assign Endorser</div>
+                        <select kendo-drop-down-list
+                                id="sce-endorser"
+                                name="endorser"
+                                required
+                                data-required-msg="Endorser is required"
+                                k-options="endorserOptions"
+                                k-ng-model="reviewModel.endorser"
+                                class="dd_avatar txt"></select>
+                    </li>
+                    <li>
+                        <div class="control-label">Assign Approver</div>
+                        <select kendo-drop-down-list
+                                id="sce-approver"
+                                name="approver"
+                                required
+                                data-required-msg="Approver is required"
+                                k-options="approverOptions"
+                                k-ng-model="reviewModel.approver"
+                                class="dd_avatar txt"></select>
+                    </li>
+                    <li>
+                        <div class="control-label">
+                            Comment <span>(optional)</span>
+                        </div>
+                        <textarea rows="5" class="k-editor-textarea txt" placeholder="Please comment" data-ng-model="approveComment" maxlength="300"></textarea>
+                    </li>
+                </ul>
+            </form>
+        </div>
+        <div id="rejectDialog" kendo-dialog="rejectReviewDialog" k-title="'SCE Review'" k-on-open="dialogVisible = true"
+             k-on-close="dialogVisible = false" k-width="435"
+             k-actions="rejectActions" k-modal="true" k-visible="false">
+            <form id="sce-review-reject" kendo-validator="validators.rejectReview">
+                <ul class="review_listing">
+                    <li>
+                        <div class="control-label">Comment</div>
+                        <textarea rows="5" name="comment" class="k-editor-textarea txt" data-ng-model="rejectComment" required data-required-msg="Comment is required" maxlength="300"></textarea>
+                    </li>
+                </ul>
+            </form>
+        </div>
+        <div kendo-dialog="transferDialog" k-title="'Transfer SCE'" k-on-open="dialogVisible = true"
+             k-on-close="dialogVisible = false" k-width="435" k-actions="transferSceAction" k-modal="true" k-visible="false">
+            <form id="transfer-sce" kendo-validator="transfer_sce_validator">
+                <p>Transferring SCE to a new applicant will remove you from this SCE. This action will be irreversible. You will still be able to view this SCE</p>
+                <ul class="review_listing">
+                    <li>
+                        <div class="control-label">Transfer to New Applicant</div>
+                        <select kendo-drop-down-list
+                                id="sce-new-applicant"
+                                class="txt dd_avatar"
+                                name="newApplicant"
+                                required
+                                data-required-msg="New Applicant is required"
+                                k-options="newApplicantTransferOptions"
+                                k-ng-model="transferSceModel.newApplicantId"
+                                k-filter="'contains'"
+                                k-value-primitive="true"></select>
+                    </li>
+                    <li>
+                        <div class="control-label">
+                            Comment <span>(optional)</span>
+                        </div>
+                        <textarea rows="5" class="k-editor-textarea txt" data-ng-model="transferSceModel.comment" maxlength="2000"></textarea>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>

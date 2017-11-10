@@ -1,0 +1,303 @@
+<div id="print-container">
+    <div class="container">
+        <div class="print-header">
+            <div class="row flex">
+                <div class="col-xs-2 logo petronas">
+                    <img alt="petronas logo" src="/content/images/logo-petronas.jpg" class="center-block" />
+                </div>
+                <div class="col-xs-8 col-mid">
+                    <div class="row text-center">
+                        <h3>PETRONAS PENAPISAN MELAKA SDN. BHD.</h3>
+                    </div>
+                    <div class="row text-center">
+                        <h2>PRD-OPP-CP-012-F01</h2>
+                    </div>
+                </div>
+                <div class="col-xs-2 logo company">
+                    <img alt="logo-1" src="/content/images/logo-1.png" class="center-block" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 title">
+                    <div class="row">
+                        <div class="col-xs-9">
+                            <h3>Permit For Bypassing Of Alarm Shelving Management (ASM)</h3>
+                        </div>
+                        <div class="col-xs-3 text-right">
+                            <h3 data-ng-bind="asmDetail.alarmNo"></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="print-content">
+            <section>
+                <div class="section-title">
+                    <h3>APPLICATION</h3>
+                </div>
+                <div class="row bg-left">
+                    <div class="col-xs-2">
+                        <div class="col-left">
+                            <h5>Applicant</h5>
+                            <p>
+                                <strong data-ng-bind="asmDetail.applicant.userName" class="username"></strong><br />
+                                <span data-ng-bind="asmDetail.applicant.staffNo"></span>
+                            </p>
+                            <h5>Dept</h5>
+                            <p data-ng-bind="asmDetail.applicant.dept"></p>
+                            <h5>Office Telephone</h5>
+                            <p data-ng-bind="asmDetail.applicant.contactNo"></p>
+                            <h5>Mobile No.</h5>
+                            <p data-ng-bind="asmDetail.applicant.mobileNo"></p>
+                        </div>
+                    </div>
+                    <div class="col-xs-10 bg-right col-application">
+                        <div class="row">
+                            <div class="col-xs-12 process-flow-title-first-section">
+                                <h4>Requisition</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <h5>Area</h5>
+                                <p>Area <span data-ng-bind="asmDetail.areaName"></span></p>
+                            </div>
+                            <div class="col-xs-3">
+                                <h5>Unit</h5>
+                                <p data-ng-bind="asmDetail.unitNo"></p>
+                            </div>
+                            <div class="col-xs-3">
+                                <h5>Tag No.</h5>
+                                <p data-ng-bind="asmDetail.tagNo"></p>
+                            </div>
+                            <div class="col-xs-3">
+                                <h5>Equipment No.</h5>
+                                <p data-ng-bind="asmDetail.equipmentNo"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <h5>Type of ASM Bypass</h5>
+                                <p data-ng-bind="asmDetail.alarmClass"></p>
+                            </div>
+                            <div class="col-xs-3">
+                                <h5>Class</h5>
+                                <p data-ng-bind="asmDetail.alarmClass"></p>
+                            </div>
+                            <div class="col-xs-3">
+                                <h5>Sap</h5>
+                                <p data-ng-bind="asmDetail.sapNo"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 process-flow-title">
+                                <h4>Work Description</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <h5>Occurence</h5>
+                                <p data-ng-bind="asmDetail.occurence | date: 'dd MMM yyyy'"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="section-title ">
+                    <h3>MITIGATION PLAN</h3>
+                </div>
+                <div class="row bg-left">
+                    <div class="col-xs-2">
+                        <div class="col-left">
+                            <h5>Reviewed By</h5>
+                            <p>
+                                <strong data-ng-bind="asmDetail.reviewer.userName" class="username"></strong><br />
+                                <span data-ng-bind="asmDetail.reviewer.staffNo"></span><br />
+                                <small>{{asmDetail.reviewedDateTime | date: "dd MMM yyyy 'at' hh:mm a"}}</small>
+                            </p>
+                            <h5>Endorsed By</h5>
+                            <p>
+                                <strong data-ng-bind="asmDetail.endorser.userName" class="username"></strong><br />
+                                <span data-ng-bind="asmDetail.endorser.staffNo"></span><br />
+                                <small>{{asmDetail.endorsedDateTime | date: "dd MMM yyyy 'at' hh:mm a"}}</small>
+                            </p>
+                            <h5>Approved By</h5>
+                            <p>
+                                <strong data-ng-bind="asmDetail.approver.userName" class="username"></strong><br />
+                                <span data-ng-bind="asmDetail.approver.staffNo"></span><br />
+                                <small>{{asmDetail.approvedDateTime | date: "dd MMM yyyy 'at' hh:mm a"}}</small>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-xs-10 bg-right">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h5>Consequences</h5>
+                                <p data-ng-bind="asmDetail.consequences"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h5>Precautions By Operations</h5>
+                                <p data-ng-bind="asmDetail.precautionByOperation"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h5>Precautions By Approval</h5>
+                                <p data-ng-bind="asmDetail.precautionByApproval"></p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="row section-title">
+                    <h3>LIVE</h3>
+                </div>
+                <div class="row bg-left live">
+                    <div class="col-xs-12">
+                        <div class="row flex">
+                            <div class="col-xs-2">
+                                <div class="col-left">
+                                    <h5>Shelving</h5>
+                                    <p><small>ASM to be re-shelved once every shift</small></p>
+                                </div>
+                            </div>
+                            <div class="col-xs-10 bg-right">
+                                <div class="row">
+                                    <div class="col-xs-6" data-ng-hide="reShelvingHistoryLeft == null || reShelvingHistoryLeft.length == 0">
+                                        <table class="table-half">
+                                            <thead>
+                                                <tr>
+                                                    <th class="col-1">SHIFT</th>
+                                                    <th class="col-2">SHELVED BY</th>
+                                                    <th class="col-3">TIME SHELVED</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody data-ng-repeat="rsheLeft in reShelvingHistoryLeft">
+                                                <tr>
+                                                    <td data-ng-bind="rsheLeft.shift" class="col-1"></td>
+                                                    <td class="col-2">
+                                                        <strong data-ng-bind="rsheLeft.updatedBy" class="username"></strong>
+                                                    </td>
+                                                    <td class="col-3">{{rsheLeft.updatedDateTime | date: "dd MMM yyyy 'at' hh:mm a"}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-xs-6" data-ng-hide="reShelvingHistoryRight == null || reShelvingHistoryRight.length == 0">
+                                        <table class="table-half">
+                                            <thead>
+                                                <tr>
+                                                    <th class="col-1">SHIFT</th>
+                                                    <th class="col-2">SHELVED BY</th>
+                                                    <th class="col-3">TIME SHELVED</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr data-ng-repeat="rsheRight in reShelvingHistoryRight">
+                                                    <td data-ng-bind="rsheRight.shift" class="col-1"></td>
+                                                    <td class="col-2">
+                                                        <strong data-ng-bind="rsheRight.updatedBy" class="username"></strong>
+                                                    </td>
+                                                    <td class="col-3">{{rsheRight.updatedDateTime | date: "dd MMM yyyy 'at' hh:mm a"}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row flex">
+                            <div class="col-xs-2">
+                                <div class="col-left">
+                                    <h5>Re-Approval</h5>
+                                    <p><small>For ASM Bypass extended beyond 7 days</small></p>
+                                </div>
+                            </div>
+                            <div class="col-xs-10 bg-right">
+                                <div class="row">
+                                    <div class="col-xs-6" data-ng-hide="reApproveHistoriesLeft == null || reApproveHistoriesLeft.length == 0">
+                                        <table class="table-half">
+                                            <thead>
+                                                <tr>
+                                                    <th class="col-1">WEEK</th>
+                                                    <th class="col-2">APPROVED BY</th>
+                                                    <th class="col-3">TIME APPROVED</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr data-ng-repeat="rappLeft in reApproveHistoriesLeft">
+                                                    <td data-ng-bind="rappLeft.week" class="col-1"></td>
+                                                    <td class="col-2">
+                                                        <strong data-ng-bind="rappLeft.updatedBy" class="username"></strong>
+                                                    </td>
+                                                    <td class="col-3">{{rappLeft.updatedDateTime | date: "dd MMM yyyy 'at' hh:mm a"}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-xs-6" data-ng-hide="reApproveHistoriesRight == null || reApproveHistoriesRight.length == 0">
+                                        <table class="table-half">
+                                            <thead>
+                                                <tr>
+                                                    <th class="col-1">WEEK</th>
+                                                    <th class="col-2">APPROVED BY</th>
+                                                    <th class="col-3">TIME APPROVED</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr data-ng-repeat="rappRight in reApproveHistoriesRight">
+                                                    <td data-ng-bind="rappRight.week" class="col-1"></td>
+                                                    <td class="col-2">
+                                                        <strong data-ng-bind="rappRight.updatedBy" class="username"></strong>
+                                                    </td>
+                                                    <td class="col-3">{{rappRight.updatedDateTime | date: "dd MMM yyyy 'at' hh:mm a"}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row flex">
+                            <div class="col-xs-2">
+                                <div class="col-left">
+                                    <h5>CLOSE</h5>
+                                </div>
+                            </div>
+                            <div class="col-xs-10 bg-right">
+                                <table data-ng-hide="asmDetail.closedDateTime == null" class="table-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-1">ACTION BY</th>
+                                            <th class="col-2">TIME CLOSED</th>
+                                            <th class="col-3">CLOSED REASON</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="col-1">
+                                                <strong class="username" data-ng-bind="asmDetail.closer.userName"></strong>
+                                            </td>
+                                            <td class="col-2">
+                                                {{asmDetail.closedDateTime | date:"dd MMMM yyyy 'at' hh:mm a"}}
+                                            </td>
+                                            <td class="col-3">
+                                                <p data-ng-bind="asmDetail.closureReason"></p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="row_end"></div>
+        </div>
+    </div>
+</div>

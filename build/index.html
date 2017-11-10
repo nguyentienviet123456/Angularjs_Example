@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html data-ng-app="UnifiedPlantInstructionApp" data-ng-class="isLoading==true?'isLoading':''">
+<head>
+    <base href="/" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="content/images/favicon.ico" type="image/vnd.microsoft.icon" />
+    <title data-ng-bind="$app.title"></title>
+    <link href="content/libs/kendo-ui/styles/kendo.common.min.css?v=1.0" rel="stylesheet" type="text/css" />
+    <link href="content/libs/kendo-ui/styles/kendo.default.min.css?v=1.0" rel="stylesheet" type="text/css" />
+    <link href="content/libs/kendo-ui/styles/kendo.default.mobile.min.css?v=1.0" rel="stylesheet" type="text/css" />
+    <link href="content/libs/kendo-ui/styles/kendo.common-bootstrap.min.css?v=1.0" rel="stylesheet" type="text/css" />
+    <link href="content/libs/kendo-ui/styles/kendo.bootstrap.min.css?v=1.0" rel="stylesheet" type="text/css" />
+    <link href="content/css/bootstrap.min.css?v=1.0" rel="stylesheet" type="text/css" />
+    <link href="content/css/font-awesome.min.css?v=1.0" rel="stylesheet" type="text/css" />
+    <link href="content/css/toastr.min.css?v=1.0" rel="stylesheet" type="text/css" />
+    <link href="content/css/app.min.css?v=1.0" rel="stylesheet" type="text/css" />
+    <!-- 3rd party libraries -->
+    <script src="content/libs/jquery.min.js?v=1.0"></script>
+    <script src="content/libs/angular.min.js?v=1.0"></script>
+    <script src="content/libs/underscore-min.js?v=1.0"></script>
+    <script src="content/libs/angular-underscore-module.js?v=1.0"></script>
+    <script src="content/libs/kendo-ui/kendo.all.min.js?v=1.0"></script>
+    <script src="content/libs/kendo-ui/jszip.min.js?v=1.0"></script>
+    <script src="content/libs/angular-ui-router.min.js?v=1.0"></script>
+    <script src="content/libs/angular-animate.min.js?v=1.0"></script>
+    <script src="content/libs/kendo-ui/kendo.timezones.min.js?v=1.0"></script>
+    <script src="content/libs/jquery-dateFormat.min.js?v=1.0"></script>
+    <script src="content/libs/toastr.min.js?v=1.0"></script>
+    <script src="content/libs/bootstrap.min.js"></script>
+    <script src="content/libs/angular-drag-and-drop-lists.min.js?v=1.0"></script>
+    <script src="content/libs/angular-cookies.min.js?v=1.0"></script>
+
+    <script src="app/libs.min.js?v=1.0"></script>
+    <!-- Load app main script -->
+    <script src="app/app.min.js?v=1.0"></script>
+    <script src="app/shared.min.js?v=1.0"></script>
+    <!-- Load services -->
+    <script src="app/services.min.js?v=1.0"></script>
+    <!-- Load controllers -->
+    <script src="app/controllers.min.js?v=1.0"></script>
+</head>
+<body data-ng-class="$app.checkLogin==true?'check_login_loading':$app.module" data-ng-switch="$app.module">
+    <loading></loading>
+    <div class="loading_screen">
+        <div class="loading_screen_logo"></div>
+    </div>
+    <div data-ng-switch-when="login">
+        <ui-view></ui-view>
+    </div>
+    <div data-ng-switch-when="notlogin" id="wrapper">
+        <div id="MainWrapper">
+            <div my-custom src="app/views/shared/sidebar/sidebar.html"></div>
+            <div id="MainPanel">
+                <div my-custom src="app/views/shared/header/header.html"></div>
+                <ui-view></ui-view>
+            </div>
+        </div>
+        <div class='authentication-timeout'></div>
+    </div>
+</body>
+</html>

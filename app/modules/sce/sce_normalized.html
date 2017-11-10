@@ -1,0 +1,522 @@
+﻿<div id="Panel">
+    <div class="panel_content panel_action_bar">
+        <!-- Floating Process Flow -->
+        <div class="process_flow affix_top box_shadow" data-offset="50">
+            <h5>Process Flow</h5>
+            <ul class="flow_step">
+                <li class="completed">
+                    <p>Application</p>
+                </li>
+                <li class="completed">
+                    <p>Review</p>
+                </li>
+                <li class="completed">
+                    <p>Endorsement</p>
+                </li>
+                <li class="completed">
+                    <p>Approval</p>
+                </li>
+                <li class="completed">
+                    <p>Acknowledgment</p>
+                </li>
+                <li class="completed">
+                    <p>Live</p>
+                </li>
+            </ul>
+        </div>
+        <!-- End Floating Process Flow -->
+        <!-- Form Box -->
+        <div class="col-left">
+            <div class="box_shadow">
+                <div class="box_head box_head_grey block cf">
+                    <h6><strong data-ng-bind="'SCE'"></strong> <span data-ng-bind="sceDetail.sceNo"></span></h6>
+                    <p data-ng-bind="sceDetail.reasonForConductingByPass"></p>
+                    <div class="dd_options">
+                        <div class="dd_block">
+                            <button class="dropdown_toggle dd_dotv" type="button"><i class="icon-dotv"></i></button>
+                            <ul class="dropdown_menu">
+                                <li data-ng-show="isApplicant && hasApplicantRole"><a href="#" data-ng-click="copySCE()">Copy SCE</a></li>
+                                <li><a href="#" data-ng-click="statusLog()">Status Log</a></li>
+                                <li><a href="#" data-ng-click="scePrint()">Print</a></li>                                
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="box_highlight no-btn block cf">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <h4 data-ng-bind="sceDetail.status"></h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="block">
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Area</h5>
+                            <p data-ng-bind="sceDetail.areaName"></p>
+                        </div>
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Unit</h5>
+                            <p data-ng-bind="sceDetail.unit"></p>
+                        </div>
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Tag No.</h5>
+                            <p data-ng-bind="(sceDetail.tagNo == null || sceDetail.tagNo == '') ? sceDetail.otherTagNo : sceDetail.tagNo"></p>
+                        </div>
+                        <div class="col-xs-3">
+                            <h5 class="control-label">Equipment No.</h5>
+                            <p data-ng-bind="sceDetail.equipmentNo"></p>
+                        </div>
+                        <div class="col-xs-3">
+                            <h5 class="control-label">Category</h5>
+                            <p data-ng-bind="sceDetail.categoryName"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Application Date</h5>
+                            <p data-ng-bind="sceDetail.applicantDate | date: 'dd MMM yyyy'"></p>
+                        </div>
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Date Required</h5>
+                            <p data-ng-bind="sceDetail.dateRequired | date: 'dd MMM yyyy'"></p>
+                        </div>
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Expected to Normalize</h5>
+                            <p data-ng-bind="sceDetail.expectedDateToNormalize | date: 'dd MMM yyyy'"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="block">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <h5 class="control-label">Applicant</h5>
+                            <p class="ng-binding text_avatar">
+                                <img data-ng-src="data:image/jpg;base64,{{sceDetail.applicant.image}}" alt="{{sceDetail.applicant.userName}}" />
+                                <a data-ng-href="/profile/{{sceDetail.applicant.userProfileId}}" data-ng-bind="sceDetail.applicant.userName"></a><br>
+                                <span data-ng-bind="sceDetail.applicant.staffNo"></span>
+                            </p>
+                        </div>
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Dept</h5>
+                            <p data-ng-bind="sceDetail.applicant.dept"></p>
+                        </div>
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Office Telephone</h5>
+                            <p data-ng-bind="sceDetail.applicant.contactNo"></p>
+                        </div>
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Mobile No.</h5>
+                            <p data-ng-bind="sceDetail.applicant.mobileNo"></p>
+                        </div>
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Radio</h5>
+                            <p data-ng-bind="sceDetail.radio"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="block block_info" data-ng-hide="raInfo == ''">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <h4>Risk Assessment (RA)</h4>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <p data-ng-hide="showNewRa==false || showNewRa===null || showNewRa=== undefined" data-ng-bind-html="raInfo"></p>
+                            <p data-ng-hide="showCopyRa==false || showCopyRa===null || showCopyRa=== undefined">
+                                <ul class='menu-select' id='menuRequestRa'>
+                                    <li>
+                                        Select your actions
+                                        <ul>
+                                            <li> <a href='javascript:void(0)' data-ng-click="copyExitstingRa();">Copy Existing RA</a></li>
+                                            <li data-ng-bind-html="raInfo"> </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="foot_info text-right">
+                <p class="ng-binding">Created by <a data-ng-href="/profile/{{sceDetail.applicant.userProfileId}}" data-ng-bind="sceDetail.applicant.userName"></a> | Last update <span data-ng-bind="sceDetail.modifiedDate | date: 'dd MMM yyyy'"></span> at <span data-ng-bind="sceDetail.modifiedDate | date: 'h:mm a'"></span></p>
+            </div>
+            <div class="panel_head cf panel_head_middle">
+                <div class="panel_head_left">
+                    <h6 class="panel_title text-uppercase">Process flow</h6>
+                </div>
+                <div class="panel_head_right">
+                    <a href="#" id="toogleBody" class="visible-button">Expand All</a>
+                </div>
+            </div>
+            <div class="box_shadow">
+                <div class="sce-box">
+                    <h4 class="box-title">
+                        <a href="#" class="visible-button">Application <i class="icon-arr-down"></i></a>
+                    </h4>
+                    <div class="box-body">
+                        <h4 class="group_title">Requisition</h4>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Type of SCE Bypass</h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p data-ng-bind="sceDetail.typeName == null ? sceDetail.othersTypesOfByPass : sceDetail.typeName"></p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Estimated Duration for Bypass</h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p data-ng-bind="sceDetail.estimationDurationForByPass"></p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">
+                                        Safety Integrity Level
+                                        <span>Instrumented system only</span>
+                                    </h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p data-ng-bind="sceDetail.silName"></p>
+                                </div>
+                            </div>
+                        </section>
+                        <h4 class="group_title">Work Description</h4>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Date Required</h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p data-ng-bind="sceDetail.dateRequired | date: 'dd MMM yyyy'"></p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Expected Date to Normalize</h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p data-ng-bind="sceDetail.expectedDateToNormalize | date: 'dd MMM yyyy'"></p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Reason for Conducting Bypass</h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p data-ng-bind="sceDetail.reasonForConductingByPass"></p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Precautions by Applicant</h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p data-ng-bind="sceDetail.precautionsByApplicant"></p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Method of Bypass</h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p data-ng-bind="sceDetail.methodName == null ? sceDetail.othersMethodOfByPass : sceDetail.methodName"></p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Reviewer</h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p><a data-ng-href="/profile/{{sceDetail.reviewer.userProfileId}}" data-ng-bind="sceDetail.reviewer.userName"></a><br><span data-ng-bind="sceDetail.reviewer.staffNo"></span></p>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div class="sce-box">
+                    <h4 class="box-title">
+                        <a href="#" class="visible-button">Review <i class="icon-arr-down"></i></a>
+                    </h4>
+                    <div class="box-body">
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Consequences</h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p data-ng-bind="sceDetail.consequences"></p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Precautions by Operations</h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p data-ng-bind="sceDetail.precautionsByOperations"></p>
+                                </div>
+                            </div>
+                            <ul>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <h5 class="control-label">Is temporary operating procedure required?</h5>
+                                        </div>
+                                        <div class="col-xs-8">
+                                            <p data-ng-bind="sceDetail.isTempOperatingProcedureRequired ? 'Yes' : 'No'"></p>
+                                            <ul data-ng-show="(fileModel | filter : {groupKey: 'Temporay'}).length > 0 && sceDetail.isTempOperatingProcedureRequired" class="uploaded-file-list">
+                                                <li data-ng-click="openFile($event)" data-ng-repeat="file in fileModel | filter : {groupKey: 'Temporay'}" class="uploaded-file" id="{{file.fileId}}">
+                                                    <span ng-class="'file-icon ' + file.fileType.toLowerCase()"></span>
+                                                    <a data-ng-click="openFile($event)" data-ng-bind="file.fileName"></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <h5 class="control-label">Detail Risk Assessment i.e. SWIFT required?</h5>
+                                        </div>
+                                        <div class="col-xs-8">
+                                            <p data-ng-bind="sceDetail.isDetailRARequired ? 'Yes' : 'No'"></p>
+                                            <ul data-ng-show="(fileModel | filter : {groupKey: 'SWIFT'}).length > 0 && sceDetail.isDetailRARequired" class="uploaded-file-list">
+                                                <li data-ng-click="openFile($event)" data-ng-repeat="file in fileModel | filter : {groupKey: 'SWIFT'}" class="uploaded-file" id="{{file.fileId}}">
+                                                    <span ng-class="'file-icon ' + file.fileType.toLowerCase()"></span>
+                                                    <a data-ng-click="openFile($event)" data-ng-bind="file.fileName"></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <h5 class="control-label">Special standing instruction required?</h5>
+                                        </div>
+                                        <div class="col-xs-8">
+                                            <p data-ng-bind="sceDetail.isSpecialSIRequired ? 'Yes' : 'No'"></p>
+                                            <ul data-ng-show="(fileModel | filter : {groupKey: 'SpecialStandingInstruction'}).length > 0 && sceDetail.isSpecialSIRequired" class="uploaded-file-list">
+                                                <li data-ng-click="openFile($event)" data-ng-repeat="file in fileModel | filter : {groupKey: 'SpecialStandingInstruction'}" class="uploaded-file" id="{{file.fileId}}">
+                                                    <span ng-class="'file-icon ' + file.fileType.toLowerCase()"></span>
+                                                    <a data-ng-click="openFile($event)" data-ng-bind="file.fileName"></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Endorser Assigned</h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p><a data-ng-href="/profile/{{sceDetail.endorser.userProfileId}}" data-ng-bind="sceDetail.endorser.userName"></a><br><span data-ng-bind="sceDetail.endorser.staffNo"></span></p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Approver Assigned</h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p><a data-ng-href="/profile/{{sceDetail.approver.userProfileId}}" data-ng-bind="sceDetail.approver.userName"></a><br><span data-ng-bind="sceDetail.approver.staffNo"></span></p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Comment</h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <label data-ng-bind="sceDetail.reviewerComment"></label>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label"><strong>Reviewer</strong></h5>
+                                    <p class="ng-binding text_avatar">
+                                        <img src="data:image/jpg;base64,{{sceDetail.reviewer.image}}" alt="{{sceDetail.reviewer.userName}}" />
+                                        <a data-ng-href="/profile/{{sceDetail.reviewer.userProfileId}}" data-ng-bind="sceDetail.reviewer.userName"></a><br>
+                                        <span data-ng-bind="sceDetail.reviewer.staffNo"></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div class="sce-box">
+                    <h4 class="box-title">
+                        <a href="#" class="visible-button">Endorsement <i class="icon-arr-down"></i></a>
+                    </h4>
+                    <div class="box-body">
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Precautions by Endorser</h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p data-ng-bind="sceDetail.precautionsByEndorser"></p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Comment</h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p data-ng-bind="sceDetail.endorserComment"></p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label"><strong>Endorser</strong></h5>
+                                    <p class="ng-binding text_avatar">
+                                        <img src="data:image/jpg;base64,{{sceDetail.endorser.image}}" alt="{{sceDetail.endorser.userName}}" />
+                                        <a data-ng-href="/profile/{{sceDetail.endorser.userProfileId}}" data-ng-bind="sceDetail.endorser.userName"></a><br>
+                                        <span data-ng-bind="sceDetail.endorser.staffNo"></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div class="sce-box">
+                    <h4 class="box-title">
+                        <a href="#" class="visible-button">Approval <i class="icon-arr-down"></i></a>
+                    </h4>
+                    <div class="box-body">
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Precautions by Approver</h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p data-ng-bind="sceDetail.precautionsByAuthority"></p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label">Comment</h5>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p data-ng-bind="sceDetail.approverComment"></p>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label"><strong>Approver</strong></h5>
+                                    <p class="ng-binding text_avatar">
+                                        <img src="data:image/jpg;base64,{{sceDetail.approver.image}}" alt="{{sceDetail.approver.userName}}" />
+                                        <a data-ng-href="/profile/{{sceDetail.approver.userProfileId}}" data-ng-bind="sceDetail.approver.userName"></a><br>
+                                        <span data-ng-bind="sceDetail.approver.staffNo"></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
+                        <section data-ng-show="showReApprover == true">
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5 class="control-label"><strong>Re-Approver</strong></h5>
+                                    <p class="ng-binding text_avatar">
+                                        <img src="data:image/jpg;base64,{{sceDetail.reApprover.image}}" alt="{{sceDetail.reApprover.userName}}" />
+                                        <a data-ng-href="/profile/{{sceDetail.reApprover.userProfileId}}" data-ng-bind="sceDetail.reApprover.userName"></a><br>
+                                        <span data-ng-bind="sceDetail.reApprover.staffNo"></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div class="sce-box">
+                    <h4 class="box-title">
+                        <a href="#" class="visible-button">Live <span class="tags label label-default" data-ng-hide="!sceDetail.isReAcknowledgeAction"><i class="icon-hourglass"></i> Acknowledgment</span><span class="tags label label-default" data-ng-hide="!sceDetail.isReApproveAction"><i class="icon-hourglass"></i> Approval</span> <i class="icon-arr-down"></i></a>
+                    </h4>
+                    <div class="box-body">
+                        <div class="box_inner">
+                            <div class="box_inner_head">
+                                <h5>PTW</h5>
+                            </div>
+                            <div class="box_inner_content">
+                                <kendo-grid id="ptwGrid" options="ptwActions" class="table_action">
+                                </kendo-grid>
+                            </div>
+                        </div>
+                        <div class="box_inner">
+                            <div class="box_inner_head">
+                                <h5>ACKNOWLEDGEMENT</h5>
+                                <p>SCE to be re-acknowledged once every shift</p>
+                            </div>
+                            <div class="box_inner_content">
+                                <kendo-grid options="reAcknowledgementOptions" class="table_info"></kendo-grid>
+                            </div>
+                        </div>
+                        <div class="box_inner">
+                            <div class="box_inner_head">
+                                <h5>RE-APPROVAL</h5>
+                                <p>For SCE Bypass extended beyond 7 days</p>
+                            </div>
+                            <div class="box_inner_content">
+                                <kendo-grid options="reApprovalOptions" class="table_info"></kendo-grid>
+                            </div>
+                        </div>
+                        <div class="box_inner">
+                            <div class="box_inner_head">
+                                <h5>NORMALIZED BY</h5>
+                            </div>
+                            <div class="box_inner_content block">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <p class="ng-binding text_avatar">
+                                            <img src="data:image/jpg;base64,{{normalizedPTW.image}}" />
+                                            <span class="k-state-default">
+                                                <a data-ng-href="/profile/{{normalizedPTW.profileId}}" data-ng-bind="normalizedPTW.normalizedBy"></a>
+                                                <br />{{normalizedPTW.normalizedDateTime| date : "dd MMM yyyy 'at' h:mma"}}
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div class="col-xs-6 text-right" style="margin-top:16px">
+                                        <label data-ng-bind-template="PTW #{{normalizedPTW.ptwNo}}">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

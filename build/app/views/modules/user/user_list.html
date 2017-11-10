@@ -1,0 +1,70 @@
+<div id="Panel">
+
+    <div class="panel_head cf">
+        <div class="panel_head_left">
+            <h2 class="panel_title"><span class="panel_icon">ADMIN</span>Manage User</h2>
+        </div>
+        <div class="panel_head_right">
+            <span class="k-textbox k-space-right" style="width: 300px">
+                <input type="text" class="input-search-form" data-ng-model="model.userId" data-ng-keypress="searchByUserId($event)" placeholder="Search by User ID." />
+                <a data-ng-click="searchByUserIdClick()" class="k-icon icon-search">&nbsp;</a>
+            </span>
+        </div>
+    </div>
+
+    <div class="panel_content">
+        <kendo-grid id="UserGrid" class="user-list sce-listing" options="userListGridOptions">
+        </kendo-grid>
+    </div>
+
+    <div kendo-dialog="manageRolesPopup" k-modal="true" k-actions="manageRolesActions" k-resizable="false" k-visible="false">
+        <form kendo-validator="manageRolesPopupValid">
+            <ul class="review_listing user_roles">
+                <li>
+                    <div class="control-label">Select Module</div>
+                    <select id="module" name="module" class="txt txt_half txt_left" kendo-drop-down-list k-options="moduleOption" k-ng-model="selectModule" />
+                    <select class="txt txt_half txt_left" kendo-drop-down-list="roleManagementActions" k-options="actionOption" k-ng-model="selectAction" />
+                    <div>
+                        <span class="k-invalid-msg" data-for="manageRolesPopupModule"></span>
+                    </div>
+                </li>
+                <li>
+                    <div class="control-label">
+                        Assign {{selectModule.moduleName}} Roles
+                    </div>
+                    <ul class="checkboxes">
+                        <li data-ng-repeat="item in selectModule.roles track by $index">
+                            <label class="cb-lbl">
+                                <input type='checkbox' name="manageRolesPopupRoles" required data-required-msg="Roles is required" data-ng-model='$parent.selectModule.roles[$index].checked' /> <span> {{item.description}}</span>
+                            </label>
+                        </li>
+                    </ul>
+                    <div>
+                        <span class="k-invalid-msg" data-for="manageRolesPopupRoles"></span>
+                    </div>
+                </li>
+            </ul>
+        </form>
+    </div>
+
+    <div kendo-dialog="manageRolePopup" k-actions="manageRoleActions" k-title="'Assign Roles to User'" k-modal="true" k-resizable="false" k-visible="false">
+        <form kendo-validator="manageRolePopupValid">
+            <ul class='review_listing user_roles'>
+                <li data-ng-repeat="item in listManageRole">
+                    <div class='control-label'>Assign {{item.moduleName}} Roles</div>
+                    <ul class='checkboxes'>
+                        <li data-ng-repeat="role in item.roles track by $index">
+                            <label class="cb-lbl">
+                                <input type='checkbox' name='mangageRoleRoles' required data-required-msg="Roles is required" data-ng-model='$parent.item.roles[$index].checked' /> <span> {{role.description}}</span>
+                            </label>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div>
+                <span class="k-invalid-msg" data-for="mangageRoleRoles"></span>
+            </div>
+        </form>
+    </div>
+
+</div>

@@ -1,0 +1,56 @@
+﻿<div class="asm-box">
+    <h4 class="box-title">
+        <a href="#" class="visible-button">Shelving<i class="icon-arr-down visible-button"></i></a>
+    </h4>
+    <div class="box-body">
+        <section>
+            <div class="row">
+                <div class="col-xs-4">
+                    <h5 class="control-label"><strong>Shelver</strong></h5>
+                    <p class="ng-binding text_avatar">
+                        <img src="data:image/jpg;base64,{{model.shelver.image}}" alt="{{model.shelver.userName}}" />
+                        <a data-ng-href="/profile/{{model.shelver.userProfileId}}" data-ng-bind="model.shelver.userName"></a><br>
+                        <span data-ng-bind="model.shelver.staffNo"></span>
+                    </p>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="row">
+                <div class="col-xs-4">
+                    <h5 class="control-label">Time Shelved </h5>
+                </div>
+                <div class="col-xs-8">
+                    <p data-ng-bind="model.shelver.shelveTime | date: 'dd MMM yyyy \'at\' hh:mm a'"></p>
+                </div>
+            </div>
+        </section> 
+    </div>
+</div>
+
+<div class="asm-box">
+    <h4 class="box-title">
+        <a href="#" class="visible-button">Live <span class="tags label label-default" data-ng-show="model.asmDetail.isPendingReShelving"><i class="icon-hourglass"></i> Shelving</span><span class="tags label label-default" data-ng-show="model.asmDetail.isPendingReApproval"><i class="icon-hourglass"></i> Approval</span><i class="icon-arr-down visible-button"></i></a>
+    </h4>
+    <div class="box-body">
+        <div class="box_inner">
+            <div class="box_inner_head">
+                <h5>RE-SHELVING</h5>
+                <p>ASM to be shelved once every shift</p>
+            </div>
+            <div class="box_inner_content">
+                <kendo-grid options="reShelvingScheduleOptions" class="table_info"></kendo-grid>
+            </div>
+        </div>
+        <div class="box_inner">
+            <div class="box_inner_head">
+                <h5>RE-APPROVAL</h5>
+                <p>For shelving extended beyond 7 days</p>
+            </div>
+            <div class="box_inner_content">
+                <kendo-grid options="reApprovalOptions" class="table_info"></kendo-grid>
+            </div>
+        </div>
+        
+    </div>
+</div>

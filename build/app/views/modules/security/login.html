@@ -1,0 +1,27 @@
+<div id="login">
+    <form role="form">
+        <img src="/content/images/logo-petronas.svg" />
+        <div class="title">Refinery of The Future</div>
+        <div class="controls">
+            <select kendo-drop-down-list style="width:100%;" k-options='domains' k-ng-model="domain" k-value-primitive="true"></select>
+            <input autocomplete="off" class="k-textbox" placeholder="Enterprise ID (e.g. mohdali.abdullah)" data-ng-model="loginData.userId">
+            <input autocomplete="off" class="k-textbox" type="password" placeholder="Password" data-ng-model="loginData.password" required>
+        </div>
+        <div data-ng-hide="message==''" class="login-invalid">
+            <div>{{message}}</div>
+        </div>
+        <button data-ng-disabled="((domain==''||domain==null) && constants.singleSignOn.disabled === false )||loginData.userId==''||loginData.password==''|| loggingIn==true" class="k-button k-primary" type="submit" data-ng-click="login()">
+            <span data-ng-hide="loggingIn==true">LOGIN</span>
+            <span data-ng-hide="loggingIn==false"> <i class='fa fa-circle-o-notch fa-spin' /> Logging in </span>
+        </button>
+    </form>
+</div>
+<div class="login-footer-container">
+    <div class="login-footer-infor">
+        <div class="service-desk"><a>Service Desk:&nbsp;</a></div>
+        <div class="service-infor"><a><i class="fa fa-phone" aria-hidden="true"></i>+603 2331 3333</a> <a href="mailto:ict_servicedesk@petronas.com.my"><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;ict_servicedesk@petronas.com.my</a></div>
+        <div class="clear-div">
+            <p><a href="http://pww.petronas.com.my/Pages/Privacy%20Policy.aspx" target="_blank">Privacy Policy</a> | <a href="http://pww.petronas.com.my/Pages/Use%20Terms%20and%20Conditions.aspx" target="_blank">Use Term & Conditions</a></p>
+        </div>
+    </div>
+</div>

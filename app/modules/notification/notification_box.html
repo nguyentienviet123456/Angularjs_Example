@@ -1,0 +1,29 @@
+﻿<div class="topbar_notifications">
+    <div class="dropdown">
+        <div class="notification-msg" data-toggle="dropdown" data-ng-click="getTopNotification($event)">
+            <i class="fa fa-bell"></i>
+            <span data-ng-bind="countUnreadNotification" data-ng-class="hasUnread"></span>
+        </div>
+        <div class="notification-dropdown dropdown-menu pull-right">
+            <div class="notification-group-heading">
+                <span>Notifications</span>
+                <a href="javascript:void(0)" data-ng-click="markAsAllReadNotification($event)">Mark all read</a>
+            </div>
+            <div class="process" data-ng-show="isProcess">
+                <div class="process_content"> <i class="fa fa-spinner fa-pulse"></i></div>
+            </div>
+            <div class="notification-group-items">
+                <div data-ng-repeat="item in listNotification">
+                    <div data-ng-class="{'notification-unread': !item.isRead, 'notification-require-action': item.hasAction, 'notification-read': item.isRead, 'notification-unrequire-action': !item.hasAction}">
+                        <a class="notification-title" href="{{item.url}}" data-ng-click="markAsReadNotification(item.notificationId, item.url);"><span>{{item.messages}}</span></a>
+                        <span class="notification-date">{{item.createdDateTime}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="notification-group-footer">
+                <a href="javascript:void(0)" data-ng-click="goPageNotifications();">See All</a>
+            </div>
+            <div class="notification-rowup"></div>
+        </div>
+    </div>
+</div>

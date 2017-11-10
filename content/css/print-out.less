@@ -1,0 +1,407 @@
+﻿@font-face {
+    font-family: 'museo_sans';
+    src: url('../fonts/museo-sans/museosans_300-webfont.woff2') format('woff2'), url('../fonts/museo-sans/museosans_300-webfont.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'museo_sans';
+    src: url('../fonts/museo-sans/museosans_300_italic-webfont.woff2') format('woff2'), url('../fonts/museo-sans/museosans_300_italic-webfont.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'museo_sans';
+    src: url('../fonts/museo-sans/museosans_500-webfont.woff2') format('woff2'), url('../fonts/museo-sans/museosans_500-webfont.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'museo_sans';
+    src: url('../fonts/museo-sans/museosans_500_italic-webfont.woff2') format('woff2'), url('../fonts/museo-sans/museosans_500_italic-webfont.woff') format('woff');
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'museo_sans';
+    src: url('../fonts/museo-sans/museosans_700-webfont.woff2') format('woff2'), url('../fonts/museo-sans/museosans_700-webfont.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'museo_sans';
+    src: url('../fonts/museo-sans/museosans_700_italic-webfont.woff2') format('woff2'), url('../fonts/museo-sans/museosans_700_italic-webfont.woff') format('woff');
+    font-weight: 700;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'petronas';
+    src: url('../fonts/fontello/petronas.eot?82948253');
+    src: url('../fonts/fontello/petronas.eot?82948253#iefix') format('embedded-opentype'), url('../fonts/fontello/petronas.woff2?82948253') format('woff2'), url('../fonts/fontello/petronas.woff?82948253') format('woff'), url('../fonts/fontello/petronas.ttf?82948253') format('truetype'), url('../fonts/fontello/petronas.svg?82948253#petronas') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font_family_1: "petronas";
+@font_family_2: "museo_sans",sans-serif;
+
+@page {
+    size: A4;
+    margin: 15px;
+}
+
+@media print {
+    h1 {
+        page-break-before: always;
+        page-break-after: avoid;
+    }
+
+    h2 {
+        page-break-after: avoid;
+    }
+
+    h3 {
+        page-break-after: avoid;
+    }
+
+    h4 {
+        page-break-after: avoid;
+    }
+
+    h5 {
+        page-break-after: avoid;
+    }
+
+    table {
+        page-break-inside: avoid;
+    }
+
+    figure {
+        page-break-inside: avoid;
+    }
+
+    * {
+        -webkit-print-color-adjust: exact;
+    }
+
+    body {
+        margin: 0 !important;
+        padding: 0 !important;
+        font-family: @font_family_2 !important;
+        font-style: normal !important;
+        font-weight: normal !important;
+        color: black !important;
+    }
+
+    .k-ie, .k-edge {
+        #print-container {
+            padding-top: 20px !important;
+
+            .print-header {
+                .title {
+                    border-top: 1px solid #808285 !important;
+                }
+            }
+
+            .print-content {
+                .section-title {
+                    border-top: 1px solid #808285 !important;
+                    border-bottom: 1px solid #808285 !important;
+                }
+
+                .process-flow-title {
+                    border-top: 1px solid #808285 !important;
+                    border-bottom: 1px solid #808285 !important;
+                }
+
+                .process-flow-title-first-section {
+                    border-bottom: 1px solid #808285 !important;
+                }
+
+                .bg-right {
+                    border-left: 1px solid #808285 !important;
+                }
+            }
+        }
+    }
+
+    #print-container {
+        padding: 0;
+        margin: 0;
+        width: 100% !important;
+        min-width: 0;
+
+        .print-header {
+            .row {
+                &:first-child {
+                    border: none !important;
+                }
+            }
+
+            .logo {
+                width: 16.8%;
+                padding: 0;
+                height: 50px;
+            }
+
+            .petronas {
+                border-right-color: black;
+
+                img {
+                    height: 40px;
+                }
+            }
+
+            .company {
+                border-left-color: black;
+
+                img {
+                    height: 50px;
+                }
+            }
+
+            .col-mid {
+                width: 66.4%;
+
+                h3 {
+                    font-size: 14px;
+                    line-height: 22px;
+                }
+
+                h2 {
+                    font-size: 18px;
+                    line-height: 26px;
+                }
+
+                > .row {
+                    &:nth-child(2) {
+                        span {
+                            font-size: 12pt !important;
+                        }
+                    }
+                }
+            }
+
+            .title {
+                background-color: #615e9b !Important;
+                padding: 0 10px;
+
+                h3 {
+                    font-size: 12px;
+                    line-height: 22px;
+                    color: #fff !important;
+
+                    span {
+                        color: #fff !important;
+                    }
+                }
+            }
+        }
+
+        .print-header > .row:first-child {
+            border-top: 1px solid #808285 !important;
+            border-left: 1px solid #808285 !important;
+            border-right: 1px solid #808285 !important;
+        }
+
+        .print-header .col-mid > .row:first-child {
+            border-bottom: 1px solid #808285 !important;
+        }
+
+        .print-header {
+            .title {
+                border-left: 1px solid #808285 !important;
+                border-right: 1px solid #808285 !important;
+            }
+        }
+
+        .bg-left {
+            border-left: 1px solid #808285 !important;
+            border-right: 1px solid #808285 !important;
+        }
+
+        .row_end {
+            border-top: 1px solid #808285 !important;
+            margin-right: -10px;
+            margin-left: -10px;
+            display: block !important;
+            z-index: 1;
+        }
+    }
+
+    .section-title {
+        border-left: 1px solid #808285 !important;
+        border-right: 1px solid #808285 !important;
+        margin: 0 -10px;
+        padding: 0 10px;
+
+        h3 {
+            font-size: 11px;
+            font-weight: bold;
+            line-height: 20px;
+        }
+    }
+
+    .h4, h4 {
+        font-size: 7pt !important;
+    }
+
+    .h5, h5 {
+        font-size: 10px;
+        line-height: normal;
+        margin-bottom: 5px;
+    }
+
+    .print-content {
+
+        .bg-right {
+            padding-right: 10px;
+
+            p {
+                margin-bottom: 5px;
+            }
+
+            .row:last-child p {
+                margin-bottom: 0 !Important;
+            }
+        }
+
+        .col-application {
+            p {
+                margin-bottom: 10px;
+            }
+        }
+
+        p {
+            font-size: 9px;
+            line-height: normal;
+            margin-bottom: 10px;
+        }
+
+        h5 {
+            small {
+                font-size: 8px;
+                line-height: 8px;
+                display: inline-block;
+            }
+        }
+
+        table {
+
+            th {
+                font-size: 8px;
+                font-weight: bold;
+                line-height: normal;
+                padding: 2px 5px;
+            }
+
+            td {
+                font-size: 9px;
+                padding: 2px 5px;
+            }
+
+            h5 {
+                margin-bottom: 3px;
+
+                small {
+                    font-size: 9px;
+                    margin-top: 0;
+                }
+            }
+
+            p {
+                margin-bottom: 0;
+            }
+        }
+
+        .table-info h5 {
+            margin-bottom: 0;
+        }
+
+        .risk-summary {
+            padding: 10px 0;
+
+            h5 {
+                line-height: 27px !important;
+
+                strong {
+                    vertical-align: top;
+                }
+            }
+        }
+    }
+
+    .row {
+        width: auto;
+        margin-left: -10px;
+        margin-right: -10px;
+
+        > div {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    }
+
+    .process-flow-title {
+        margin-bottom: 5px;
+
+        h4 {
+            line-height: 20px;
+        }
+    }
+
+    .col-left {
+        padding: 5px 0;
+
+        p {
+            word-break: normal;
+        }
+    }
+
+    .live {
+        .col-left {
+            h5 {
+                margin-bottom: 3px;
+            }
+
+            p {
+                margin: 0;
+            }
+        }
+    }
+
+    .risk-label {
+        font-size: 10px;
+        line-height: normal;
+        padding: 6px 8px;
+        display: inline-block;
+        vertical-align: middle;
+        color: #fff !important;
+
+        &.bg-green {
+            background: #61bd6d !important;
+        }
+
+        &.bg-yellow {
+            background: #fac51c !important;
+        }
+
+        &.bg-orange {
+            background: #fba026 !important;
+        }
+
+        &.bg-red {
+            background: #ff0000 !important;
+        }
+    }
+
+    .risk-table {
+        margin-bottom: 5px;
+    }
+}

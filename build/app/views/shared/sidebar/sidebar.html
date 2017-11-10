@@ -1,0 +1,101 @@
+
+<div id="MainSideBar" data-ng-controller="sidebarController">
+    <div id="cssmenu">
+        <ul>
+            <li id="has-sub">
+                <a class="home" href="javascript:void(0)" data-ng-click="goPage($app.menu.rotfDashboard)" >
+                    <span></span>
+                </a>
+            </li>
+            <li class="has-sub">
+                <a class="sce" href="javascript:void(0)" data-ng-click="goPage($app.menu.sceDashBoard)">
+                    <span id="spanSceId">SCE</span>
+                </a>
+                <ul>
+                    <li id="sceDashBoardId" data-module="{{$app.menu.sceDashBoard}}">
+                        <a class="menu_link" href="javascript:void(0)" data-ng-click="goPage($app.menu.sceDashBoard)">
+                            <span>SCE DashBoard</span>
+                        </a>
+                    </li>
+                    <li id="sceAllId" data-module="{{$app.menu.sceList}}">
+                        <a class="menu_link" href="javascript:void(0)" data-ng-click="goPage($app.menu.sceList)">
+                            <span>All SCE</span>
+                        </a>
+                    </li>
+                    <li id="sceNewId" data-module="{{$app.menu.sceNew}}">
+                        <a class="menu_link" href="javascript:void(0)" data-ng-click="goPage($app.menu.sceNew)">
+                            <span>New SCE</span>
+                        </a>
+                    </li>
+                    <li id="raAllId" data-module="{{$app.menu.raList}}">
+                        <a class="menu_link" href="javascript:void(0)" data-ng-click="goPage($app.menu.raList)">
+                            <span>All RA</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+          
+            <li class="has-sub">
+                <a class="asm" href="javascript:void(0)" data-ng-click="goPage($app.menu.asmDashBoard)">
+                    <span id="spanAsmId">ASM</span>
+                </a>
+                <ul>
+                    <li id="asmDashBoardId" data-module="{{$app.menu.asmDashBoard}}">
+                        <a class="menu_link" href="javascript:void(0)" data-ng-click="goPage($app.menu.asmDashBoard)">
+                            <span>ASM DashBoard</span>
+                        </a>
+                    </li>
+                    <li id="asmAllId" data-module="{{$app.menu.asmList}}">
+                        <a class="menu_link" href="javascript:void(0)" data-ng-click="goPage($app.menu.asmList)">
+                            <span>All ASM</span>
+                        </a>
+                    </li>
+                    <li id="asmNewId" data-ng-show="asmApplicant" data-module="{{$app.menu.asmNew}}">
+                        <a class="menu_link" href="javascript:void(0)" data-ng-click="goPage($app.menu.asmNew)">
+                            <span>New ASM</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-sub">
+                <a class="asm" href="javascript:void(0)" data-ng-click="goPage($app.menu.asmDashBoard)">
+                    <span id="spanDiId">DI</span>
+                </a>
+                <ul>
+                    <li id="diDashBoardId" data-module="{{$app.menu.diDashBoard}}">
+                        <a class="menu_link" href="javascript:void(0)" data-ng-click="goPage($app.menu.diDashBoard)">
+                            <span>DI DashBoard</span>
+                        </a>
+                    </li>
+                    <li id="diAllId" data-module="{{$app.menu.diList}}">
+                        <a class="menu_link" href="javascript:void(0)" data-ng-click="goPage($app.menu.diList)">
+                            <span>All DI</span>
+                        </a>
+                    </li>
+                    <li id="diNewId" data-module="{{$app.menu.diNew}}">
+                        <a class="menu_link" href="javascript:void(0)" data-ng-click="goPage($app.menu.diNew)">
+                            <span>New DI</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li data-ng-show="isAdmin" class="has-sub" data-module="{{$app.menu.admin}}">
+                <a class="admin" href="javascript:void(0)">
+                    <span id="spanAdminId">Admin</span>
+                </a>
+                <ul>
+                    <li id="manageUserId" data-module="{{$app.menu.manageUser}}">
+                        <a href="javascript:void(0)" data-ng-click="goPage($app.menu.manageUser)">
+                            <span>Manage User</span>
+                        </a>
+                    </li>
+                    <li id="manageMessageId" data-module="{{$app.menu.manageMessage}}">
+                        <a href="javascript:void(0)" data-ng-click="goPage($app.menu.manageMessage)">
+                            <span>Manage Message</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>

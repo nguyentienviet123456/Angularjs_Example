@@ -1,0 +1,31 @@
+<div id="TopBar" class="cf" data-ng-controller="HeaderController">
+    <div class="topbar_title">
+        <h1 >
+            <strong>PPMSB</strong><span>Refinery Of The Future</span><br><span data-ng-bind="bigModuleTitle"></span>
+        </h1>
+    </div>
+    <div class="topbar_user" >
+        <div class="topbar_notifications" my-custom src="app/views/modules/notification/notification_box.html" data-ng-controller="notificationBoxController">
+        </div>
+        <ul id="ProfileMenu">
+            <!--<li class="topbar_notification">
+                <a href="#">
+                    <i class="icon-email"></i>
+                    <small class="count">4</small>
+                </a>
+            </li>-->
+            <li class="topbar_user_menu">
+                <a ng-show="isShow" href="#">
+                    {{userProfile.userName}} <img data-ng-src="data:image/jpeg;base64,{{userProfile.image}}" alt="{{userProfile.userName}}"/>
+                </a>
+                <a ng-show="!isShow" href="#">
+                    {{userProfile.userName}} <img src="../../../content/images/icons/default_UserProfile_Image.png" alt="{{userProfile.userName}}" />
+                </a>
+                <ul>
+                    <li><a href="javascript:void(0)" data-ng-click="myAccount();">My Account</a></li>
+                    <li><a data-ng-click="logout();">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>

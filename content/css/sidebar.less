@@ -1,0 +1,266 @@
+﻿
+@import url(http://fonts.googleapis.com/css?family=Oxygen+Mono);
+
+#cssmenu {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    line-height: 1;
+    width: 60px;
+    background: #3d3935;
+    zoom: 1;
+    font-size: 14px;
+
+    a.home:hover span, li.active a.home span {
+        background: url(../images/icons/icon0s.png) top center no-repeat;
+    }
+
+    a.sce:hover span, li.active a.sce span {
+        background: url(../images/icons/icon1s.png) top center no-repeat;
+    }
+
+    a.asm:hover span, li.active a.asm span {
+        background: url(../images/icons/icon3s.png) top center no-repeat;
+    }
+
+    a.admin:hover span, li.active a.admin span {
+        background: url(../images/icons/icon4s.png) top center no-repeat;
+    }
+
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        z-index: 597;
+        float: left;
+
+        li.hover, li:hover {
+            position: relative;
+            z-index: 599;
+            cursor: default;
+        }
+
+        li {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            min-height: 50px;
+            line-height: 1em;
+            vertical-align: middle;
+            position: relative;
+            float: none;
+        }
+
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            visibility: hidden;
+            position: absolute;
+            z-index: 598;
+            width: 99%;
+            width: 155px;
+            top: 0px;
+            left: 100%;
+            background-color: #3d3935;
+
+            li {
+                float: none;
+                font-weight: normal;
+            }
+
+            ul {
+                top: -2px;
+                right: 0;
+            }
+
+            li.first {
+                -webkit-border-radius: 0 3px 0 0;
+                -moz-border-radius: 0 3px 0 0;
+                border-radius: 0 3px 0 0;
+            }
+
+            li.last {
+                -webkit-border-radius: 0 0 3px 0;
+                -moz-border-radius: 0 0 3px 0;
+                border-radius: 0 0 3px 0;
+                border-bottom: 0;
+            }
+
+            a {
+                font-size: 14px;
+                color: #8a8a8a;
+            }
+
+            li:hover {
+                background-color: #3d3935;
+            }
+        }
+
+        li:hover > a {
+            color: #00a19c;
+            background-color: #2d2c2b;
+        }
+
+        li:hover > ul {
+            visibility: visible;
+        }
+
+        li.has-sub > a:after {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            margin-top: -6px;
+        }
+    }
+
+    a {
+        display: block;
+        padding: 23px 20px;
+        color: #8a8a8a;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    > ul {
+        width: 60px;
+
+        > li > ul > li.active > a, > li.active > a, > li a:hover, > li:hover a:hover {
+            background: #2d2c2b;
+            color: #00a19c;
+        }
+
+        > li > a {
+            min-height: 60px;
+            color: #8a8a8a;
+            font-weight: 500;
+        }
+
+        > li > a:hover {
+            color: #8a8a8a;
+            font-weight: 500;
+        }
+
+        > li.active a {
+            background: #3d3935;
+        }
+    }
+
+    li {
+        position: relative;
+    }
+
+    a.home {
+        border-bottom: 1px solid #4f4f4f;
+        padding: 10px 5px;
+        min-height: 55px !important;
+
+        span {
+            display: block;
+            margin-top: 6px;
+            padding-top: 24px;
+            height: 0px !important;
+            background: url(../images/icons/icon0.png) top center no-repeat;
+            text-align: center;
+        }
+    }
+
+    a.sce {
+        border-bottom: 1px solid #4f4f4f;
+        padding: 14px 5px;
+
+        span {
+            display: block;
+            padding-top: 29px;
+            height: 46px;
+            background: url(../images/icons/icon1.png) top center no-repeat;
+            text-align: center;
+        }
+    }
+
+    a.asm {
+        border-bottom: 1px solid #4f4f4f;
+        padding: 13px 5px;
+
+        span {
+            display: block;
+            padding-top: 30px;
+            height: 47px;
+            background: url(../images/icons/icon3.png) top center no-repeat;
+            text-align: center;
+        }
+    }
+
+    a.admin {
+        border-bottom: 1px solid #4f4f4f;
+        padding: 12px 5px;
+
+        span {
+            display: block;
+            padding-top: 34px;
+            height: 51px;
+            background: url(../images/icons/icon4.png) top center no-repeat;
+            text-align: center;
+        }
+    }
+}
+
+#cssmenu:before {
+    content: '';
+    display: block;
+}
+
+#cssmenu:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+#cssmenu.align-right {
+    float: right;
+
+    > ul > li > a {
+        border-left: 4px solid #1b9bff;
+        border-right: none;
+    }
+
+    li {
+        text-align: right;
+    }
+
+    ul li.has-sub > a:before {
+        position: absolute;
+        top: 50%;
+        left: 15px;
+        margin-top: -6px;
+    }
+
+    ul li.has-sub > a:after {
+        content: none;
+    }
+
+    ul ul {
+        visibility: hidden;
+        position: absolute;
+        top: 0;
+        left: -100%;
+        z-index: 598;
+        width: 100%;
+        -webkit-border-radius: 3px 0 0 3px;
+        -moz-border-radius: 3px 0 0 3px;
+        border-radius: 3px 0 0 3px;
+
+        li.first {
+            -webkit-border-radius: 3px 0 0 0;
+            -moz-border-radius: 3px 0 0 0;
+            border-radius: 3px 0 0 0;
+        }
+
+        li.last {
+            -webkit-border-radius: 0 0 0 3px;
+            -moz-border-radius: 0 0 0 3px;
+            border-radius: 0 0 0 3px;
+        }
+    }
+}

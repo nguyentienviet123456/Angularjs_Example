@@ -1,0 +1,43 @@
+﻿<div class="asm-box">
+    <h4 class="box-title">
+        <a href="#" class="visible-button">Application <i class="icon-arr-down visible-button"></i></a>
+    </h4>
+    <div class="box-body">
+        <h4 class="group_title">Requisition</h4>
+        <div data-ng-if="!visibleButton.updateRequireUpdateApplicant">
+            <section>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <h5 class="control-label">Alarm Class</h5>
+                    </div>
+                    <div class="col-xs-8">
+                        <p data-ng-bind="model.asmDetail.alarmClass"></p>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <h5 class="control-label">Type</h5>
+                    </div>
+                    <div class="col-xs-8">
+                        <p data-ng-bind="model.asmDetail.type"></p>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <h5 class="control-label">Reviewer</h5>
+                    </div>
+                    <div class="col-xs-8">
+                        <p><a data-ng-href="/profile/{{model.reviewer.userProfileId}}" data-ng-bind="model.reviewer.userName"></a><br><span data-ng-bind="model.reviewer.staffNo"></span></p>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div data-ng-if="visibleButton.updateRequireUpdateApplicant">
+            <data-ng-include src="'app/views/modules/asm/asm_require_update.html'" ></data-ng-include>
+        </div>
+    </div>
+</div>

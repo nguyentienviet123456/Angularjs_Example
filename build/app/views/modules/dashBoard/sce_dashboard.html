@@ -1,0 +1,293 @@
+<style>
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button { 
+        -webkit-appearance: none; 
+        margin: 0; 
+    }
+     .switch {
+         position: relative;
+         display: inline-block;
+         width: 60px;
+         height: 28px;
+     }
+
+    .switch input {
+        display: none;
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 23px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        top: 3px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+        text-align: center;
+    }
+
+    input:checked + .slider {
+        background-color: #2196F3;
+    }
+
+    input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 34px;
+    }
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
+</style>
+<div id="wrapper">
+    <div class="ng-scope" id="Panel">
+        <div class="panel_content panel_dashboard">
+            <!-- Right Column -->
+            <div class="col-right">
+                <div class="panel_head cf">
+                    <div class="panel_head_right">
+                        <a class="btn btn-sd btn-sm" data-ng-hide="hideActionCreateNewSce" href="javascript:void(0)" data-ng-click="goToCreateSce($event)">Create New SCE</a>
+                    </div>
+                </div>
+                <div class="box_shadow box_side">
+                    <div class="box_side_head">
+                        <h5>Pending My Action</h5>
+                    </div>
+                    <div id="pending-action-tab" class="action_tab" kendo-tab-strip k-animation="false">
+                        <ul>
+                            <li class="k-state-active">SCE <span data-ng-bind="'('+ myPendingSce +')'"></span></li>
+                            <li>RA <span data-ng-bind="'(' + myPendingRa +')'"></span></li>
+                        </ul>
+                        <div>
+                            <ul>
+                                <li data-ng-repeat="sce in pendingSceDataSource">
+                                    <p data-ng-bind="sce.reason"></p>
+                                    <p><a data-ng-href="/sce_detail/{{sce.sceId}}" data-ng-bind="sce.status"></a></p>
+                                </li>
+                            </ul>
+                            <a href="/scelist">View all SCE listing -></a>
+                        </div>
+                        <div>
+                            <ul>
+                                <li data-ng-repeat="ra in pendingRaDataSource">
+                                    <p data-ng-bind="ra.reason"></p>
+                                    <p><a data-ng-href="/raDetail/{{ra.sceId}}/{{ra.raId}}" data-ng-bind="ra.status"></a></p>
+                                </li>
+                            </ul>
+                            <a href="/ra_list">View all RA listing -></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="box_shadow message_box" data-module="SCE" my-custom src="app/views/modules/message/message_box.html" data-ng-controller="messageBoxController">
+                </div>
+            </div><!-- Right Column -->
+            <!-- Form Box -->
+            <div class="col-left">
+                <div class="panel_head cf">
+                    <div class="panel_head_left">
+                        <h2 class="panel_title">Dashboard Safrty Critical Equipment (SCE)</h2>
+                    </div>
+                    <div class="panel_head_right k-content">
+                        <ul id="multipleAreasMenu" class="dropdown_block">
+                            <li>
+                                Multiple Areas
+                                <ul>
+                                    <li>
+                                        i
+                                        <div class="dropdown_item">
+                                            <h6>Select an area</h6>
+                                            <ul class="checkboxes">
+                                                <li data-ng-repeat="area in subscribedAreas">
+                                                    <label class="cb-lbl">
+                                                        <input type="checkbox" data-ng-disabled="area.isDefault" data-ng-model="area.isChecked" data-ng-change="$parent.selectedChange()" /><span data-ng-bind="area.areaName"></span>
+                                                    </label>
+                                                </li>
+                                            </ul>
+
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="dashboard_item">
+                    <div class="box_shadow">
+                        <div class="row_block row_sce">
+                            <div class="cell" data-ng-click="filter($event)" data-module="sce" data-status="9">
+                                <i class="icon-list-sce"></i>
+                                <h1 data-ng-bind="dashboard.sceRequiredUpdate"></h1>
+                                <div class="cell_text">
+                                    <h4>SCE</h4>
+                                    <p>Require Update</p>
+                                </div>
+                            </div>
+                            <div class="cell" data-ng-click="filter($event)" data-module="sce" data-status="2">
+                                <h2 data-ng-bind="dashboard.scePendingReview"></h2>
+                                <div class="cell_text">
+                                    <p>
+                                        Pending<br />
+                                        Review
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="cell" data-ng-click="filter($event)" data-module="sce" data-status="3">
+                                <h2 data-ng-bind="dashboard.scePendingEndorsement"></h2>
+                                <div class="cell_text">
+                                    <p>
+                                        Pending<br />
+                                        Endorsement
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="cell" data-ng-click="filter($event)" data-module="sce" data-status="4">
+                                <h2 data-ng-bind="dashboard.scePendingApproval"></h2>
+                                <div class="cell_text">
+                                    <p>
+                                        Pending<br />
+                                        Approval
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="cell" data-ng-click="filter($event)" data-module="sce" data-status="5">
+                                <h2 data-ng-bind="dashboard.scePendingAcknowledgement"></h2>
+                                <div class="cell_text">
+                                    <p>
+                                        Pending<br />
+                                        Acknowledgement
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box_shadow">
+                        <div class="row_block row_ra">
+                            <div class="cell" data-ng-click="filter($event)" data-module="ra" data-status="19">
+                                <i class="icon-list-ra"></i>
+                                <h1 data-ng-bind="dashboard.raRequiredUpdate"></h1>
+                                <div class="cell_text">
+                                    <h4>RA</h4>
+                                    <p>Require Update</p>
+                                </div>
+                            </div>
+                            <div class="cell" data-ng-click="filter($event)" data-module="ra" data-status="12">
+                                <h2 data-ng-bind="dashboard.raPendingReview"></h2>
+                                <div class="cell_text">
+                                    <p>
+                                        Pending<br />
+                                        Review
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="cell" data-ng-click="filter($event)" data-module="ra" data-status="13">
+                                <h2 data-ng-bind="dashboard.raPendingEndorsement"></h2>
+                                <div class="cell_text">
+                                    <p>
+                                        Pending<br />
+                                        Endorsement
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="cell" data-ng-click="filter($event)" data-module="ra" data-status="14">
+                                <h2 data-ng-bind="dashboard.raPendingApproval"></h2>
+                                <div class="cell_text">
+                                    <p>
+                                        Pending<br />
+                                        Approval
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="cell" data-module="ra" data-status="15">
+                                <h2></h2>
+                                <div class="cell_text">
+                                    <p>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box_shadow">
+                        <div class="row_block row_live_sce">
+                            <div class="cell" data-ng-click="filter($event)" data-module="sce" data-status="7">
+                                <h1 data-ng-bind="dashboard.liveSCE"></h1>
+                                <div class="cell_text">
+                                    <h4>LIVE SCE</h4>
+                                </div>
+                            </div>
+                            <div class="cell">
+                                <div id="sceLivePieChart" style="position:absolute!important"></div>
+                            </div>
+                            <div class="cell" data-ng-click="filter($event)" data-module="sce" data-status="7" data-pending-re-acknowledge="true">
+                                <h2 data-ng-bind="dashboard.livePendingReAcknowlegement"></h2>
+                                <div class="cell_text">
+                                    <p>
+                                        Pending<br />
+                                        Re-Acknowledgement
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="cell" data-ng-click="filter($event)" data-module="sce" data-status="7" data-pending-re-approve="true">
+                                <h2 data-ng-bind="dashboard.livePendingReApproval"></h2>
+                                <div class="cell_text">
+                                    <p>
+                                        Pending <br />
+                                        Re-Approval
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="cell" data-ng-click="filter($event)" data-module="sce" data-status="7" data-pending-moc="true">
+                                <h2 data-ng-bind="dashboard.livePendingMOC"></h2>
+                                <div class="cell_text">
+                                    <p>Pending MOC</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard_chart box_shadow">
+                    <div id="barChart"></div>
+                </div>
+                <!--<div ng-show="isAdmin" class="box_shadow">
+                    <form class="form-horizontal">
+                        <div class="form-group" style="margin-left: 0px;">
+                            <label class="switch col-md-1 control-label">
+                                <input id="reloadMode" name="reloadMode" type="checkbox"/>
+                                <span class="slider round"></span>
+                            </label>
+                            <div ng-show="isShow" class="col-md-2 input-group" style="padding-left: 16px;">
+                                <span class="input-group-addon"><i class="fa fa-refresh" aria-hidden="true"></i></span>
+                                <input style="height: 28px; width: 30%;" class="form-control" id="delay" type="number" ng-blur="setDelay()" ng-model="delay"/>
+                            </div>
+                        </div>
+                    </form>
+                    <div class='reload-page'></div>
+                </div>-->
+            </div>
+        </div>
+    </div>
+</div>

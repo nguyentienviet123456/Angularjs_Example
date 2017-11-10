@@ -1,0 +1,29 @@
+<div class="asm-box">
+    <h4 class="box-title">
+        <a href="#" class="visible-button">Close<i class="icon-arr-down visible-button"></i></a>
+    </h4>
+    <div class="box-body">
+        <div class="box_inner">
+            <div class="box_inner_head">
+                <h5>CLOSED BY</h5>
+            </div>
+            <div class="box_inner_content block">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <p class="ng-binding text_avatar">
+                            <img src="data:image/jpg;base64,{{model.asmDetail.applicantImage}}" alt="{{model.asmDetail.applicantUserName}}" />
+                            <span class="k-state-default">
+                                <a data-ng-href="/profile/{{model.asmDetail.closedBy}}" data-ng-bind="model.asmDetail.applicantUserName"></a>
+                                <br />{{model.asmDetail.closedDateTime| date : "dd MMM yyyy 'at' h:mma"}}
+                            </span>
+                        </p>
+                    </div>
+                    <div class="col-xs-6 text-right" style="margin-top:16px">
+                        <label data-ng-bind-template="{{model.asmDetail.closureReason}}">
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

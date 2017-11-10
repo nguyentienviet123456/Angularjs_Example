@@ -1,0 +1,124 @@
+﻿<div id="Panel">
+    <div class="panel_head cf">
+        <div class="panel_head_left">
+            <h2 class="panel_title"> <span data-ng-hide="!$app.userProfile.isAdmin" class="panel_icon">ADMIN</span>SCE</h2>
+        </div>
+        <div class="panel_head_right">
+            <span class="k-textbox k-space-right" style="width: 300px">
+                <input type="text" class="input-search-form" data-ng-model="model.tagNo" data-ng-keypress="searchByTagNo($event)" placeholder="Search by Tag No." />
+                <a data-ng-click="searchByTagNoClick()" class="k-icon icon-search">&nbsp;</a>
+            </span>
+        </div>
+    </div>
+    <div class="panel_content">
+        <kendo-grid class="sce-listing" options="mainGridOptions">
+        </kendo-grid>
+        <button class="btn btn-success" data-ng-click="exportFile()">Export All SCE</button>
+    </div>
+</div>
+<form id="transfer-sce" kendo-validator="transfer_sce_validator">
+    <div id="transfer-dialog" kendo-dialog="transferDialog" k-title="'Transfer SCE'" k-on-open="dialogVisible = true"
+         k-on-close="dialogVisible = false" k-width="490" k-actions="transferSceAction" k-modal="true" k-visible="false">
+        <ul class="review_listing">
+            <li>
+                Transferring SCE to a new applicant will remove you from this SCE. This action will be irreversible. You will still be able to view this SCE
+            </li>
+            <li>
+                <div class="control-label">Transfer to New Applicant</div>
+                <select kendo-drop-down-list
+                        id="sce-new-applicant"
+                        class="txt dd_avatar"
+                        name="newApplicant"
+                        required
+                        data-required-msg="New Applicant is required"
+                        k-options="newApplicantForApplicantOptions"
+                        k-ng-model="transferSceModel.newApplicantId"
+                        k-filter="'contains'"
+                        k-value-primitive="true"></select>
+            </li>
+            <li>
+                <div class="control-label">Comment <span>(optional)</span></div>
+                <textarea rows="5" class="k-editor-textarea txt" data-ng-model="transferSceModel.comment" maxlength="2000"></textarea>
+            </li>
+        </ul>
+    </div>
+</form>
+<div id="sceTransferRoles" kendo-dialog="sceTransferRolesKendoDiaglog" k-title="'Transfer Roles...'" k-on-open="dialogVisible = true"
+     k-on-close="dialogVisible = false" k-width="435"
+     k-actions="sceTransferRoles" k-modal="true" k-visible="false">
+    <form id="sceTransferRolesForm" kendo-validator="validators.sceTransfer">
+        <ul class="review_listing">
+            <li>
+                <div class="control-label">Applicant</div>
+                <select kendo-drop-down-list
+                        class="dd_avatar txt"
+                        k-options="newApplicantOptions"
+                        k-ng-model="applicantToTransfer"></select>
+            </li>
+            <li data-ng-show="pendingReview">
+                <div class="control-label">Reviewer</div>
+                <select kendo-drop-down-list
+                        id="transfer-review"
+                        class="dd_avatar txt"
+                        k-options="reviewerForTransferOptions"
+                        k-ng-model="reviewerToTransfer"></select>
+            </li>
+            <li data-ng-show="pendingEndorse">
+                <div class="control-label">Endorser</div>
+                <select kendo-drop-down-list
+                        class="dd_avatar txt"
+                        k-options="endorserOptions"
+                        k-ng-model="endorserToTransfer"></select>
+            </li>
+            <li data-ng-show="pendingApprove">
+                <div class="control-label">Approver</div>
+                <select kendo-drop-down-list
+                        class="dd_avatar txt"
+                        data-required-msg="Approver is required"
+                        k-options="approverOptions"
+                        k-ng-model="approverToTransfer"></select>
+            </li>
+            <li>
+                <div class="control-label">
+                    Comment <span>(optional)</span>
+                </div>
+                <textarea rows="5" class="k-editor-textarea txt" data-ng-model="adminComment" maxlength="2000"></textarea>
+            </li>
+        </ul>
+    </form>
+</div>
+<div id="transferResultForm" kendo-dialog="transferResultDialog" k-title="'SCE Roles Transferred'" k-on-open="dialogVisible = true"
+     k-on-close="dialogVisible = false" k-width="435"
+     k-actions="transferResultActions" k-modal="true" k-visible="false">
+    <p>The following SCE roles are now transferred and the new person in charge is notified.</p>
+    <ul class="review_listing">
+        <li data-ng-show="applicantIsTransfered">
+            <div class="control-label">New Applicant</div>
+            <p class="text_avatar k-state-default">
+                <img data-ng-src="data:image/jpeg;base64,{{applicantToTransfer.image}}" alt="{{applicantToTransfer.userName}}" />
+                <a data-ng-href="/profile/{{applicantToTransfer.userProfileId}}" data-ng-bind="applicantToTransfer.userName"></a>
+            </p>
+        </li>
+        <li data-ng-show="reviewerIsTransfered">
+            <div class="control-label">New Reviewer</div>
+            <p class="text_avatar">
+                <img data-ng-src="data:image/jpeg;base64,{{reviewerToTransfer.image}}" alt="{{reviewerToTransfer.userName}}" />
+                <a data-ng-href="/profile/{{reviewerToTransfer.userProfileId}}" data-ng-bind="reviewerToTransfer.userName"></a>
+            </p>
+        </li>
+        <li data-ng-show="endorserIsTransfered">
+            <div class="control-label">New Endorser</div>
+            <p class="text_avatar">
+                <img data-ng-src="data:image/jpeg;base64,{{endorserToTransfer.image}}" alt="{{endorserToTransfer.userName}}" />
+                <a data-ng-href="/profile/{{endorserToTransfer.userProfileId}}" data-ng-bind="endorserToTransfer.userName"></a>
+            </p>
+        </li>
+        <li data-ng-show="approverIsTransfered">
+            <div class="control-label">New Approver</div>
+            <p class="text_avatar">
+                <img data-ng-src="data:image/jpeg;base64,{{approverToTransfer.image}}" alt="{{approverToTransfer.userName}}" />
+                <a data-ng-href="/profile/{{approverToTransfer.userProfileId}}" data-ng-bind="approverToTransfer.userName"></a>
+            </p>
+        </li>
+    </ul>
+</div>

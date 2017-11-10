@@ -1,0 +1,112 @@
+﻿/* Control switch*/
+.switch {
+    & + .switch {
+        margin: 0;
+    }
+
+    label {
+        display: block;
+        padding-right: 80px;
+        font-size: 14px;
+        line-height: 20px;
+        color: #4d4d4d;
+        vertical-align: middle;
+        margin: 0;
+        font-weight: 300;
+
+        strong {
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+    }
+
+    .k-switch {
+        position: absolute;
+        border: 0 none;
+        height: 22px;
+        width: 65px;
+        background: #717171;
+        border-radius: 1px;
+        padding: 2px 0;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+
+        &.k-switch-off {
+            background: #717171;
+        }
+
+        &.k-switch-on {
+            background: #3dada9;
+        }
+
+        .km-switch-container {
+            border: 0 none;
+            padding: 0;
+            background: none;
+            border-radius: 0;
+
+            .k-switch-handle {
+                width: 25px;
+                height: 22px;
+                border: 0 none;
+                background: #ffffff;
+                border-radius: 1px;
+                margin: 2px;
+                color: transparent;
+                -webkit-box-shadow: none;
+                -moz-box-shadow: none;
+                box-shadow: none;
+
+                & > span {
+                    font-size: 12px;
+                    line-height: 22px;
+                    font-weight: 700;
+                    width: 40px;
+                    top: 0;
+                }
+            }
+        }
+
+        .km-switch-wrapper {
+            border: 0 none;
+            background: none;
+            border-radius: 0;
+
+            .km-switch-background {
+                color: transparent;
+                background: none;
+            }
+        }
+    }
+}
+
+.switch.type-switch-enable-disabled {
+    .k-switch {
+        width: 100px;
+
+        .km-switch-container {
+            .k-switch-handle > span {
+                padding-left: 10px !important;
+            }
+        }
+
+        .km-switch-label-on {
+            left: -271% !important;
+        }
+    }
+}
+
+.review_listing {
+    .switch {
+        border-bottom: 1px solid #eff0f1;
+        position: relative;
+        padding: 10px 0;
+
+        .k-switch {
+            right: 0 !important;
+            top: 7px !important;
+        }
+    }
+}
+/* End control switch*/

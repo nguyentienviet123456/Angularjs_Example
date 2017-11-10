@@ -1,0 +1,77 @@
+<div id="Panel">
+    <div class="panel_head cf">
+        <div class="panel_head_left">
+            <h2 class="panel_title"><span class="panel_icon">ADMIN</span>Messages</h2>
+        </div>
+        <div class="panel_head_right">
+            <span class="k-textbox k-space-right" style="width: 300px">
+                <input type="text" class="input-search-form" data-ng-model="model.messageSearch" data-ng-keypress="search($event)" placeholder="Search by Messages." />
+                <a data-ng-click="searchClick()" class="k-icon icon-search">&nbsp;</a>
+            </span>
+        </div>
+    </div>
+    <div class="panel_content">
+        <div class="message_box">
+            <div class="message_wrapper cf" data-ng-hide="hideContent">
+                <div class="message_left">
+                    <div class="box_title">
+                        <h2>List of Area</h2>
+                    </div>
+                    <ul class="message_control">
+                        <li data-ng-repeat="item in listOfArea" data-ng-class="item.class" class="dd" data-ng-init="listOfAreaExpand[$index]=false">
+                            <!--<div class="box_title">-->
+                                <a class="visible-button" href="#" data-ng-click="listOfAreaExpand[$index]=!listOfAreaExpand[$index]"><span data-ng-bind="item.moduleName"></span> <i data-ng-class="{'icon-arr-up':listOfAreaExpand[$index],'icon-arr-down':!listOfAreaExpand[$index]}"></i></a>
+                            <!--</div>-->
+                            <div class="box-body slide" data-ng-show="listOfAreaExpand[$index]">
+                                <ul class="list_of_area dropdown_menu">
+                                    <li data-ng-repeat="area in item.areaView" data-ng-class="area.class" data-ng-click="selectArea($event,item,area.areaId);">
+                                        <div class="item_area">
+                                            <h3>Area <span data-ng-bind="area.areaName"></span></h3>
+                                            <span class="time" data-ng-bind="getTimeLine(area.createdDateTime)"></span>
+                                            <p>{{area.userName}}:<span data-ng-bind-html="area.message"></span></p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="message_right">
+                    <div class="box_title">
+                        <h2>Area <span data-ng-bind="messageBox.areaName"></span></h2>
+                        <p data-ng-bind="messageBox.timeLine"></p>
+                        <a href="javascript:void(0)" data-ng-hide="hideEditMessage" data-ng-click="editMessage($event);"><i class='icon-pencil'></i> Edit Message</a>
+                    </div>
+                    <div class="box_body message_content">
+                        <div class="message_box_wrapper" data-ng-hide="hideMessageWrapper">
+                            <ul data-control="scroll" class="message_list" data-ng-class="(hideEditMessage==true?'edit_message':'')">
+                                <li data-ng-repeat="item in listMessage track by $index" data-ng-class="(item.checked == true && (item.userName +'').toLowerCase() =='me')?'active own':((item.userName +'').toLowerCase() =='me'?'own':(item.checked == true? 'active':''))">
+                                    <input type='checkbox' data-ng-hide="!hideEditMessage" class='checkbox' data-ng-click="changeCheckBox();" data-ng-model='item.checked' />
+                                    <div class="message_list_inner {{item.class}}">
+                                        <h5>{{item.userName}}</h5>
+                                        <p data-ng-bind-html="item.description"></p>
+                                    </div>
+                                    <p class="time" data-ng-bind="getTimeLine(item.createdDateTime)"></p>
+                                </li>
+                            </ul>
+                            <div id="MessageBottom">
+                                <div class="message_box_submit" data-ng-hide="hideEditMessage">
+                                    <textarea type="text" data-ng-disabled="model.areaId==''" placeholder="Type your message..." maxlength="1000" data-maxlength-msg="Max length is 1000" data-ng-model="model.message" class="k-textbox txt"></textarea>
+                                    <button class="btn btn-sd" data-ng-disabled="model.areaId==''||(model.message +'').trim()==''" data-ng-click="sendMessage();">Send</button>
+                                </div>
+                                <div class="message_box_delete" data-ng-hide="!hideEditMessage">
+                                    <a href="javascript:void(0)" data-ng-click="cancelDelete($event);" class="cancel_delete"><i class='icon-close'></i></a>
+                                    <p><strong class="count_message_selected">{{countSelect}} message</strong> selected</p>
+                                    <a class="delete_message" href="javascript:void(0)" data-ng-click="deleteMessage($event);"><i class="icon-delete"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="message_wrapper cf" data-ng-hide="!noItem">
+                There is no message.
+            </div>
+        </div>
+    </div>
+</div>

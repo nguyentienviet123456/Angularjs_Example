@@ -1,0 +1,112 @@
+<div id="Panel">
+    <div class="panel_head cf">
+        <div class="panel_head_left">
+            <h2 class="panel_title"><span class="panel_icon">ADMIN</span>New User</h2>
+        </div>
+    </div>
+    <div class="panel_content panel_action_bar panel_full">
+        <form class="profile" kendo-validator="userFormValid">
+            <div class="col-left">
+                <div class="form_block box_shadow">
+                    <h3 class="flow_title">User Profile</h3>
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="user_intro">
+                                    <h5 class="lbl">Name</h5>
+                                    <select name="user" id="user" kendo-drop-down-list
+                                            class="txt dd_avatar"
+                                            k-on-change="onUserIdChange()"
+                                            k-options='userSearch'
+                                            k-ng-model="userSelect"
+                                            required
+                                            data-required-msg="Name is required" />
+                                    <span class="k-invalid-msg" data-for="user"></span>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <h5 class="lbl">Dept</h5>
+                                        <p class="ng-binding" data-ng-bind="model.dept"></p>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <h5 class="lbl">Division</h5>
+                                        <p class="ng-binding" data-ng-bind="model.division" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <h5 class="lbl">Office Telephone</h5>
+                                        <p class="ng-binding" data-ng-bind="model.contactNo" />
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <h5 class="lbl">Mobile No.</h5>
+                                        <input id="mobileNo" name="mobileNo" pattern="^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$" validationMessage="Please enter a ten digit phone number" maxlength="50" data-maxlength-msg="Max length is 50" type="text" data-ng-model="model.mobileNo" class="k-textbox col-xs-12 txt" />
+                                        <span class="k-invalid-msg" data-for="mobileNo"></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <h5 class="lbl">Area</h5>
+                                        <select name="area" id="area" kendo-drop-down-list
+                                                k-on-change="onAreaChange()"
+                                                style='width:100%;'
+                                                class="txt"
+                                                k-options='areaOption'
+                                                k-ng-model="model.area"
+                                                k-value-primitive="true"
+                                                required
+                                                data-required-msg="Area is required" />
+                                        <span class="k-invalid-msg" data-for="area"></span>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <h5 class="lbl">Position</h5>
+                                        <input id="position" name="position" maxlength="100" data-maxlength-msg="Max length is 100" type="text" data-ng-model="model.position" class="k-textbox col-xs-12 txt" />
+                                        <span class="k-invalid-msg" data-for="position"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </div>
+                <div class="form_block box_shadow">
+                    <h3 class="flow_title">Subscription</h3>
+                    <fieldset>
+                        <h4 class="group_title">Area</h4>
+                        <ul class="checkboxes">
+                            <li data-ng-repeat="model in listArea track by $index">
+                                <label class="cb-lbl">
+                                    <input type='checkbox' required name="listArea" data-required-msg="Subscription Area is required" data-ng-disabled='listArea[$index].disabled' data-ng-model='listArea[$index].checked' /> <span> {{model.description}}</span>
+                                </label>
+                            </li>
+                        </ul>
+                        <span class="k-invalid-msg" data-for="listArea"></span>
+                    </fieldset>
+                </div>
+                <div class="form_block box_shadow">
+                    <h3 class="flow_title">User Roles</h3>
+                    <fieldset>
+                        <div data-ng-repeat="model in listRolesIncludeModule track by $index">
+                            <h4 class="group_title">{{model.moduleName}}</h4>
+                            <ul class="checkboxes">
+                                <li data-ng-repeat="item in model.roles track by $index">
+                                    <label class="cb-lbl">
+                                        <input type='checkbox' required name="listRolesIncludeModule" data-required-msg="User Roles is required" data-ng-model='$parent.listRolesIncludeModule[$parent.$index].roles[$index].checked' /> <span> {{item.description}}</span>
+                                    </label>
+
+                                </li>
+                            </ul>
+                        </div>
+                        <span class="k-invalid-msg" data-for="listRolesIncludeModule"></span>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="action_bar cf">
+                <div class="action_button">
+                    <button class="btn-sd btn-sd-ghost k-button" type="submit" data-ng-click="discard($event)">Discard</button>
+                    <button class="btn-sd btn-sd-ghost k-button" type="submit" data-ng-click="saveData($event)">Create</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

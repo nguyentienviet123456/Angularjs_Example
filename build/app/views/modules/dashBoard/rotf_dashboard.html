@@ -1,0 +1,32 @@
+<div class="cf rotf" id="TopMenu">
+    <ul class="top_menu">
+        <li class="menu_item" ng-class="{ active: isTabActived('rotfdashboard.overview')}">
+            <a class="active" ui-sref="rotfdashboard.overview">Overview</a>
+            <span class="landing" ng-class="{ active: isTabActived('rotfdashboard.overview')}"></span>
+        </li>
+        <li class="menu_item">
+            <a>Hightlights</a>
+            <span class="landing"></span>
+        </li>
+        <li class="menu_item" ng-class="{ active: isTabActived('rotfdashboard.operation') }">
+            <a ui-sref="rotfdashboard.operation">Operations</a>
+            <span class="landing" ng-class="{ active: isTabActived('rotfdashboard.operation') }"></span>
+        </li>
+    </ul>
+
+    <div class="statistics_info">
+        <div class="statistic_info" ng-repeat="npat in NPATList">
+            <div>
+                <span class="name">{{npat.name}}</span>
+                <span class="unit">{{npat.unit}}</span>
+            </div>
+
+            <span class="value">{{npat.value}}</span>
+        </div>
+    </div>
+</div>
+
+<!-- Main view for Overview, Highlight, Operation  --> 
+<ui-view></ui-view>
+
+

@@ -1,0 +1,683 @@
+<div id="Panel">
+    <div class="panel_content panel_action_bar">
+        <!-- Floating Process Flow -->
+        <div class="process_flow affix_top box_shadow" data-offset="50">
+            <process-flow status="{{status}}" title="Shelving Process Flow"></process-flow>
+        </div>
+        <!-- End Floating Process Flow -->
+        <!-- Form Box -->
+        <div class="col-left">
+            <div class="box_shadow">
+                <div class="box_head block cf" data-ng-class="{'box_head_grey': checkStatusTitle.Closed }">
+                    <h6><strong data-ng-bind="'ASM'"></strong> <span data-ng-bind="model.asmDetail.alarmNo"></span></h6>
+                    <p data-ng-bind="model.asmDetail.description"></p>
+                    <div class="dd_options">
+                        <div class="dd_block">
+                            <button class="dropdown_toggle dd_dotv" type="button"><i class="icon-dotv"></i></button>
+                            <ul class="dropdown_menu">
+                                <li data-ng-if="checkUserRole.asmAdmin"><data-ng-include src="'app/views/modules/asm/asm_transferRole.html'"></data-ng-include></li>
+                                <li data-ng-if="checkIsApplicant && checkUserRole.asmApplicant"><data-ng-include src="'app/views/modules/asm/asm_transfer.html'"></data-ng-include></li>                                                                
+                                <li data-ng-show="(model.asmDetail.statusKey)>=26"><a href="#" data-ng-click="copyAlarm()">Copy Alarm</a></li>
+                                <li data-ng-show="visibleButton.adminCancelMoc || visibleButton.applicantCancelMoc"><a href="#" data-ng-click="cancelMOC($event)">Cancel Moc</a></li>
+                                <li data-ng-show="visibleButton.adminCancelAsm || visibleButton.applicantCancelAsm"><a href="#" data-ng-click="cancelAsm($event)">Cancel ASM</a></li>
+                                <li data-ng-show="(model.asmDetail.statusKey)>=28"><a href="#" data-ng-click="asmPrint()">Print</a></li>
+                                <li><a href="#" data-ng-click="statusLog()">Status Log</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="box_highlight block cf">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <h4 data-ng-bind="statusTitle"></h4>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="(model.asmDetail.isRequiredUpdate === true) && (status === 'Review')">
+                        <div class="col-xs-3">
+                            <h5 class="control-label" data-ng-bind="model.endorser.status === true ? 'Approval Status' : 'Endorsement Status'"></h5>
+                            <p>Rejected</p>
+                        </div>
+                        <div class="col-xs-3">
+                            <h5 class="control-label">Action by</h5>
+                            <p>
+                                <a data-ng-href="/profile/{{model.endorser.status === true ? model.approver.userProfileId  : model.endorser.userProfileId}}"><strong data-ng-bind="model.endorser.status === true ? model.approver.userName  : model.endorser.userName"></strong></a><br><span data-ng-bind="model.endorser.status === true ? model.approver.staffNo  : model.endorser.staffNo"></span>
+                            </p>
+                        </div>
+                        <div class="col-xs-3">
+                            <h5 class="control-label">Comment</h5>
+                            <p data-ng-bind="model.endorser.status === true ? model.approver.remarks : model.endorser.remarks"></p>
+                        </div>
+                    </div>
+                    <div class="row" data-ng-if="status === 'Application'">
+                        <div class="col-xs-3">
+                            <h5 class="control-label">Review Status</h5>
+                            <p>Rejected</p>
+                        </div>
+                        <div class="col-xs-3">
+                            <h5 class="control-label">Action by</h5>
+                            <p>
+                                <a data-ng-href="/profile/{{ model.reviewer.userProfileId }}"><strong data-ng-bind="model.reviewer.userName"></strong></a><br><span data-ng-bind="model.reviewer.staffNo"></span>
+                            </p>
+                        </div>
+                        <div class="col-xs-3">
+                            <h5 class="control-label">Comment</h5>
+                            <p data-ng-bind="model.reviewer.remarks"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="block">
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Area</h5>
+                            <p data-ng-bind="model.asmDetail.areaName"></p>
+                        </div>
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Unit</h5>
+                            <p data-ng-bind="model.asmDetail.unitNo"></p>
+                        </div>
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Tag No.</h5>
+                            <p data-ng-bind="(model.asmDetail.tagNo == null || model.asmDetail.tagNo == '') ? model.asmDetail.otherTagNo : model.asmDetail.tagNo"></p>
+                        </div>
+                        <div class="col-xs-3">
+                            <h5 class="control-label">Equipment No.</h5>
+                            <p data-ng-bind="model.asmDetail.equipmentNo"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Application Date</h5>
+                            <p data-ng-bind="model.asmDetail.asmSubmissionDate | date: 'dd MMM yyyy'"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="block">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <h5 class="control-label">Applicant</h5>
+                            <p class="ng-binding text_avatar">
+                                <img data-ng-src="data:image/jpg;base64,{{model.applicant.image}}" alt="{{model.applicant.userName}}" />
+                                <a data-ng-href="/profile/{{model.applicant.userProfileId}}" data-ng-bind="model.applicant.userName"></a><br>
+                                <span data-ng-bind="model.asmDetail.applicantStaffNo"></span>
+                            </p>
+                        </div>
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Dept</h5>
+                            <p data-ng-bind="model.asmDetail.applicantDept"></p>
+                        </div>
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Office Telephone</h5>
+                            <p data-ng-bind="model.asmDetail.applicantOfficeTel"></p>
+                        </div>
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Mobile No.</h5>
+                            <p data-ng-bind="model.asmDetail.applicantMobileNo"></p>
+                        </div>
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Radio</h5>
+                            <p data-ng-bind="model.asmDetail.radio"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="foot_info text-right">
+                <p class="ng-binding">Created by <a data-ng-href="/profile/{{model.applicant.userProfileId}}" data-ng-bind="model.applicant.userName"></a> | Last update <span data-ng-bind="model.asmDetail.modifiedDateTime | date: 'dd MMM yyyy'"></span> at <span data-ng-bind="model.asmDetail.modifiedDateTime | date: 'h:mm a'"></span></p>
+            </div>
+            <div class="panel_head cf panel_head_middle">
+                <div class="panel_head_left">
+                    <h6 class="panel_title text-uppercase">process flow</h6>
+                </div>
+                <div class="panel_head_right">
+                    <a href="#" id="toogleBody" class="visible-button">Expand All</a>
+                </div>
+            </div>
+            <div class="box_shadow">
+                <!--Application session-->
+                <div data-ng-if="showSection.Application" class="asm-box">
+                    <data-ng-include src="'app/views/modules/asm/asm_application.html'"></data-ng-include>
+                </div>
+                <div data-ng-if="showSection.Review" class="asm-box">
+                    <data-ng-include src="'app/views/modules/asm/asm_review_update_require.html'"></data-ng-include>
+                </div>
+                <div data-ng-if="showSection.Endorsement" class="asm-box">
+                    <data-ng-include src="'app/views/modules/asm/asm_endorse.html'"></data-ng-include>
+                </div>
+                <div data-ng-if="showSection.Approval" class="asm-box">
+                    <data-ng-include src="'app/views/modules/asm/asm_approve.html'"></data-ng-include>
+                </div>
+                <div data-ng-if="showSection.Live" class="asm-box">
+                    <data-ng-include src="'app/views/modules/asm/asm_live.html'"></data-ng-include>
+                </div>
+                <div data-ng-if="showSection.MocApplication" class="asm-box">
+                    <data-ng-include src="'app/views/modules/asm/asm_moc_application.html'"></data-ng-include>
+                </div>
+                <div data-ng-if="showSection.MocApplicationUpdate" class="asm-box">
+                    <data-ng-include src="'app/views/modules/asm/asm_moc_require_update.html'"></data-ng-include>
+                </div>
+                <div data-ng-if="showSection.MocApproval" class="asm-box">
+                    <data-ng-include src="'app/views/modules/asm/asm_moc_approval.html'"></data-ng-include>
+                </div>
+                <div data-ng-if="showSection.Close" class="asm-box">
+                    <data-ng-include src="'app/views/modules/asm/asm_close.html'"></data-ng-include>
+                </div>
+            </div>
+            <!--Moc Process Flow Session-->
+
+        </div>
+        <!--Moc process flow sessiong end-->
+    </div>
+</div>
+
+<div class="action_bar cf" data-ng-if="isPic">
+    <div class="action_status">
+        <h4 data-ng-bind="statusTitle"></h4>
+    </div>
+    <div class="action_applicant">
+        <h6 data-ng-bind="panelOperatorRole"></h6>
+        <p><strong data-ng-bind="userProfile.userName"></strong><br><span data-ng-bind="userProfile.staffNo"></span></p>
+    </div>
+    <div class="action_button">
+        <!-- cancel asm-->
+        <!--<button class="btn btn-sd btn-sd-ghost k-button" type="button" data-ng-show="(((checkIsApplicant && checkUserRole.asmApplicant) || checkUserRole.asmAdmin))" data-ng-click="cancelAsm($event)" data-ng-disabled="inProgress">Cancel ASM</button>-->
+        <!-- review-->
+        <button class="btn btn-sd btn-sd-ghost k-button" type="button" data-ng-if="visibleButton.rejectReview" data-ng-click="rejectReviewDialog.open()">Reject</button>
+        <button class="btn btn-sd btn-sd-ghost k-button" type="button" data-ng-if="visibleButton.review" data-ng-click="reviewDialog.open()">Approve</button>
+        <button class="btn btn-sd btn-sd-ghost k-button" type="button" data-ng-if="visibleButton.applicantCancelAsm" data-ng-click="cancelAsm($event)">Cancel ASM</button>
+        <!-- endorse-->
+        <button class="btn btn-sd btn-sd-ghost k-button" type="button" data-ng-if="visibleButton.rejectEndorse" data-ng-click="rejectEndorseDialog.open()">Reject</button>
+        <button class="btn btn-sd btn-sd-ghost k-button" type="button" data-ng-if="visibleButton.endorse" data-ng-click="approveEndorseDialog.open()">Endorse</button>
+        <!-- approve-->
+        <button class="btn btn-sd btn-sd-ghost k-button" type="button" data-ng-if="visibleButton.rejectApprove" data-ng-click="rejectApproveDialog.open()">Reject</button>
+        <button class="btn btn-sd btn-sd-ghost k-button" type="button" data-ng-if="visibleButton.approve" data-ng-click="approveDialog.open()">Approve</button>
+        <!-- require update by reviewer-->
+        <button class="btn btn-sd btn-sd-ghost k-button" type="button" data-ng-if="visibleButton.rejectByReviewer" data-ng-click="rejectReviewDialog.open()">Reject</button>
+        <button class="btn btn-sd btn-sd-ghost k-button" type="button" data-ng-if="visibleButton.submitForEndorser" data-ng-click="submitReviewUpdateDialog.open()" data-ng-disabled="inProgress">Submit for Endorsement</button>
+        <!-- require update by applicant-->
+        <button class="btn btn-sd btn-sd-ghost k-button" type="button" data-ng-if="visibleButton.submitForReview" data-ng-click="submitForReview($event, true)">Submit for Review</button>
+        <!-- shelving alarm-->
+        <button class="btn btn-sd btn-sd-ghost k-button" type="button" data-ng-if="visibleButton.shelve" data-ng-click="shelvingDialog.open()">Shelve</button>
+        <!--request moc-->
+        <button class="btn btn-sd btn-sd-ghost k-button" type="button" data-ng-if="visibleButton.requestMoc" data-ng-click="showSubmitMOCKendoDialog()">Request MOC</button>
+        <button class="btn btn-sd btn-sd-ghost k-button" type="button" data-ng-if="visibleButton.close" data-ng-click="closeAlarm($event)">Close</button>
+        <!--update moc-->
+        <button class="btn btn-sd btn-sd-ghost k-button" type="button" data-ng-if="visibleButton.updateMoc " data-ng-click="updateMOC($event)">Update for MOC Approval</button>
+        <button class="btn btn-sd btn-sd-ghost k-button" type="button" data-ng-if="visibleButton.applicantCancelMoc" data-ng-click="cancelMOC($event)">Cancel MOC</button>
+        <!--Approve MOC-->
+        <button class="btn btn-sd btn-sd-ghost k-button" type="button" data-ng-if="visibleButton.rejectMoc" data-ng-click="rejectMocDialog.open()">Reject MOC</button>
+        <button class="btn btn-sd btn-sd-ghost k-button" type="button" data-ng-if="visibleButton.approveMoc" data-ng-click="approveMocDialog.open()">Approve MOC</button>
+    </div>
+</div>
+<!-- moc-->
+<div id="mocDialog" kendo-dialog="submitMOCKendoDialog" k-title="'MOC'" k-on-open="dialogVisible = true"
+     k-on-close="dialogVisible = false" k-width="435"
+     k-actions="mocSubmitAction" k-modal="true" k-visible="false" style="min-height: 460px">
+    <form id="asm-createMOC" kendo-validator="validators.submitMOC">
+        <ul class="review_listing" style="border: none">
+            <li>
+                <label><strong>Alarm Shelving</strong></label>
+            </li>
+            <li class="switch" style="border: none; padding: 0">
+                <label style="margin-top: -10px">Alarm Shelving allowed for extension of more than 90 days via MOC</label>
+                <input kendo-mobile-switch type="checkbox" k-on-label="'YES'" k-off-label="'NO'" data-ng-model="submitMOCModel.allowByPassViaMOC" />
+            </li>
+            <li style="padding-top: 15px">
+                <div class="control-label">MOC No.</div>
+                <input type="text" name="mocNo" class="txt" maxlength="50" required data-required-msg="MOC No is required" data-ng-model="submitMOCModel.mocNo" />
+            </li>
+            <li style="padding-top: 15px">
+                <div class="control-label">MOC Meeting Date & Time</div>
+                <input kendo-date-time-picker
+                       data-ng-model="submitMOCModel.mocMeetingDate"
+                       style="width: 80%;"
+                       class="datepicker txt"
+                       required
+                       name="mocDate"
+                       data-required-msg="Moc Meeting Date & Time is required" />
+            </li>
+            <li style="padding-top: 15px">
+                <div class="control-label"> Assign MOC Approver</div>
+                <div class="form-group">
+                    <select kendo-drop-down-list
+                            id="moc-approver"
+                            class="dd_avatar txt"
+                            name="MocApprovers"
+                            data-required-msg="MOC Approver is required"
+                            required
+                            k-options="mocApproversOptions"
+                            k-value-primitive="true"
+                            k-ng-model="submitMOCModel.mocApprovedBy"></select>
+                    <span class="k-invalid-msg" data-for="MocApprovers"></span>
+                </div>
+            </li>
+        </ul>
+    </form>
+</div>
+<div id="mocApproveDialog" kendo-dialog="approveMocDialog" k-title="'MOC Approval'" k-on-open="dialogVisible = true"
+     k-on-close="dialogVisible = false" k-width="435"
+     k-actions="mocApproveActions" k-modal="true" k-visible="false">
+    <form id="moc-approve" kendo-validator="validators.mocApprove">
+        <ul class="review_listing">
+            <li>
+                <div class="control-label">Comment <span>(optional)</span></div>
+                <textarea class="k-editor-textarea txt" data-ng-model="mocApproveComment"></textarea>
+            </li>
+        </ul>
+    </form>
+</div>
+<div id="rejectDialogMoc" kendo-dialog="rejectMocDialog" k-title="'Reject Review'" k-on-open="dialogVisible = true"
+     k-on-close="dialogVisible = false" k-width="435"
+     k-actions="mocRejectActions" k-modal="true" k-visible="false">
+    <form id="moc-reject" kendo-validator="validators.mocReject">
+        <ul class="review_listing">
+            <li>
+                <div class="control-label">Comment</div>
+                <textarea class="k-editor-textarea txt" name="rejectComment" required data-required-msg="Comment is required" data-ng-model="mocRejectComment" style="width: 100%;" maxlength="300"></textarea>
+            </li>
+        </ul>
+    </form>
+</div>
+<!--transfer-->
+<div id="asmTransferRoles" kendo-dialog="asmTransferRolesKendoDiaglog" k-title="'Transfer Roles'" k-on-open="dialogVisible = true"
+     k-on-close="dialogVisible = false" k-width="435"
+     k-actions="asmTransferRoles" k-modal="true" k-visible="false">
+    <form id="asmTransferRolesForm" kendo-validator="validators.asmTransfer">
+        <ul class="review_listing">
+            <li>
+                <div class="control-label">Applicant</div>
+                <select kendo-drop-down-list
+                        class="dd_avatar txt"
+                        k-options="newApplicantOptions"
+                        k-ng-model="applicantToTransfer"></select>
+            </li>
+            <li data-ng-show="pendingReview">
+                <div class="control-label">Reviewer</div>
+                <select kendo-drop-down-list
+                        id="transfer-review"
+                        class="dd_avatar txt"
+                        k-options="reviewerForTransferOptions"
+                        k-ng-model="reviewerToTransfer"></select>
+            </li>
+            <li data-ng-show="pendingEndorse">
+                <div class="control-label">Endorser</div>
+                <select kendo-drop-down-list
+                        class="dd_avatar txt"
+                        k-options="endorserOptions"
+                        k-ng-model="endorserToTransfer"></select>
+            </li>
+            <li data-ng-show="pendingApprove">
+                <div class="control-label">Approver</div>
+                <select kendo-drop-down-list
+                        class="dd_avatar txt"
+                        data-required-msg="Approver is required"
+                        k-options="approverOptions"
+                        k-ng-model="approverToTransfer"></select>
+            </li>
+            <li>
+                <div class="control-label">
+                    Comment <span>(optional)</span>
+                </div>
+                <textarea rows="5" class="k-editor-textarea txt" data-ng-model="adminComment" maxlength="2000"></textarea>
+            </li>
+        </ul>
+    </form>
+</div>
+<div id="transferResultForm" kendo-dialog="dialog" k-title="'ASM Roles Transferred'" k-on-open="dialogVisible = true"
+     k-on-close="dialogVisible = false" k-width="435"
+     k-actions="transferResultActions" k-modal="true" k-visible="false">
+    <p>The following ASM roles are now transferred and the new person in charge is notified.</p>
+    <ul class="review_listing">
+        <li data-ng-show="applicantIsTransfered">
+            <div class="control-label">New Applicant</div>
+            <p class="text_avatar k-state-default">
+                <img data-ng-src="data:image/jpeg;base64,{{applicantToTransfer.image}}" alt="{{applicantToTransfer.userName}}" />
+                <a data-ng-href="/profile/{{applicantToTransfer.userProfileId}}" data-ng-bind="applicantToTransfer.userName"></a>
+            </p>
+        </li>
+        <li data-ng-show="reviewerIsTransfered">
+            <div class="control-label">New Reviewer</div>
+            <p class="text_avatar">
+                <img data-ng-src="data:image/jpeg;base64,{{reviewerToTransfer.image}}" alt="{{reviewerToTransfer.userName}}" />
+                <a data-ng-href="/profile/{{reviewerToTransfer.userProfileId}}" data-ng-bind="reviewerToTransfer.userName"></a>
+            </p>
+        </li>
+        <li data-ng-show="endorserIsTransfered">
+            <div class="control-label">New Endorser</div>
+            <p class="text_avatar">
+                <img data-ng-src="data:image/jpeg;base64,{{endorserToTransfer.image}}" alt="{{endorserToTransfer.userName}}" />
+                <a data-ng-href="/profile/{{endorserToTransfer.userProfileId}}" data-ng-bind="endorserToTransfer.userName"></a>
+            </p>
+        </li>
+        <li data-ng-show="approverIsTransfered">
+            <div class="control-label">New Approver</div>
+            <p class="text_avatar">
+                <img data-ng-src="data:image/jpeg;base64,{{approverToTransfer.image}}" alt="{{approverToTransfer.userName}}" />
+                <a data-ng-href="/profile/{{approverToTransfer.userProfileId}}" data-ng-bind="approverToTransfer.userName"></a>
+            </p>
+        </li>
+    </ul>
+</div>
+<div id="transfer" kendo-dialog="transferDialog" k-title="'Transfer ASM'" k-on-open="dialogVisible = true"
+     k-on-close="dialogVisible = false" k-width="435" k-actions="transferAsmAction" k-modal="true" k-visible="false">
+    <form id="transfer-asm" kendo-validator="transfer_asm_validator">
+        <p>Transfering ASM to a new applicant will remove you from this ASM. This action will be irreversible. You will still be able to view this ASM</p>
+        <ul class="review_listing">
+            <li>
+                <div class="control-label">Transfer to New Applicant</div>
+                <select kendo-drop-down-list
+                        id="asm-new-applicant"
+                        class="txt dd_avatar"
+                        name="newApplicant"
+                        required
+                        data-required-msg="New Applicant is required"
+                        k-options="newApplicantTransferOptions"
+                        k-ng-model="transferAsmModel.newApplicantId"
+                        k-filter="'contains'"
+                        k-value-primitive="true"></select>
+            </li>
+            <li>
+                <div class="control-label">
+                    Comment <span>(optional)</span>
+                </div>
+                <textarea rows="5" class="k-editor-textarea txt" data-ng-model="transferAsmModel.comment" maxlength="2000"></textarea>
+            </li>
+        </ul>
+    </form>
+</div>
+<!-- review-->
+<div id="reviewDialog" kendo-dialog="reviewDialog" k-title="'Shelving review'" k-on-open="dialogVisible = true"
+     k-on-close="dialogVisible = false" k-width="435"
+     k-actions="reviewActions" k-modal="true" k-visible="false">
+    <form id="asm-review-approve" kendo-validator="validators.approveReview">
+        <ul class="review_listing">
+            <li>
+                <div class="control-label">
+                    Date and Time Occurence
+                </div>
+                <input kendo-date-time-picker
+                       data-ng-model="reviewModel.occurence"
+                       class="datepicker txt"
+                       required
+                       name="reviewDate"
+                       data-required-msg="Date and Time Occurence is required" />
+            </li>
+            <li>
+                <div class="control-label">SAP Notification No</div>
+                <textarea name="SAPNotificationNo" class="k-editor-textarea txt" data-ng-model="reviewModel.sapNo" required data-required-msg="SAP Notification No is required" style="width: 100%" maxlength="100"></textarea>
+            </li>
+            <li>
+                <div class="control-label">
+                    Equipment has been verified faulty.
+                </div>
+                <div class="control-label">
+                    Describe fault condition and plans for rectification.
+                </div>
+                <textarea name="faultCOnditionAndPlansForRectification" class="k-editor-textarea txt" data-ng-model="reviewModel.faultCondition" required data-required-msg="fault condition and plans for rectification is required" style="width: 100%" maxlength="2000"></textarea>
+            </li>
+            <li>
+                <div class="control-label">
+                    Potential Consequences
+                </div>
+                <textarea name="potentialConsequences" class="k-editor-textarea txt" data-ng-model="reviewModel.consequences" required data-required-msg="Potential Consequences is required" style="width: 100%" maxlength="2000"></textarea>
+            </li>
+            <li>
+                <div class="control-label">Assign Endorser</div>
+                <select kendo-drop-down-list
+                        id="asm-endorser"
+                        name="endorser"
+                        required
+                        data-required-msg="Endorser is required"
+                        k-options="endorserOptions"
+                        k-ng-model="reviewModel.endorser"
+                        class="dd_avatar txt"></select>
+            </li>
+            <li>
+                <div class="control-label">Assign Approver</div>
+                <select kendo-drop-down-list
+                        id="asm-approver"
+                        name="approver"
+                        required
+                        data-required-msg="Approver is required"
+                        k-options="approverOptions"
+                        k-ng-model="reviewModel.approver"
+                        class="dd_avatar txt"></select>
+            </li>
+        </ul>
+    </form>
+</div>
+<div id="updateReviewDialog" kendo-dialog="updateReviewDialog" k-title="'Update ASM Review'" k-on-open="dialogVisible = true"
+     k-on-close="dialogVisible = false" k-width="435"
+     k-actions="updateReviewActions" k-modal="true" k-visible="false">
+    <form id="asm-review-approve" kendo-validator="validators.updateRequireReview">
+        <ul class="review_listing">
+            <li>
+                <div class="control-label">
+                    Date and Time Occurence
+                </div>
+                <input kendo-date-time-picker
+                       data-ng-model="reviewModel.occurence"
+                       class="datepicker txt"
+                       required
+                       name="reviewDate"
+                       data-required-msg="Date and Time Occurence is required" />
+            </li>
+            <li>
+                <div class="control-label">SAP Notification No</div>
+                <textarea name="SAPNotificationNo" class="k-editor-textarea txt" data-ng-model="reviewModel.sapNo" required data-required-msg="SAP Notification No is required" style="width: 100%" maxlength="100"></textarea>
+            </li>
+            <li>
+                <div class="control-label">
+                    Equipment has been verified faulty.
+                </div>
+                <div class="control-label">
+                    Describe fault condition and plans for rectification.
+                </div>
+                <textarea name="faultCOnditionAndPlansForRectification" class="k-editor-textarea txt" data-ng-model="reviewModel.faultCondition" style="width: 100%" maxlength="2000"></textarea>
+            </li>
+            <li>
+                <div class="control-label">
+                    Potential Consequences
+                </div>
+                <textarea name="potentialConsequences" class="k-editor-textarea txt" data-ng-model="reviewModel.consequences" required data-required-msg="Potential Consequences is required" style="width: 100%" maxlength="2000"></textarea>
+            </li>
+            <li>
+                <div class="control-label">Assign Endorser</div>
+                <select kendo-drop-down-list
+                        id="asm-endorser"
+                        name="endorser"
+                        required
+                        data-required-msg="Endorser is required"
+                        k-options="endorserOptions"
+                        k-ng-model="reviewModel.endorser"
+                        class="dd_avatar txt"></select>
+            </li>
+            <li>
+                <div class="control-label">Assign Approver</div>
+                <select kendo-drop-down-list
+                        id="asm-approver"
+                        name="approver"
+                        required
+                        data-required-msg="Approver is required"
+                        k-options="approverOptions"
+                        k-ng-model="reviewModel.approver"
+                        class="dd_avatar txt"></select>
+            </li>
+        </ul>
+    </form>
+</div>
+
+<div id="submitupdatereviewDialog" kendo-dialog="submitReviewUpdateDialog" k-title="'Shelving Review'" k-on-open="dialogVisible = true" k-on-close="dialogVisible = false" k-width="435"
+     k-actions="submitForEndorsementActions" k-modal="true" k-visible="false">
+    <form id="asm-review-submit" kendo-validator="validators.submitUpdateRevew">
+        <ul class="review_listing">
+            <li>
+                <div class="control-label">
+                    Are you sure want to submit ?
+                </div>
+            </li>
+        </ul>
+    </form>
+</div>
+<div id="rejectReviewDialog" kendo-dialog="rejectReviewDialog" k-title="'Shelving Review'" k-on-open="dialogVisible = true"
+     k-on-close="dialogVisible = false" k-width="435"
+     k-actions="rejectReviewActions" k-modal="true" k-visible="false">
+    <form id="asm-review-reject" kendo-validator="validators.rejectReview">
+        <ul class="review_listing">
+            <li>
+                <div class="control-label">Comment</div>
+                <textarea rows="5" name="comment" class="k-editor-textarea txt" data-ng-model="rejectComment" required data-required-msg="Comment is required" maxlength="300"></textarea>
+            </li>
+        </ul>
+    </form>
+</div>
+<!-- endorse-->
+<div id="approveDialog" kendo-dialog="approveEndorseDialog" k-title="'Shelving Endorsement'" k-on-open="dialogVisible = true"
+     k-on-close="dialogVisible = false" k-width="435"
+     k-actions="endorseActions" k-modal="true" k-visible="false">
+    <form id="asm-endorse-approve" kendo-validator="validators.approveEndorse">
+        <ul class="review_listing">
+            <li>
+                <div class="control-label">
+                    Mitigation and Precautions By Operation
+                </div>
+                <textarea name="precautionsByEndorser" class="k-editor-textarea txt" data-ng-model="endorseModel.precautionsByEndorser" data-required-msg="Precautions by Endorser is required" required maxlength="2000"></textarea>
+            </li>
+            <li>
+                <div class="control-label">Comment <span>(optional)</span></div>
+                <textarea class="k-editor-textarea txt" data-ng-model="approveComment" maxlength="300"></textarea>
+            </li>
+        </ul>
+    </form>
+</div>
+<div id="rejectDialog" kendo-dialog="rejectEndorseDialog" k-title="'Reject Endorse'" k-on-open="dialogVisible = true"
+     k-on-close="dialogVisible = false" k-width="435"
+     k-actions="rejectEndorseActions" k-modal="true" k-visible="false">
+    <form id="asm-endorse-reject" kendo-validator="validators.rejectEndorse">
+        <ul class="review_listing">
+            <li>
+                <div class="control-label">Comment</div>
+                <textarea class="k-editor-textarea txt" name="rejectComment" required data-required-msg="Comment is required" data-ng-model="rejectComment" style="width: 100%;" maxlength="300"></textarea>
+            </li>
+        </ul>
+    </form>
+</div>
+<!-- approve-->
+<div id="approveDialog" kendo-dialog="approveDialog" k-title="'Shelving Approval'" k-on-open="dialogVisible = true"
+     k-on-close="dialogVisible = false" k-width="435"
+     k-actions="approveActions" k-modal="true" k-visible="false">
+    <form id="asm-approve" kendo-validator="validators.approve">
+        <ul class="review_listing">
+            <li>
+                <div class="control-label">
+                    Mitigation and Precautions by Approving Authority
+                </div>
+                <textarea name="precautionsByApprover" class="k-editor-textarea txt" data-ng-model="approveModel.precautionsByApprover" required data-required-msg="Precautions by Approver is required" style="width: 100%" maxlength="2000"></textarea>
+            </li>
+            <li>
+                <div class="control-label">
+                    Comment <span>(optional)</span>
+                </div>
+                <textarea class="k-editor-textarea txt" data-ng-model="approveComment" style="width: 100%" maxlength="300"></textarea>
+            </li>
+        </ul>
+    </form>
+</div>
+<div id="rejectDialog" kendo-dialog="rejectApproveDialog" k-title="'Reject Approval'" k-on-open="dialogVisible = true"
+     k-on-close="dialogVisible = false" k-width="435"
+     k-actions="rejectApproveActions" k-modal="true" k-visible="false">
+    <form id="asm-reject-approve" kendo-validator="validators.rejectApprove">
+        <ul class="review_listing">
+            <li>
+                <div class="control-label">Comment</div>
+                <textarea name="rejectComment" class="k-editor-textarea" data-ng-model="rejectComment" style="width: 100%;" required data-required-msg="Comment is required" maxlength="300"></textarea>
+            </li>
+        </ul>
+    </form>
+</div>
+
+<!-- shelve-->
+
+<div id="shelveApproveDialog" class="no-padding-top" kendo-dialog="shelvingDialog" k-title="'Shelving'" k-on-open="dialogVisible = true"
+     k-on-close="dialogVisible = false" k-width="435"
+     k-actions="shelveActions" k-modal="true" k-visible="false">
+    <form id="asm-approve" kendo-validator="validator.approve">
+        <h6 class="dialog_title">MITIGATION PLAN</h6>
+        <ul class="review_listing dialog_listing">
+            <li>
+                <div class="control-label">Mitigation and Precautions by Operation</div>
+                <p data-ng-bind="model.asmDetail.precautionByOperation"></p>
+            </li>
+
+            <li>
+                <div class="control-label">Mitigation and Precautions by Approving Authority</div>
+                <p data-ng-bind="model.asmDetail.precautionByApproval"></p>
+
+            </li>
+            <li>
+                <div class="control-label">Potential Consequences</div>
+                <p data-ng-bind="model.asmDetail.consequences"></p>
+            </li>
+        </ul>
+    </form>
+</div>
+
+<!-- close alarm-->
+
+<div id="closeAlarmDialog" kendo-dialog="closeAlarmDialog" k-title="'Closure'" k-on-open="dialogVisible = true"
+     k-on-close="dialogVisible = false" k-width="450"
+     k-actions="closeAlarmActions" k-modal="true" k-visible="false">
+    <form id="closeAlarm" kendo-validator="validator.approve">
+        <ul class="review_listing dialog_listing">
+            <li>
+                <div class="control-label"><h6>Reason for Closure</h6></div>
+            </li>
+            <li class="cb" data-ng-repeat="reason in ClosureReason">
+                <input type="radio" name="ClosureReason" norequired="Draft" required data-required-msg="Reason for close is required" id="{{reason.lookupId}}" class="k-radio" data-ng-model="$parent.closeReason" data-ng-value="reason.lookupId" />
+                <label class="k-radio-label" for="{{reason.lookupId}}" data-ng-bind="reason.description"></label>
+            </li> 
+        </ul>
+    </form>
+</div>
+
+<!-- alarm live-->
+
+<div id="reApproveDialog" kendo-dialog="reApproveDialog" k-title="'Re-approval'" k-on-open="dialogVisible = true"
+     k-on-close="dialogVisible = false" k-width="435"
+     k-actions="reApproveActions" k-modal="true" k-visible="false">
+    <form id="asm-reApprove" kendo-validator="validators.reApprove">
+        <div class="control-label">
+            Comment <span class="opt">(optional)</span>
+        </div>
+        <textarea class="k-editor-textarea txt" data-ng-model="reApprovalComment" style="width: 100%" maxlength="500"></textarea>
+    </form>
+</div>
+
+
+<div id="reShelvingDialog" kendo-dialog="reShelvingDialog" k-title="'Re-Shelving'" k-on-open="dialogVisible = true"
+     k-on-close="dialogVisible = false" k-width="500"
+     k-actions="reShelveActions" k-modal="true" k-visible="false" kendo-validator="validators.close">
+    <form id="asm-reShelve">
+        <h6 class="dialog_title">MITIGATION PLAN</h6>
+        <div class="row">
+            <div>
+                <h5 class="control-label"><strong>Mitigation and Precautions by Operation</strong></h5>
+                <p data-ng-bind="model.asmDetail.precautionByOperation"></p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div>
+                <h5 class="control-label"><strong>Mitigation and Precautions by Approving Authority</strong></h5>
+                <p data-ng-bind="model.asmDetail.precautionByApproval"></p>
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <h5 class="control-label"><strong>Potential Consequences</strong></h5>
+                <p data-ng-bind="model.asmDetail.consequences"></p>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+

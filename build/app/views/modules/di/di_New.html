@@ -1,0 +1,127 @@
+
+<div id="Panel">
+    <div class="panel_content panel_action_bar" style="padding-right: 0;">
+        <div class="col-left">
+            <div class="box_shadow">
+                <div class="box_head block cf" data-ng-class="{'box_head_grey': checkStatusTitle.Closed }">
+                    <h6><strong data-ng-bind="'DI'"></strong> <span data-ng-bind="model.asmDetail.alarmNo"></span></h6>
+                    <p data-ng-bind="model.asmDetail.description"></p>
+                    <div class="dd_options">
+                        <div class="dd_block">
+                            <button class="dropdown_toggle dd_dotv" type="button"><i class="icon-dotv"></i></button>
+                            <ul class="dropdown_menu">
+                                <li data-ng-show="visibleButton.cancelMoc"><a href="#" data-ng-click="cancelMOC($event)">Cancel Moc</a></li>
+                                <li data-ng-show="visibleButton.cancelAsm || visibleButton.applicantCancelAsm"><a href="#" data-ng-click="cancelAsm($event)">Cancel Alarm Shelving</a></li>
+                                <li><a href="#" data-ng-click="statusLog()">Status Log</a></li>
+                                <li data-ng-show="(model.asmDetail.statusKey)>=28"><a href="#" data-ng-click="asmPrint()">Print</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="block">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <h5 class="control-label"><b style="color: #7d7d82">PUBLISHED BY</b></h5>
+                            <p class="ng-binding text_avatar">
+                                <img data-ng-src="data:image/jpg;base64,{{model.applicant.image}}" alt="{{model.applicant.userName}}" />
+                                <a data-ng-href="/profile/{{model.applicant.userProfileId}}" data-ng-bind="model.applicant.userName"></a><br>
+                                <span data-ng-bind="model.mocApprover.staffNo"></span>
+                            </p>
+                        </div>
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Dept</h5>
+                            <p data-ng-bind="model.asmDetail.applicantDept"></p>
+                        </div>
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Office Telephone</h5>\
+                            <p data-ng-bind="model.asmDetail.contactNo"></p>
+                        </div>
+                        <div class="col-xs-2">
+                            <h5 class="control-label">Tel</h5>
+                            <p data-ng-bind="model.asmDetail.mobileNo"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="foot_info text-right">
+                <p class="ng-binding">Created by <a data-ng-href="/profile/{{model.applicant.userProfileId}}" data-ng-bind="model.applicant.userName"></a> | Last update <span data-ng-bind="model.asmDetail.modifiedDate | date: 'dd MMM yyyy'"></span> at <span data-ng-bind="model.asmDetail.modifiedDate | date: 'h:mm a'"></span></p>
+            </div>
+            <div class="panel_head cf panel_head_middle">
+                <div class="panel_head_right">
+                    <a href="#" id="toogleBody" class="visible-button">Expand All</a>
+                </div>
+            </div>
+
+            <!-- Body Content -->
+            <div class="block box_shadow" style="border-top: 4px solid #615E99; margin-bottom: 15px;" data-ng-controller="diDucController">
+                <div><h4 style="color: #615e99;">HSE Issue</h4> </div>
+                <kendo-grid id="hse" class="di-listing" options="hseGridOptions"></kendo-grid>
+            </div>
+
+            <div class="block box_shadow" style="border-top: 4px solid #615E99; margin-bottom: 15px;" data-ng-controller="diDucController">
+                <div><h4 style="color: #615e99;">Critical / Non routine Hazardous Operation</h4> </div>
+                <kendo-grid id="hazardous" class="di-listing" options="hazardousGridOptions"></kendo-grid>
+            </div>
+
+            <div class="block box_shadow" style="border-top: 4px solid #615E99; margin-bottom: 15px;" data-ng-controller="diTuocController">
+                <h4 style="color: #615e99;"> COPSOL & IOW Excursion </h4>
+                <h5 style="color: #000000;"> COPSOL</h5>
+                <!--<div class="di-listing" id="copSol"></div>-->
+
+                <kendo-grid class="di-listing" id="copSol" options="copSolGridOptions">
+                </kendo-grid>
+
+                <!--<div kendo-grid class="di-listing" id="copSol" k-options="copSolGridOptions"></div>-->
+
+                <br />
+                <h5 style="color: #000000;"> IOW</h5>
+                <div class="di-listing" id="iow"></div>
+            </div>
+
+
+
+            <div class="block box_shadow" style="border-top: 4px solid #615E99; margin-bottom: 15px;" data-ng-controller="diDucController">
+                <div><h4 style="color: #615e99;">Operation Register</h4> </div>
+                <span>(Deviated Locked Open/Locked Close Valves, Passing Valves, Temporary Repair)</span>
+                <kendo-grid id="operationRegister" class="di-listing" options="operationRegisterGridOptions"></kendo-grid>
+            </div>
+
+            <div class="block box_shadow" style="border-top: 4px solid #615E99; margin-bottom: 15px;" data-ng-controller="diDucController">
+                <div>
+                    <h4 style="color: #615e99;">Production Plan/Mode</h4>
+                </div>
+                <kendo-grid id="productionPlanMode" class="di-listing" options="productionPlanModeGridOptions"></kendo-grid>
+
+                <!--<div id="productionPlanMode"></div>-->
+            </div>
+
+            <div class="block box_shadow" style="border-top: 4px solid #615E99; margin-bottom: 15px;" data-ng-controller="diTuocController">
+            <div>
+                <h4 style="color: #615e99;">Unit Status COP</h4>
+            </div>
+            <kendo-grid id="unitStatusCop" class="di-listing" options="unitStatusCopGridOptions"></kendo-grid>
+
+            <!--<div id="productionPlanMode"></div>-->
+        </div>
+
+            <div class="block box_shadow" style="border-top: 4px solid #615E99; margin-bottom: 15px;" data-ng-controller="diDucController">
+                <div><h4 style="color: #615e99;">Ongoing Temporary Operating Procedure</h4> </div>
+                <kendo-grid id="ongoing" class="di-listing" options="ongoingGridOptions"></kendo-grid>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="action_bar cf" data-ng-if="true">
+    <div class="action_status">
+        <h4 data-ng-bind="statusTitle"></h4>
+    </div>
+    <div class="action_applicant">
+        <h6 data-ng-bind="panelOperatorRole"></h6>
+        <p><strong data-ng-bind="userProfile.userName"></strong><br><span data-ng-bind="userProfile.staffNo"></span></p>
+    </div>
+    <div class="action_button">
+        <button class="btn btn-sd btn-sd-ghost k-button" type="button" data-ng-click="rejectReviewDialog.open()">Save as Draft</button>
+        <button class="btn btn-sd btn-sd-ghost k-button" type="button" data-ng-click="reviewDialog.open()">Update Daily Instruction</button>
+    </div>
+</div>

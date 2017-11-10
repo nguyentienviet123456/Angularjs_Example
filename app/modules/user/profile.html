@@ -1,0 +1,49 @@
+﻿<div id="Panel">
+		<div class="profile">
+				<div class="form_block box_shadow" data-ng-hide="errorMessage!=''">
+						<h3 class="flow_title">User Profile</h3>
+						<fieldset>
+								<div class="row">
+										<div class="col-xs-12">
+												<div class="user_intro">
+														<div class="user_image">
+															<img data-ng-src="data:image/jpeg;base64,{{model.image}}" alt="{{model.userName}}" />
+														</div>
+														<div class="user_details">
+																<h5 class="lbl">Name</h5>
+																<h2 class="ng-binding user-name" data-ng-bind="model.userName"></h2>
+																<p class="ng-binding staff-no" data-ng-bind="model.staffNo"></p>
+														</div>
+												</div>
+												<div class="row">
+														<div class="col-xs-2">
+																<h5 class="lbl">Dept</h5>
+																<p class="ng-binding" data-ng-bind="model.dept"></p>
+														</div>
+														<div class="col-xs-2">
+																<h5 class="lbl">Area</h5>
+																<p class="ng-binding" data-ng-bind="model.areaName" />
+														</div>
+														<div class="col-xs-2">
+																<h5 class="lbl">Division</h5>
+																<p class="ng-binding" data-ng-bind="model.division" />
+														</div>
+												</div>
+												<div class="row">
+														<div class="col-xs-2">
+																<h5 class="lbl">Office Telephone</h5>
+																<p class="ng-binding" data-ng-bind="model.contactNo" />
+														</div>
+														<div class="col-xs-2">
+																<h5 class="lbl">Mobile No.</h5>
+																<p class="ng-binding" data-ng-bind="model.mobileNo" />
+														</div>
+												</div>
+										</div>
+								</div>
+						</fieldset>
+				</div>
+		</div>
+    <div data-ng-hide="errorMessage==''" data-ng-bind="errorMessage">
+    </div>
+</div>

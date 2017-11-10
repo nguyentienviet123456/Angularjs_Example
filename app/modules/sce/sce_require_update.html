@@ -1,0 +1,493 @@
+﻿<div id="Panel">
+    <div class="panel_content panel_action_bar">
+        <form id="update-require" kendo-validator="validators.updateRequireForm" k-options="updateForm_CustomValidationOptions">
+            <!-- Floating Process Flow -->
+            <div class="process_flow affix_top box_shadow" data-offset="50">
+                <h5>Process Flow</h5>
+                <ul class="flow_step">
+                    <li class="current">
+                        <p>Application</p>
+                    </li>
+                    <li>
+                        <p>Review</p>
+                    </li>
+                    <li>
+                        <p>Endorsement</p>
+                    </li>
+                    <li>
+                        <p>Approval</p>
+                    </li>
+                    <li>
+                        <p>Acknowledgment</p>
+                    </li>
+                    <li>
+                        <p>Live</p>
+                    </li>
+                </ul>
+            </div>
+            <!-- End Floating Process Flow -->
+            <!-- Form Box -->
+            <div class="col-left">
+                <div class="box_shadow">
+                    <div class="box_head block cf">
+                        <h6><strong>SCE</strong> <span data-ng-bind="sceDetail.sceNo"></span></h6>
+                        <p data-ng-bind="sceDetail.reasonForConductingByPass"></p>
+                        <div class="dd_options">
+                            <div class="dd_block">
+                                <button class="dropdown_toggle dd_dotv" type="button"><i class="icon-dotv"></i></button>
+                                <ul class="dropdown_menu">
+                                    <li data-ng-hide="!hasApplicantRole ||!isApplicant || sceDetail.statusKey == '10' || sceDetail.raNo != null"><a href="#" data-ng-click="requestRa()">Request RA</a></li>
+                                    <li data-ng-hide="!isApplicant && sceDetail.statusKey != '10'"><a href="#" data-ng-click="transferDialog.open()">Transfer</a></li>
+                                    <li><a href="#" data-ng-click="statusLog()">Status Log</a></li>
+                                    <li><a href="#" data-ng-click="scePrint()">Print</a></li>
+                                    <li data-ng-show="(((isApplicant && hasApplicantRole) || isAdmin )  && sceDetail.statusKey != '10' && sceDetail.statusKey != '7')"><a href="#" data-ng-click="cancelSce($event)">Cancel SCE</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box_highlight block cf">
+                        <div class="row">
+                            <div class="col-xs-12"><h4 data-ng-bind="sceDetail.status"></h4></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <h5 class="control-label">Review Status</h5>
+                                <p data-ng-bind="sceDetail.reviewStatus"></p>
+                            </div>
+                            <div class="col-xs-3">
+                                <h5 class="control-label">Reviewed By</h5>
+                                <p><a data-ng-href="/profile/{{sceDetail.reviewer.userProfileId}}"><strong data-ng-bind="sceDetail.reviewer.userName"></strong></a><br><span data-ng-bind="sceDetail.reviewer.staffNo"></span></p>
+                            </div>
+                            <div class="col-xs-6">
+                                <h5 class="control-label">Comment</h5>
+                                <p data-ng-bind="sceDetail.reviewerComment"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block">
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <h5 class="control-label">Area</h5>
+                                <p data-ng-bind="sceDetail.areaName"></p>
+                            </div>
+                            <div class="col-xs-2">
+                                <h5 class="control-label">Unit</h5>
+                                <p data-ng-bind="sceDetail.unit"></p>
+                            </div>
+                            <div class="col-xs-2">
+                                <h5 class="control-label">Tag No.</h5>
+                                <p data-ng-bind="(sceDetail.tagNo == null || sceDetail.tagNo == '') ? sceDetail.otherTagNo : sceDetail.tagNo"></p>
+                            </div>
+                            <div class="col-xs-3">
+                                <h5 class="control-label">Equipment No.</h5>
+                                <p data-ng-bind="sceDetail.equipmentNo"></p>
+                            </div>
+                            <div class="col-xs-3">
+                                <h5 class="control-label">Category</h5>
+                                <p data-ng-bind="sceDetail.categoryName"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <h5 class="control-label">Application Date</h5>
+                                <p data-ng-bind="sceDetail.applicantDate | date: 'dd MMM yyyy'"></p>
+                            </div>
+                            <div class="col-xs-2">
+                                <h5 class="control-label">Date Required</h5>
+                                <p data-ng-bind="sceDetail.dateRequired | date: 'dd MMM yyyy'"></p>
+                            </div>
+                            <div class="col-xs-2">
+                                <h5 class="control-label">Expected to Normalize</h5>
+                                <p data-ng-bind="sceDetail.expectedDateToNormalize | date: 'dd MMM yyyy'"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <h5 class="control-label">Applicant</h5>
+                                <p class="ng-binding text_avatar">
+                                    <img data-ng-src="data:image/jpg;base64,{{sceDetail.applicant.image}}" alt="{{sceDetail.applicant.userName}}" />
+                                    <a data-ng-href="/profile/{{sceDetail.applicant.userProfileId}}" data-ng-bind="sceDetail.applicant.userName"></a><br>
+                                    <span data-ng-bind="sceDetail.applicant.staffNo"></span>
+                                </p>
+                            </div>
+                            <div class="col-xs-2">
+                                <h5 class="control-label">Dept</h5>
+                                <p data-ng-bind="sceDetail.applicant.dept"></p>
+                            </div>
+                            <div class="col-xs-2">
+                                <h5 class="control-label">Office Telephone</h5>
+                                <label data-ng-bind="sceDetail.applicant.contactNo"></label>
+                            </div>
+                            <div class="col-xs-2">
+                                <h5 class="control-label">Mobile No.</h5>
+                                <label data-ng-bind="sceDetail.mobileNo"></label>
+                            </div>
+                            <div class="col-xs-2">
+                                <h5 class="control-label">Radio</h5>
+                                <label data-ng-bind="sceDetail.radio"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block block_info">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <h4>Risk Assessment (RA)</h4>
+                            </div>
+                            <div class="col-xs-6 text-right" data-ng-hide="showNewRa==false || showNewRa===null || showNewRa=== undefined" data-ng-bind-html="raInfo"></div>
+                            <div class="col-xs-6 text-right" data-ng-hide="showCopyRa==false || showCopyRa===null || showCopyRa=== undefined">
+                                <ul class='menu-select' id='menuRequestRa'>
+                                    <li>
+                                        Select your actions
+                                        <ul>
+                                            <li> <a href='javascript:void(0)' data-ng-click="copyExitstingRa();">Copy Existing RA</a></li>
+                                            <li data-ng-bind-html="raInfo"> </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="foot_info text-right">
+                    <p>Created by <a data-ng-href="/profile/{{sceDetail.applicant.userProfileId}}" data-ng-bind="sceDetail.applicant.userName"></a> | Last update <span data-ng-bind="sceDetail.modifiedDate | date: 'dd MMM yyyy'"></span> at <span data-ng-bind="sceDetail.modifiedDate | date: 'h:mm a'"></span></p>
+                </div>
+                <div class="panel_head cf panel_head_middle">
+                    <div class="panel_head_left">
+                        <h6 class="panel_title text-uppercase">process flow</h6>
+                    </div>
+                    <div class="panel_head_right">
+                        <a href="#" id="toogleBody" class="visible-button">Expand All</a>
+                    </div>
+                </div>
+                <div class="box_shadow">
+                    <div class="sce-box">
+                        <h4 class="box-title">
+                            <a class="visible-button" href="#">Application <i class="icon-arr-down"></i></a>
+                        </h4>
+                        <div class="box-body">
+                            <fieldset>
+                                <h4 class="group_title">Requisition</h4>
+                                <div class="applicant_details block_group">
+                                    <div class="row">
+                                        <div class="col-xs-5">
+                                            <h5 class="lbl">Applicant</h5>
+                                            <p><a data-ng-href="/profile/{{sceDetail.applicant.userProfileId}}"><strong data-ng-bind="sceDetail.applicant.userName"></strong></a><br><span data-ng-bind="sceDetail.applicant.staffNo"></span></p>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <h5 class="lbl">Dept</h5>
+                                            <p data-ng-bind="sceDetail.applicant.dept"></p>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <h5 class="lbl">Office Telephone</h5>
+                                            <p data-ng-bind="sceDetail.applicant.contactNo"></p>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <h5 class="lbl">Mobile No.</h5>
+                                             <label data-ng-bind="sceDetail.applicant.mobileNo" data-ng-hide="isApplicant"></label>
+                                            <input id="mobileNo" name="mobileNo" type="text" class="txt k-textbox" data-ng-model="sceDetail.mobileNo" maxlength="50" data-ng-hide="!isApplicant"
+                                                   data-maxlength-msg="Max length is 50" action-valid-required="Submit" required data-required-msg="Mobile No. is required" pattern="^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$" validationMessage="Please enter a ten digit phone number" />
+                                            <span class="k-invalid-msg" data-for="mobileNo"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-5">
+                                            <div class="form-group">
+                                                <label for="Radio">Radio <span class="opt">(optional)</span></label>
+                                                <input id="Radio" name="Radio" type="text" class="txt k-textbox" data-ng-model="sceDetail.radio" maxlength="50" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="block_group">
+                                    <div class="row">
+                                        <div class="col-xs-5">
+                                            <label for="sceArea">Area</label>
+                                            <select kendo-drop-down-list
+                                                    id="sceArea"
+                                                    class="txt"
+                                                    name="area"
+                                                    required
+                                                    data-required-msg="Area is required"
+                                                    k-option-label="'Select area ...'"
+                                                    k-data-text-field="'description'"
+                                                    k-data-value-field="'lookupAreaId'"
+                                                    k-ng-model="selectedArea"
+                                                    k-data-source="areasDataSource"
+                                                    k-on-change="onAreaChange()"
+                                                    k-filter="'contains'"
+                                                    k-value-primitive="true"></select>
+                                        </div>
+                                        <div class="col-xs-5">
+                                            <div class="form-group">
+                                                <label for="UnitNo">Unit No.</label>
+                                                <input kendo-drop-down-list
+                                                       id="UnitNo"
+                                                       class="txt"
+                                                       name="unitNo"
+                                                       required
+                                                       data-required-msg="Unit No is required"
+                                                       k-option-label="'Select UnitNo ...'"
+                                                       k-data-text-field="'description'"
+                                                       k-data-value-field="'lookupUnitId'"
+                                                       k-data-source="unitDataSource"
+                                                       k-ng-model="selectedUnitNo"
+                                                       k-on-change="onUnitChange()"
+                                                       k-filter="'contains'"
+                                                       k-value-primitive="true" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-5">
+                                            <div class="form-group">
+                                                <label for="TagNo">Tag No.</label>
+                                                <input kendo-drop-down-list
+                                                       id="TagNo"
+                                                       class="txt"
+                                                       name="tagNo"
+                                                       data-required-msg="Tag No. is required"
+                                                       k-option-label="'Select TagNo. ...'"
+                                                       k-data-text-field="'description'"
+                                                       k-data-value-field="'lookupTagId'"
+                                                       k-ng-model="selectedTagNo"
+                                                       k-data-source="tagNoDataSource"
+                                                       k-on-change="onTagNoChange()"
+                                                       k-filter="'contains'"
+                                                       k-value-primitive="true" />
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" id="otherTagNo" name="tagNo" class="txt k-textbox" data-ng-model="sceDetail.otherTagNo" maxlength="250" data-ng-hide="selectedTagNo != '0'" data-ng-show="selectedTagNo == '0'" />
+                                            </div>
+                                            <span class="k-invalid-msg" data-for="tagNo"></span>
+                                        </div>
+                                        <div class="col-xs-5">
+                                            <div class="form-group">
+                                                <label for="EquipmentNo">Equipment No.</label>
+                                                <input id="EquipmentNo" name="equipmentNo" type="text" class="txt k-textbox" data-ng-model="sceDetail.equipmentNo" required data-required-msg="Equipment No. is required" maxlength="300" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="block_group">
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <h5 class="lbl">Category</h5>
+                                            <div class="cb" data-ng-repeat="category in categoryDataSource">
+                                                <input type="radio" name="category" required data-required-msg="Category is required" id="{{category.lookupSceCatId}}" class="k-radio" data-ng-model="$parent.selectedCategory" data-ng-value="category.lookupSceCatId" />
+                                                <label class="k-radio-label" for="{{category.lookupSceCatId}}" data-ng-bind="category.description"></label>
+                                            </div>
+                                            <span class="k-invalid-msg" data-for="category"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="block_group">
+                                    <div class="row">
+                                        <div class="col-xs-5">
+                                            <div class="form-group form_loading">
+                                                <label>Type of SCE Bypass</label>
+                                                <select kendo-drop-down-list
+                                                        id="parentType"
+                                                        class="txt"
+                                                        name="TypeofBypass"
+                                                        k-option-label="'Select SCE Bypass Type ...'"
+                                                        k-data-text-field="'description'"
+                                                        k-data-value-field="'lookupTypeSceBypassId'"
+                                                        k-data-source="bypassTypesDataSource"
+                                                        k-on-change="onSelectedChange(kendoEvent)"
+                                                        k-ng-model="selectedParentType"
+                                                        k-filter="'contains'"
+                                                        k-value-primitive="true"></select>
+                                            </div>
+                                            <div class="form-group">
+                                                <select kendo-drop-down-list
+                                                        id="childType"
+                                                        class="txt"
+                                                        name="TypeofBypass"
+                                                        data-ng-hide="selectedParentType == '' || selectedParentType == '0'"
+                                                        k-option-label="'Select child Type ...'"
+                                                        k-data-text-field="'description'"
+                                                        k-data-value-field="'lookupTypeSceBypassId'"
+                                                        k-data-source="bypassChildTypesDataSource"
+                                                        k-ng-model="selectedType"
+                                                        k-value-primitive="true"
+                                                        k-filter="'contains'"
+                                                        disabled="disabled"></select>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" id="otherType" name="TypeofBypass" class="txt k-textbox" data-ng-model="sceDetail.othersTypesOfByPass" maxlength="300" data-ng-hide="selectedParentType != '0'" data-ng-show="selectedParentType == '0'" />
+                                            </div>
+                                            <span class="k-invalid-msg" data-for="TypeofBypass"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="block_group">
+                                    <div class="row">
+                                        <div class="col-xs-5">
+                                            <div class="form-group">
+                                                <label>Estimated Duration for Bypass <span class="opt">(optional)</span></label>
+                                                <input kendo-numeric-text-box k-options="numberTextbox" name="EstimationDurationForByPass" step="0.25" class="txt k-textbox txt_shorter" data-ng-model="sceDetail.estimationDurationForByPass" />  <span class="form_suffix_text">days</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-5">
+                                            <div class="form-group">
+                                                <label for="SIL">Safety Integrity Level</label>
+                                                <select kendo-drop-down-list
+                                                        id="SIL"
+                                                        class="txt txt_short"
+                                                        name="sil"
+                                                        required
+                                                        data-required-msg="Safety Integrity Level is required"
+                                                        k-option-label="'Select SIL ...'"
+                                                        k-data-text-field="'description'"
+                                                        k-data-value-field="'lookupSilId'"
+                                                        k-data-source="silDataSource"
+                                                        k-ng-model="selectedSILType"
+                                                        k-filter="'contains'"
+                                                        k-value-primitive="true"></select>
+                                                <br>
+                                                <a class="form_helper_link" href="#" data-ng-click="loaDialog.open()">View LOA table</a><br />
+                                                <span class="form_helper_text">Instrumented system only</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <h4 class="group_title">Work Description</h4>
+                                <div class="block_group">
+                                    <div class="row">
+                                        <div class="col-xs-5">
+                                            <div class="form-group">
+                                                <label>Date Required</label>
+                                                <input kendo-date-picker k-options="dateTextbox" name="dateRequired" class="datepicker txt" data-ng-model="sceDetail.dateRequired" required data-required-msg="Date Required is required" pattern="^(((0?[1-9]|1[012])/(0?[1-9]|1\d|2[0-8])|(0?[13456789]|1[012])/(29|30)|(0?[13578]|1[02])/31)/(19|[2-9]\d)\d{2}|0?2/29/((19|[2-9]\d)(0[48]|[2468][048]|[13579][26])|(([2468][048]|[3579][26])00)))$" />
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-5">
+                                            <div class="form-group">
+                                                <label>Expected Date to Normalize <span class="opt">(optional)</span></label>
+                                                <input kendo-date-picker k-options="dateTextbox" name="Expected Date to Normalize" class="datepicker txt" greaterdate data-commpare-control="dateRequired" data-ng-model="sceDetail.expectedDateToNormalize" pattern="^(((0?[1-9]|1[012])/(0?[1-9]|1\d|2[0-8])|(0?[13456789]|1[012])/(29|30)|(0?[13578]|1[02])/31)/(19|[2-9]\d)\d{2}|0?2/29/((19|[2-9]\d)(0[48]|[2468][048]|[13579][26])|(([2468][048]|[3579][26])00)))$" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-10">
+                                            <div class="form-group">
+                                                <label>Reason for Conducting Bypass</label>
+                                                <textarea rows="5" name="reasonForConductingBypass" class="txt k-textbox k-editor-textarea" data-ng-model="sceDetail.reasonForConductingByPass" required data-required-msg="Reason for Conducting Bypass is required" maxlength="500"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-10">
+                                            <div class="form-group">
+                                                <label>Precautions by Applicant</label>
+                                                <textarea rows="5" name="precautionsByApplicant" class="txt k-textbox k-editor-textarea" data-ng-model="sceDetail.precautionsByApplicant" required data-required-msg="Precautions by Applicant is required" maxlength="2000"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-5">
+                                            <div class="form-group">
+                                                <label>Method of Bypass</label>
+                                                <select kendo-drop-down-list
+                                                        id="methodBypass"
+                                                        class="txt"
+                                                        name="MethodsofBypass"
+                                                        k-option-label="'Select method ...'"
+                                                        k-data-text-field="'description'"
+                                                        k-data-value-field="'lookupMethodOfByPassId'"
+                                                        k-data-source="methodsDataSource"
+                                                        k-ng-model="selectedMethod"
+                                                        k-on-change="onSelectedMethodChange(kendoEvent)"
+                                                        k-filter="'contains'"
+                                                        k-value-primitive="true"></select>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" id="otherMethod" name="MethodsofBypass" class="txt k-textbox" data-ng-hide="selectedMethod != '0'" data-ng-show="selectedMethod == '0'" data-ng-model="sceDetail.othersMethodOfByPass" maxlength="300" />
+                                            </div>
+                                            <span class="k-invalid-msg" data-for="MethodsofBypass"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="block_group">
+                                    <div class="row">
+                                        <div class="col-xs-10">
+                                            <div class="form-group">
+                                                <label>Reviewer</label>
+                                                <select kendo-drop-down-list
+                                                        id="sce-reviewer"
+                                                        class="txt"
+                                                        name="reviewer"
+                                                        required
+                                                        data-required-msg="Reviewer is required"
+                                                        k-options="reviewerOptions"
+                                                        k-ng-model="selectedReviewer"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="block_group text-right fw">
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="form-group">
+                                                <button type="button" class="btn btn-sd k-button btn-purple" data-ng-click="updateRequire($event, 'Draft')" data-ng-disabled="inProgress" data-ng-hide="!isApplicant">Update</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="action_bar cf" data-ng-show="isPic">
+                <div class="action_status">
+                    <h4 data-ng-bind="sceDetail.status"></h4>
+                </div>
+                <div class="action_applicant">
+                    <h6 data-ng-bind="panelOperatorRole"></h6>
+                    <p><strong data-ng-bind="userProfile.userName"></strong><br><span data-ng-bind="userProfile.staffNo"></span></p>
+                </div>
+                <div class="action_button" data-ng-hide="!isApplicant">
+                    <button class="btn btn-sd btn-sd-ghost k-button" type="button" data-ng-click="cancelSce($event)" data-ng-disabled="inProgress">Cancel SCE</button>
+                    <button class="btn btn-sd btn-sd-ghost k-button" type="button" data-ng-click="updateRequire($event, 'Submit')" data-ng-disabled="inProgress">Submit</button>
+                </div>
+            </div>
+            <div kendo-dialog="loaDialog" k-title="'PP(M)SB SCE Bypass Level of Authority'" k-on-open="dialogVisible = true"
+                 k-on-close="dialogVisible = false" k-width="650" k-height="480" k-modal="true" k-visible="false">
+                <img alt="loa" src="/content/images/loa.png" />
+            </div>
+        </form>
+        <div kendo-dialog="transferDialog" k-title="'Transfer SCE'" k-on-open="dialogVisible = true"
+             k-on-close="dialogVisible = false" k-width="435" k-actions="transferSceAction" k-modal="true" k-visible="false">
+            <form id="transfer-sce" kendo-validator="transfer_sce_validator">
+                <ul class="review_listing">
+                    <li>
+                        Transferring SCE to a new applicant will remove you from this SCE. This action will be irreversible. You will still be able to view this SCE
+                    </li>
+                    <li>
+                        <div class="control-label">Transfer to New Applicant</div>
+                        <select kendo-drop-down-list
+                                id="sce-new-applicant"
+                                class="txt dd_avatar"
+                                name="newApplicant"
+                                required
+                                data-required-msg="New Applicant is required"
+                                k-options="newApplicantTransferOptions"
+                                k-ng-model="transferSceModel.newApplicantId"
+                                k-filter="'contains'"
+                                k-value-primitive="true"></select>
+                    </li>
+                    <li>
+                        <div class="control-label">
+                            Comment <span>(optional)</span>
+                        </div>
+                        <textarea rows="5" class="k-editor-textarea txt" data-ng-model="transferSceModel.comment" maxlength="2000"></textarea>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>

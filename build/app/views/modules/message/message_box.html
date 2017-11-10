@@ -1,0 +1,29 @@
+<div class="box_side_head box_side_head_dd">
+    <h5>Message Board</h5>
+    <select name="area" id="area" kendo-drop-down-list
+            class="txt"
+            k-on-change="onAreaChange()"
+            k-options='areaOption'
+            k-ng-model="model.areaId"
+            k-value-primitive="true" />
+</div>
+<div class="process" data-ng-show="isProcess">
+    <div class="process_content"> <i class="fa fa-spinner fa-pulse"></i></div>
+</div>
+<div data-ng-class="model.areaId==''?'':'show_message_bottom'" class="message_box_wrapper">
+    <ul class="message_box_content" data-control="scroll">
+        <li data-ng-repeat="item in listMessage track by $index" data-ng-class="(item.userName +'').toLowerCase() =='me'?'own':''">
+            <span class="message_avatar">
+                <img data-ng-src="data:image/jpeg;base64,{{item.image}}" alt="{{item.userName}}" />
+            </span>
+            <div class="message_box_item {{item.class}}">
+                <p data-ng-bind-html="item.description"></p>
+                <p class="small">{{item.userName}} <span class="time" data-ng-bind="getTimeLine(item.createdDateTime)"></span></p>
+            </div>
+        </li>
+    </ul>
+    <div class="message_bottom">
+        <textarea data-ng-disabled="model.areaId==''" placeholder="Post a new message..." maxlength="1000" data-maxlength-msg="Max length is 1000" data-ng-model="model.message" class="k-textbox txt"></textarea>
+        <button data-ng-disabled="model.areaId==''||(model.message +'').trim()==''" data-ng-click="sendMessage();"><i class="icon-send"></i></button>
+    </div>
+</div>

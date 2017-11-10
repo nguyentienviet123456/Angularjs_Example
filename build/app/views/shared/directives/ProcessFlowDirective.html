@@ -1,0 +1,9 @@
+<div>
+    <h5 data-ng-bind="title"></h5>
+    <ul class="flow_step">
+        <li data-ng-repeat="lbl in allStatus" data-ng-class="getStatus($index)" data-ng-if="lbl !='finish' && lbl !='NoReShelvingOrReApproval' && lbl !='ApprovalClose'">
+            <p data-ng-bind="lbl" ></p>
+        </li>
+    </ul>
+</div>
+

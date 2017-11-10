@@ -1,0 +1,277 @@
+﻿<div id="print-container">
+    <div class="container">
+        <div class="print-header">
+            <div class="row flex">
+                <div class="col-xs-2 logo petronas">
+                    <img alt="petronas logo" src="/content/images/logo-petronas.jpg" class="center-block" />
+                </div>
+                <div class="col-xs-8 col-mid">
+                    <div class="row text-center">
+                        <h3>PETRONAS PENAPISAN MELAKA SDN. BHD.</h3>
+                    </div>
+                    <div class="row text-center">
+                        <h2>PRD-OPP-CP-012-F01</h2>
+                    </div>
+                </div>
+                <div class="col-xs-2 logo company">
+                    <img alt="logo-1" src="/content/images/logo-1.png" class="center-block" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 title">
+                    <div class="row">
+                        <div class="col-xs-9">
+                            <h3>Risk Assessment For SCE Bypassed More Than 7 Days</h3>
+                        </div>
+                        <div class="col-xs-3 text-right">
+                            <h3><span data-ng-bind="raDetail.raHeaderDetail.raNo"></span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="print-content">
+            <section>
+                <div class="section-title">
+                    <h3>APPLICATION</h3>
+                </div>
+                <div class="row bg-left">
+                    <div class="col-xs-2">
+                        <div class="col-left">
+                            <h5>Applicant</h5>
+                            <p>
+                                <strong data-ng-bind="raDetail.raHeaderDetail.applicantName" class="username"></strong><br />
+                                <span data-ng-bind="raDetail.raHeaderDetail.applicantStaffNo"></span>
+                            </p>
+                            <h5>Dept</h5>
+                            <p data-ng-bind="raDetail.raHeaderDetail.applicantDept"></p>
+                            <h5>Office Telephone</h5>
+                            <p data-ng-bind="raDetail.raHeaderDetail.applicantContactNo"></p>
+                            <h5>Mobile No.</h5>
+                            <p data-ng-bind="raDetail.raHeaderDetail.applicantMobileNo"></p>
+                        </div>
+                    </div>
+                    <div class="col-xs-10 bg-right col-application">
+                        <div class="row">
+                            <div class="col-xs-12 process-flow-title-first-section">
+                                <h4>Requisition</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <h5>Area</h5>
+                                <p>Area <span data-ng-bind="raDetail.raHeaderDetail.area"></span></p>
+                            </div>
+                            <div class="col-xs-3">
+                                <h5>Application Date</h5>
+                                <p>{{raDetail.raHeaderDetail.sceApplicationDate | date: 'dd MMM yyyy'}}</p>
+                            </div>
+                            <div class="col-xs-3">
+                                <h5>SCE No.</h5>
+                                <p data-ng-bind="raDetail.raHeaderDetail.sceNo"></p>
+                            </div>
+                            <div class="col-xs-3">
+                                <h5>RA Facilitator</h5>
+                                <p>
+                                    <strong class="username" data-ng-bind="raDetail.reviewer.userName"></strong><br /><span data-ng-bind="raDetail.reviewer.staffNo"></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h5>Work Description</h5>
+                                <p data-ng-bind="raDetail.raHeaderDetail.workDescription"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 process-flow-title">
+                                <h4>Risk Identification</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h5>Consequences</h5>
+                                <p data-ng-bind="raDetail.raHeaderDetail.consequences"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table class="table-full table-info">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-1">Consequences</th>
+                                            <th class="col-2">Severity</th>
+                                            <th class="col-3">Likelihood</th>
+                                            <th class="col-4">Risk</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <h5>People</h5>
+                                            </td>
+                                            <td>
+                                                <h5>{{raDetail.peopleSeverity.severity}}<br><small>{{raDetail.peopleSeverity.impact}}</small></h5>
+                                            </td>
+                                            <td>
+                                                <h5>{{raDetail.peopleLikelihood.likelihood}}<br><small>{{raDetail.peopleLikelihood.description}}</small></h5>
+                                            </td>
+                                            <td>
+                                                <h5 id="print_PeopleRisk" data-ng-bind-template="{{raDetail.peopleLikelihood.value}}{{raDetail.peopleSeverity.value}} - {{raDetail.peopleRisk.riskDescription}}"></h5>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h5>Environment</h5>
+                                            </td>
+                                            <td>
+                                                <h5>{{raDetail.environmentSeverity.severity}}<br><small>{{raDetail.environmentSeverity.impact}}</small></h5>
+                                            </td>
+                                            <td>
+                                                <h5>{{raDetail.environmentLikelihood.likelihood}}<br><small>{{raDetail.environmentLikelihood.description}}</small></h5>
+                                            </td>
+                                            <td>
+                                                <h5 id="print_EnvironmentRisk" data-ng-bind-template="{{raDetail.environmentLikelihood.value}}{{raDetail.environmentSeverity.value}} - {{raDetail.environmentRisk.riskDescription}}"></h5>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h5>Assets</h5>
+                                            </td>
+                                            <td>
+                                                <h5>{{raDetail.assetSeverity.severity}}<br><small>{{raDetail.assetSeverity.impact}}</small></h5>
+                                            </td>
+                                            <td>
+                                                <h5>{{raDetail.assetLikelihood.likelihood}}<br><small>{{raDetail.assetLikelihood.description}}</small></h5>
+                                            </td>
+                                            <td>
+                                                <h5 id="print_AssetRisk" data-ng-bind-template="{{raDetail.assetLikelihood.value}}{{raDetail.assetSeverity.value}} - {{raDetail.assetRisk.riskDescription}}"></h5>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h5>Reputation</h5>
+                                            </td>
+                                            <td>
+                                                <h5>{{raDetail.reputationSeverity.severity}}<br><small>{{raDetail.reputationSeverity.impact}}</small></h5>
+                                            </td>
+                                            <td>
+                                                <h5>{{raDetail.reputationLikelihood.likelihood}}<br><small>{{raDetail.reputationLikelihood.description}}</small></h5>
+                                            </td>
+                                            <td>
+                                                <h5 id="print_ReputationRisk" data-ng-bind-template="{{raDetail.reputationLikelihood.value}}{{raDetail.reputationSeverity.value}} - {{raDetail.reputationRisk.riskDescription}}"></h5>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="risk-summary">
+                                    <h5>Risk Identified As <strong id="print_RiskDescription">{{raDetail.riskIdentification.riskDescription}}</strong></h5>
+                                </div>
+                                <div class="risk-table">
+                                    <img class="img-responsive" src="/content/images/risk-table.png" alt="Risk Table" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="section-title ">
+                    <h3>RISK MITIGATION</h3>
+                </div>
+                <div class="row bg-left">
+                    <div class="col-xs-2">
+                        <div class="col-left">
+                            <h5 data-ng-show="isReviewed">Reviewed By</h5>
+                            <p data-ng-show="isReviewed">
+                                <strong data-ng-bind="raDetail.reviewer.userName" class="username"></strong><br />
+                                <span data-ng-bind="raDetail.reviewer.staffNo"></span><br />
+                                <small>{{raDetail.reviewer.dateTime | date: "dd MMM yyyy 'at' hh:mm a"}}</small>
+                            </p>
+                            <h5 data-ng-show="isEndorsed">Endorsed By</h5>
+                            <p data-ng-show="isEndorsed">
+                                <strong data-ng-bind="raDetail.endorser.userName" class="username"></strong><br />
+                                <span data-ng-bind="raDetail.endorser.staffNo"></span><br />
+                                <small>{{raDetail.endorser.dateTime | date: "dd MMM yyyy 'at' hh:mm a"}}</small>
+                            </p>
+                            <h5 data-ng-show="isApproved">Approved By</h5>
+                            <p data-ng-show="isApproved">
+                                <strong data-ng-bind="raDetail.approver.userName" class="username"></strong><br />
+                                <span data-ng-bind="raDetail.approver.staffNo"></span><br />
+                                <small>{{raDetail.approver.dateTime | date: "dd MMM yyyy 'at' hh:mm a"}}</small>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-xs-10 bg-right">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h5>Process Monitoring<br><small>How will the process be monitored to ensure that it is operating within the required operating window?</small></h5>
+                                <p data-ng-bind="raDetail.raHeaderDetail.processMonitoring"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h5>Process Trips<br><small>How will the process be tripped or shutdown in the absence of the IPF that is bypassed?</small></h5>
+                                <p data-ng-bind="raDetail.raHeaderDetail.processTrips"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h5>Recovery Measures<br><small>23F2A265 and 23F1216 found badly clogged at mechanical tapping effected to flow reading goes Low Low</small></h5>
+                                <p data-ng-bind="raDetail.raHeaderDetail.recoveryMeasures"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h5>Specific Instructions for Operations/ Maintenance<br><small>Any specific instructions for operations and/or maintenance?</small></h5>
+                                <p data-ng-bind="raDetail.raHeaderDetail.instructionOfOperation"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h5>Do any Instrument /Hardware Issue impact on the pre-defined mitigation plan?</h5>
+                                <p data-ng-bind="raDetail.raHeaderDetail.instrumentImpact"></p>
+                            </div>
+                        </div>
+                        <div class="row" data-ng-repeat="row in chunkTeamMember">
+                            <div class="col-xs-2" data-ng-repeat="member in row">
+                                <h5>Team Member</h5>
+                                <p><strong class="username">{{member.teamMember.userName}}</strong><br /><span>{{member.teamMember.position}}</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section data-ng-show="isUpdatedMOC">
+                <div class="row section-title">
+                    <h3>MOC</h3>
+                </div>
+                <div class="row bg-left">
+                    <div class="col-xs-2">
+                        <div class="col-left">
+                            <!--<h5>MOC By</h5>
+                            <p><strong class="username">Tony Nagamaiah</strong><br /><span>90032</span></p>-->
+                        </div>
+                    </div>
+                    <div class="col-xs-10 bg-right">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <h5>SCE Bypass<br><small>SCE bypass allowed for extension of more than 90 days via MOC</small></h5>
+                                <p>{{raDetail.raHeaderDetail.allowByPassViaMOC?"Yes" : "No"}}</p>
+                            </div>
+                            <div class="col-xs-3">
+                                <h5>MOC No</h5>
+                                <p data-ng-bind="raDetail.raHeaderDetail.mocNo"></p>
+                            </div>
+                            <div class="col-xs-6">
+                                <h5>MOC Meeting Date & Time</h5>
+                                <p>{{raDetail.raHeaderDetail.mocMeetingDate | date : "dd MMM yyyy 'at' h:mma"}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="row_end"></div>
+        </div>
+    </div>
+</div>

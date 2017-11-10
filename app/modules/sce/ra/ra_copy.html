@@ -1,0 +1,448 @@
+﻿<div id="Panel">
+    <div class="panel_content panel_action_bar panel-new">
+        <form id="required-update" kendo-validator="raNewValidator">
+            <!-- Floating Process Flow -->
+            <div class="process_flow affix_top box_shadow" data-offset="50">
+                <h5>Process Flow</h5>
+                <ul class="flow_step">
+                    <li class="current">
+                        <p>Application</p>
+                    </li>
+                    <li>
+                        <p>Review</p>
+                    </li>
+                    <li>
+                        <p>Endorsement</p>
+                    </li>
+                    <li>
+                        <p>Approval</p>
+                    </li>
+                </ul>
+            </div>
+            <!-- End Floating Process Flow -->
+            <!-- Form Box -->
+            <div class="col-left">
+                <div class="box_shadow">
+                    <div class="box_head block cf">
+                        <h6>
+                            <strong>RA</strong>
+                            <span data-ng-bind-template="{{raDetail.raHeaderDetail.raNo}}"></span>
+                        </h6>
+                        <p data-ng-bind="raDetail.raHeaderDetail.workDescription"></p>
+                        <div class="dd_options">
+                            <div class="dd_block">
+                                <button class="dropdown_toggle dd_dotv" type="button"><i class="icon-dotv"></i></button>
+                                <ul class="dropdown_menu">
+                                    <li><a href="#">Print</a></li>
+                                    <li data-ng-show="(((isApplicant && hasApplicantRole)|| isAdmin) && raDetail.raHeaderDetail.raStatusKey!='20') "><a href="#" data-ng-click="cancelRA($event)">Cancel RA</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box_highlight block cf">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <h4 data-ng-bind="RaStatus"></h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="control-label" data-ng-bind="statusTypeResponse"></div>
+                                <label>Rejected</label>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="control-label" data-ng-bind-template="{{actionResponse}} By"></div>
+                                <a href="#" data-ng-bind="personInCharge.userName"></a>
+                                <p data-ng-bind="personInCharge.staffNo"></p>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="control-label">Comment</div>
+                                <label data-ng-bind="personInCharge.remarks"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block">
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <h5 class="control-label">Area</h5>
+                                <p data-ng-bind="raDetail.raHeaderDetail.area"></p>
+                            </div>
+                            <div class="col-xs-2">
+                                <h5 class="control-label">Application Date</h5>
+                                <p>{{raDetail.raHeaderDetail.sceApplicationDate | date: 'dd MMM yyyy'}}</p>
+                            </div>
+                            <div class="col-xs-2">
+                                <h5 class="control-label">SCE</h5>
+                                <p><a href="{{sceLink}}"><strong data-ng-bind="raDetail.raHeaderDetail.sceNo"></strong></a></p>
+                            </div>
+                            <div class="col-xs-2">
+                                <h5 class="control-label">Tag No</h5>
+                                <p data-ng-bind="raDetail.raHeaderDetail.tagNo"></p>
+                            </div>
+                            <div class="col-md-4">
+                                <p>
+                                    <span id="riskDescription" data-ng-bind="raDetail.riskIdentification.riskDescription">
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <h5 class="control-label">Applicant</h5>
+                                <p class="ng-binding text_avatar">
+                                    <img src="data:image/jpg;base64,{{raDetail.raHeaderDetail.applicantImage}}" alt="{{raDetail.raHeaderDetail.applicantName}}" />
+                                    <a data-ng-href="/profile/{{raDetail.raHeaderDetail.applicantUserProfileId}}" data-ng-bind="raDetail.raHeaderDetail.applicantName"></a><br>
+                                    {{raDetail.raHeaderDetail.applicantStaffNo}}
+                                </p>
+                            </div>
+                            <div class="col-xs-2">
+                                <h5 class="control-label">Dept</h5>
+                                <p data-ng-bind="raDetail.raHeaderDetail.applicantDept"></p>
+                            </div>
+                            <div class="col-xs-2">
+                                <h5 class="control-label">Office Telephone</h5>
+                                <p data-ng-bind="raDetail.raHeaderDetail.applicantContactNo"></p>
+                            </div>
+                            <div class="col-xs-2">
+                                <h5 class="control-label">Mobile No.</h5>
+                                <p data-ng-bind="raDetail.raHeaderDetail.applicantMobileNo"></p>
+                            </div>
+                            <div class="col-xs-2">
+                                <h5 class="control-label">Radio</h5>
+                                <p data-ng-bind="raDetail.raHeaderDetail.radio"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="foot_info text-right">
+                    <p class="ng-binding">Created by <a data-ng-href="/profile/{{raDetail.raHeaderDetail.applicantUserProfileId}}" data-ng-bind="raDetail.raHeaderDetail.applicantName"></a> | Last update {{raDetail.raHeaderDetail.modifiedDateTime | date: 'dd MMM yyyy'}} at {{raDetail.raHeaderDetail.modifiedDateTime | date: 'h:mm a'}}</p>
+                </div>
+                <div class="panel_head cf panel_head_middle">
+                    <div class="panel_head_left">
+                        <h6 class="panel_title text-uppercase">process flow</h6>
+                    </div>
+                    <div class="panel_head_right">
+                        <a href="#" id="toogleBody" class="visible-button">Expand All</a>
+                    </div>
+                </div>
+                <div class="box_shadow">
+                    <div class="sce-box">
+                        <h4 class="box-title">
+                            <a href="#" class="visible-button">Application <i class="icon-arr-down visible-button"></i></a>
+                        </h4>
+                        <div class="box-body">
+                            <h4 class="group_title">Requisition</h4>
+                            <div class="block_group">
+                                <div class="row">
+                                    <div class="col-xs-10">
+                                        <div class="form-group">
+                                            <label>Assign RA Facilitator</label>
+                                            <select kendo-drop-down-list
+                                                    id="ra-facilitators"
+                                                    class="dd_avatar txt"
+                                                    name="Facilitators"
+                                                    action-valid-required="Submit"
+                                                    data-required-msg="RA Facilitator is required"
+                                                    k-options="facilitatorOptions"
+                                                    k-ng-model="selectedFacilitator"></select>
+                                            <span class="k-invalid-msg" data-for="Facilitators"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-10">
+                                        <div class="form-group">
+                                            <label>Assign RA Endorser</label>
+                                            <select kendo-drop-down-list
+                                                    id="ra-endorsers"
+                                                    class="dd_avatar txt"
+                                                    name="Endorsers"
+                                                    action-valid-required="Submit"
+                                                    data-required-msg="RA Endorser is required"
+                                                    k-options="endorsersOptions"
+                                                    k-ng-model="selectedEndorser"></select>
+                                            <span class="k-invalid-msg" data-for="Endorsers"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-10">
+                                        <div class="form-group">
+                                            <label>Assign RA Approver</label>
+                                            <select kendo-drop-down-list
+                                                    id="ra-approvers"
+                                                    class="dd_avatar txt"
+                                                    name="Approvers"
+                                                    action-valid-required="Submit"
+                                                    data-required-msg="RA Approver is required"
+                                                    k-options="approversOptions"
+                                                    k-ng-model="selectedApprover"></select>
+                                            <span class="k-invalid-msg" data-for="Approvers"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-10">
+                                        <div class="form-group">
+                                            <label>Work Description</label>
+                                            <textarea rows="5" name="WorkDescription" data-required-msg="Work Description is required" class="txt k-textbox k-editor-textarea" data-ng-model="raDetail.raHeaderDetail.workDescription" action-valid-required="Submit" maxlength="250"></textarea>
+                                            <span class="k-invalid-msg" data-for="WorkDescription"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <section>
+                                <h4 class="group_title">RISK IDENTIFICATION</h4>
+                                <div class="block_group">
+                                    <div class="row">
+                                        <div class="col-xs-10">
+                                            <div class="form-group">
+                                                <label>Consequences</label>
+                                                <p>
+                                                    The consequences statement shall consist of the initial system response and clearly states the mechanism leading to the most credible ultimate consequences.
+                                                    Assume all safeguards have failed or do not exist and these is no mitigation.
+                                                </p>
+                                                <textarea rows="5" action-valid-required="Submit" data-required-msg="Consequences is required" name="Consequences" class="txt k-textbox k-editor-textarea" data-ng-model="raDetail.raHeaderDetail.consequences" maxlength="2000"></textarea>
+                                                <span class="k-invalid-msg" data-for="Consequences"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <table class="table_risk">
+                                                <colgroup>
+                                                    <col class="cg1" />
+                                                    <col class="cg2" />
+                                                    <col class="cg3" />
+                                                    <col class="cg4" />
+                                                </colgroup>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Consequences</th>
+                                                        <th>Severity</th>
+                                                        <th>Likelihood</th>
+                                                        <th>Risk</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td><strong>People</strong></td>
+                                                        <td>
+                                                            <select kendo-drop-down-list
+                                                                    id="peopleSeverityList"
+                                                                    name="peopleSeverities"
+                                                                    k-options="peopleSeveritiesOptions"
+                                                                    action-valid-required="Submit"
+                                                                    data-required-msg="People Severity is required"
+                                                                    k-ng-model="selectedPeopleSeverity"></select>
+                                                            <p id="peopleImpactDescription"></p>
+                                                            <span class="k-invalid-msg" data-for="peopleSeverities"></span>
+                                                        </td>
+                                                        <td>
+                                                            <select kendo-drop-down-list
+                                                                    id="peopleLikelihoodList"
+                                                                    name="peopleLikelihoods"
+                                                                    k-options="peopleLikelihoodOptions"
+                                                                    action-valid-required="Submit"
+                                                                    data-required-msg="People Likelihood is required"
+                                                                    k-ng-model="selectedPeopleLikelihood"></select>
+                                                            <p id="peopleLikelihoodDescription"></p>
+                                                            <span class="k-invalid-msg" data-for="peopleLikelihoods"></span>
+                                                        </td>
+                                                        <td>
+                                                            <label id="peopleRisk"></label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Environment</strong></td>
+                                                        <td>
+                                                            <select kendo-drop-down-list
+                                                                    id="environmentSeverityList"
+                                                                    name="environmentSeverities"
+                                                                    action-valid-required="Submit"
+                                                                    data-required-msg="Environment Severity is required"
+                                                                    k-options="environmentSeveritiesOptions"
+                                                                    k-ng-model="selectedEnvironmentSeverity"></select>
+                                                            <p id="environmentImpactDescription"></p>
+                                                            <span class="k-invalid-msg" data-for="environmentSeverities"></span>
+                                                        </td>
+                                                        <td>
+                                                            <select kendo-drop-down-list
+                                                                    id="environmentLikelihoodList"
+                                                                    name="environmentLikelihoods"
+                                                                    action-valid-required="Submit"
+                                                                    data-required-msg="Environment Likelihood is required"
+                                                                    k-options="environmentLikelihoodOptions"
+                                                                    k-ng-model="selectedEnvironmentLikelihood"></select>
+                                                            <p id="environmentLikelihoodDescription"></p>
+                                                            <span class="k-invalid-msg" data-for="environmentLikelihoods"></span>
+                                                        </td>
+                                                        <td>
+                                                            <label id="environmentRisk"></label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Asset</strong></td>
+                                                        <td>
+                                                            <select kendo-drop-down-list
+                                                                    id="assetSeverityList"
+                                                                    name="assetSeverities"
+                                                                    action-valid-required="Submit"
+                                                                    data-required-msg="Asset Severity is required"
+                                                                    k-options="assetSeveritiesOptions"
+                                                                    k-ng-model="selectedAssetSeverity"></select>
+                                                            <p id="assetImpactDescription"></p>
+                                                            <span class="k-invalid-msg" data-for="assetSeverities"></span>
+                                                        </td>
+                                                        <td>
+                                                            <select kendo-drop-down-list
+                                                                    id="assetLikelihoodList"
+                                                                    name="assetLikelihoods"
+                                                                    action-valid-required="Submit"
+                                                                    data-required-msg="Asset Likelihood is required"
+                                                                    k-options="assetLikelihoodOptions"
+                                                                    k-ng-model="selectedAssetLikelihood"></select>
+                                                            <p id="assetLikelihoodDescription"></p>
+                                                            <span class="k-invalid-msg" data-for="assetLikelihoods"></span>
+                                                        </td>
+                                                        <td>
+                                                            <label id="assetRisk"></label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Reputation</strong></td>
+                                                        <td>
+                                                            <select kendo-drop-down-list
+                                                                    id="reputationSeverityList"
+                                                                    name="reputationSeverities"
+                                                                    action-valid-required="Submit"
+                                                                    data-required-msg="Reputation Severity is required"
+                                                                    k-options="reputationSeveritiesOptions"
+                                                                    k-ng-model="selectedReputationSeverity"></select>
+                                                            <p id="reputationImpactDescription"></p>
+                                                            <span class="k-invalid-msg" data-for="reputationSeverities"></span>
+                                                        </td>
+                                                        <td>
+                                                            <select kendo-drop-down-list
+                                                                    id="reputationLikelihoodList"
+                                                                    name="reputationLikelihoods"
+                                                                    action-valid-required="Submit"
+                                                                    data-required-msg="Reputation Likelihood is required"
+                                                                    k-options="reputationLikelihoodOptions"
+                                                                    k-ng-model="selectedReputationLikelihood"></select>
+                                                            <p id="reputationLikelihoodDescription"></p>
+                                                            <span class="k-invalid-msg" data-for="reputationLikelihoods"></span>
+                                                        </td>
+                                                        <td>
+                                                            <label id="reputationRisk"></label>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row risk_identify">
+                                    <label>Risk Identified As</label>
+                                    <div class="col-xs-2 risk_fw"><p id="riskLevel" data-ng-model="riskDescription"></p></div>
+                                    <div class="col-xs-10">
+                                        <img alt="RiskTable" src="/content/images/RiskTable.png" />
+                                    </div>
+                                </div>
+                            </section>
+                            <h4 class="group_title">RISK MITIGATION</h4>
+                            <div class="block_group">
+                                <div class="row">
+                                    <div class="col-xs-10">
+                                        <div class="form-group">
+                                            <label>Process Monitoring</label>
+                                            <p>
+                                                How will the process be monitored to ensure that it is operating within the required operating window?
+                                            </p>
+                                            <textarea rows="5" action-valid-required="Submit" data-required-msg="Process Monitoring is required" name="ProcessMonitoring" class="txt k-textbox k-editor-textarea" data-ng-model="raDetail.raHeaderDetail.processMonitoring" maxlength="2000"></textarea>
+                                            <span class="k-invalid-msg" data-for="ProcessMonitoring"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-10">
+                                        <div class="form-group">
+                                            <label>Process Trips</label>
+                                            <p>
+                                                How will the process be tripped or shutdown in the absence of the IPF that is bypassed?
+                                            </p>
+                                            <textarea rows="5" action-valid-required="Submit" data-required-msg="Process Trips is required" name="ProcessTrips" class="txt k-textbox k-editor-textarea" data-ng-model="raDetail.raHeaderDetail.processTrips" maxlength="2000"></textarea>
+                                            <span class="k-invalid-msg" data-for="ProcessTrips"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-10">
+                                        <div class="form-group">
+                                            <label>Recovery Measures</label>
+                                            <p>
+                                                Are any additional/ alternative recovery measures required? e.g fire protection, gas detection, etc.
+                                            </p>
+                                            <textarea rows="5" name="RecoveryMeasures" action-valid-required="Submit" data-required-msg="Recovery Measures is required" class="txt k-textbox k-editor-textarea" data-ng-model="raDetail.raHeaderDetail.recoveryMeasures" maxlength="2000"></textarea>
+                                            <span class="k-invalid-msg" data-for="RecoveryMeasures"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-10">
+                                        <div class="form-group">
+                                            <label>Specify Instructions for Operators/Maintainance</label>
+                                            <p>
+                                                Any specify instructions for operations and / or maintenance?
+                                            </p>
+                                            <textarea rows="5" action-valid-required="Submit" data-required-msg="Instruction of operation is required" name="InstructionOfOperation" class="txt k-textbox k-editor-textarea" data-ng-model="raDetail.raHeaderDetail.instructionOfOperation" maxlength="2000"></textarea>
+                                            <span class="k-invalid-msg" data-for="InstructionOfOperation"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-10">
+                                        <div class="form-group">
+                                            <label>Do any instrument / Hardware Issue impact on the pre-defined mitigation plan</label>
+                                            <textarea rows="5" action-valid-required="Submit" data-required-msg="Instrument Impact is required" name="InstrumentImpact" class="txt k-textbox k-editor-textarea" data-ng-model="raDetail.raHeaderDetail.instrumentImpact" maxlength="2000"></textarea>
+                                            <span class="k-invalid-msg" data-for="InstrumentImpact"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="block_group">
+                                <div class="row">
+                                    <div class="col-xs-10">
+                                        <div class="form-group">
+                                            <label>Team Member</label>
+                                            <kendo-grid id="teamMembersGrid" options="teamMembersOptions">
+                                            </kendo-grid>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Action Bar footer -->
+            <div class="action_bar cf" data-ng-show="((hasApplicantRole || isAdmin))">
+                <div class="action_status">
+                    <h4>Draft</h4>
+                </div>
+                <div class="action_applicant">
+                    <h6>Applicant</h6>
+                    <p><strong data-ng-bind="userProfile.userName"></strong><br>{{userProfile.staffNo}}</p>
+                </div>
+                <div class="action_button">
+                    <button class="btn btn-sd btn-sd-ghost k-button" type="button" data-ng-click="goToListPage($event)">Discard</button>
+                    <button class="btn btn-sd btn-sd-ghost k-button" type="button" data-ng-click="saveData($event, 'Draft')">Save Draft</button>
+                    <button class="btn btn-sd btn-sd-ghost k-button" type="button" data-ng-click="saveData($event, 'Submit')">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

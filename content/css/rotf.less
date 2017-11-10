@@ -1,0 +1,401 @@
+﻿@color_1: #555555;
+@color_2: #3d4145;
+@color_3: #ffffff;
+@color_4: #68ae3f;
+@color_5: #3d3935;
+@color_6: #aaaaaa;
+@color_7: red;
+@color_8: #616161;
+@color_9: #e15656;
+@color_10: #009f9a;
+@color_11: transparent;
+@color_12: #fff;
+@color_13: #898989;
+@color_14: #676562;
+@color_15: #58ebe6;
+@color_16: #3c3834;
+@color_17: #8a8a8a;
+@color_18: #333333;
+@color_19: #444445;
+@color_20: #00a19c;
+@color_21: #cbcbca;
+@color_22: #615e99;
+@color_23: #1aaaa6;
+@color_24: #e83030;
+@color_25: #a3a3a3;
+@orange: #eea928;
+@font_family_1: "petronas";
+@font_family_2: "museo_sans",sans-serif;
+@background_color_1: #fff9f9;
+@background_color_2: transparent;
+@border_color_1: #f26666;
+@border_color_2: #dea0a0;
+@border_color_3: @color_10;
+@border_color_4: #d5d5d5;
+@border_top_color_1: #008884;
+/* Remove Before Compile */
+#TopMenu.rotf {
+    background-color: @color_22;
+    height: 67px;
+    margin-top: -10px;
+
+    .top_menu {
+        display: inline-block;
+        height: 100%;
+
+        .menu_item {
+            display: inline-block;
+            padding: 19px 19px;
+            position: relative;
+            height: 100%;
+
+            a {
+                color: @color_3;
+                text-decoration: none;
+                display: inline-block;
+            }
+
+            .landing.active {
+                width: 0;
+                height: 0;
+                border-left: 7px solid transparent;
+                border-right: 7px solid transparent;
+                border-bottom: 7px solid @color_3;
+                position: absolute;
+                left: 50%;
+                bottom: 0px;
+                margin-left: -6px;
+            }
+
+            &.active {
+                font-weight: bold;
+            }
+
+            &:hover {
+                background-color: #7674a5;
+            }
+        }
+    }
+
+    .statistics_info {
+        display: inline-block;
+        float: right;
+
+        .statistic_info {
+            float: left;
+            color: @color_3;
+            margin-top: 11px;
+            line-height: 17px;
+
+            div {
+                width: 50%;
+                display: inline-block;
+                font-size: 13px;
+                float: left;
+                margin-top: 5px;
+
+                .name {
+                    font-weight: bold;
+                    display: inline-block;
+                }
+
+                .unit {
+                    display: inline-block;
+                }
+            }
+
+
+            .value {
+                float: left;
+                font-size: 23px;
+                margin-top: 14px;
+            }
+        }
+    }
+}
+
+.section3_rotf() {
+    background-color: @color_3;
+    height: 67px;
+    -webkit-box-shadow: 0px 1px 1px 1px rgba(196,196,196,1);
+    -moz-box-shadow: 0px 1px 1px 1px rgba(196,196,196,1);
+    box-shadow: 0px 1px 1px 1px rgba(196,196,196,1);
+}
+
+#Section3.rotf_overview_page {
+    .section3_rotf;
+
+    .Oee_data_container {
+        width: 33.3%;
+        height: 100%;
+        float: left;
+        border-right-width: 1px;
+        border-right-style: solid;
+        border-right-color: @color_21;
+        padding-top: 23px;
+        padding-left: 21px;
+        position: relative;
+
+        &:last-child {
+            border-right: 0px none;
+        }
+
+        .complex_name {
+            font-size: 19px;
+            font-weight: bold;
+        }
+
+        .oee {
+            font-size: 13px;
+            font-weight: bold;
+            margin-left: 14px;
+        }
+
+        .target_value {
+            font-size: 10px;
+        }
+
+        .value {
+            font-size: 21px;
+        }
+
+        .sign-base() {
+            position: absolute;
+            left: 210px;
+            top: 26px;
+            font-size: 13px;
+        }
+
+        .up_sign {
+            color: @color_10;
+            .sign-base;
+        }
+
+        .down_sign {
+            color: #dd3a2b;
+            .sign-base;
+        }
+    }
+}
+
+#Panel.rotf_overview_page {
+    .panel_header {
+        .title {
+            font-size: 23px;
+            float: left;
+            margin-top: 12px;
+        }
+
+        .view_leaderboard {
+            background: @color_22;
+            height: 30px;
+            width: 147px;
+            padding: 8px 7px;
+            font-size: 12px;
+            font-weight: 500;
+            float: right;
+
+            i {
+                margin-right: 7px;
+                font-size: 15px;
+                position: absolute;
+                top: 8px;
+                left: 11px;
+            }
+
+            span {
+                float: right;
+                margin-right: 7px;
+                line-height: 17px;
+            }
+        }
+
+        &:after {
+            clear: both;
+        }
+    }
+
+    .main_wrapper {
+        article {
+            padding-left: 7px 7px;
+            padding-right: 7px;
+
+            .area {
+                position: relative;
+                margin-top: 25px;
+                height: 163px;
+                background: white;
+
+                .area_name {
+                    font-size: 37px;
+                    float: left;
+                    margin-top: 37px;
+                    margin-left: 17px;
+                }
+
+                .area_trophy {
+                    font-size: 31px;
+                    float: left;
+                    margin-top: 35px;
+                    margin-left: 7px;
+                }
+
+                .goodday_wrapper {
+                    float: right;
+                    margin-top: 43px;
+
+                    .good_day {
+                        display: block;
+                        padding-right: 13px;
+                        line-height: 13px;
+                        text-align: right;
+                        font-size: 11px;
+                        font-weight: bold;
+                    }
+
+                    .good_day_txt {
+                        display: block;
+                        padding-right: 13px;
+                        line-height: 13px;
+                        text-align: right;
+                        font-size: 10px;
+                    }
+                }
+
+                .flag {
+                    float: right;
+                }
+
+                .area_footer {
+                    width: 100%;
+                    height: 62px;
+                    border-top: 1px solid #EAEAEA;
+
+                    .area_unit {
+                        display: inline-block;
+                        width: 33.3%;
+                        height: 100%;
+                        padding-top: 10px;
+
+                        .unit_name {
+                            float: left;
+                            margin-left: 15px;
+                            font-size: 13px;
+                            font-weight: bold;
+                        }
+                        // Unit value styles
+                        .unit_value_wrapper {
+                            float: right;
+                            text-align: right;
+                            margin-right: 15px;
+                            line-height: 20px;
+                        }
+
+                        .unit_value_throughput {
+                            display: block;
+                            font-size: 15px;
+                            color: @color_23;
+                        }
+
+                        .unit_value_actual {
+                            .unit_value_throughput;
+                        }
+
+                        .unit_value_target {
+                            display: block;
+                            font-size: 9px;
+                        }
+
+                        .unit_value {
+                            .unit_value_wrapper;
+                            color: @color_23;
+                        }
+
+                        .warning_highlight {
+                            color: @color_7;
+                        }
+                    }
+                }
+            }
+
+            &.dndDraggingSource {
+                display: none;
+            }
+        }
+    }
+}
+
+
+#Section3.rotf_operation {
+    .section3_rotf;
+
+    .area_name {
+        font-size: 23px;
+        font-weight: bold;
+        margin-left: 17px;
+        margin-top: 21px;
+        display: inline-block;
+    }
+
+    .daily_instructions {
+        position: relative;
+        float: right;
+        height: 100%;
+        width: 213px;
+        border-left: 1px solid #EAEAEA;
+        color: @color_10;
+        font-weight: bold;
+
+
+        i {
+            margin-left: 33px;
+            margin-top: 27px;
+        }
+
+        span {
+            font-size: 13px;
+            position: absolute;
+            top: 23px;
+            margin-left: 12px;
+            font-weight: lighter;
+        }
+    }
+
+    .switch_area {
+        float: right;
+        font-size: 13px;
+        color: @color_10;
+        margin-right: 23px;
+        margin-top: 23px;
+    }
+}
+
+
+
+#summary.rotf_operation {
+    height: 185px;
+    //border: 1px solid red;
+    margin-top: 19px;
+
+    .well_done {
+        height: 100%;
+        margin-right: -10px;
+        background: -moz-linear-gradient(left, rgba(29,176,171,1) 0%, rgba(23,167,177,1) 100%); /* FF3.6+ */
+        background: -webkit-linear-gradient(left, rgba(29,176,171,1) 0%, rgba(23,167,177,1) 100%); /* Chrome10+,Safari5.1+ */
+        background: -ms-linear-gradient(left, rgba(29,176,171,1) 0%, rgba(23,167,177,1) 100%); /* IE 10+ */
+        .content {
+            height: 135px;
+        }
+
+        .footer {
+            height: 50px;
+            width: 100%;
+            border-top: 1px solid #5AC0BD;
+        }
+    }
+
+    .good_day {
+        height: 100%;
+        margin-left: -10px;
+    }
+}

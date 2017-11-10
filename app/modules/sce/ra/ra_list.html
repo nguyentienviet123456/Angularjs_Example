@@ -1,0 +1,99 @@
+﻿<div id="Panel">
+    <div class="panel_head cf">
+        <div class="panel_head_left">
+            <h2 class="panel_title"><span data-ng-hide="!$app.userProfile.isAdmin" class="panel_icon">ADMIN</span>RA</h2>
+        </div>
+        <div class="panel_head_right">
+            <span class="k-textbox k-space-right" style="width: 300px">
+                <input type="text" class="input-search-form" data-ng-model="model.tagNo" data-ng-keypress="searchByTagNo($event)" placeholder="Search by Tag No." />
+                <a data-ng-click="searchByTagNoClick()" class="k-icon icon-search">&nbsp;</a>
+            </span>
+        </div>
+    </div>
+    <div class="panel_content">
+        <kendo-grid id="raListingGrid" class="sce-listing ra-listing" options="mainGridOptions">
+        </kendo-grid>
+    </div>
+</div>
+<div id="raTransferRoles" kendo-dialog="transferRolesKendoDiaglog" k-title="'Transfer Roles...'" k-on-open="dialogVisible = true"
+     k-on-close="dialogVisible = false" k-width="435"
+     k-actions="raTransferRoles" k-modal="true" k-visible="false">
+    <form id="raTransferRolesForm" kendo-validator="validators.raTransfer">
+        <ul class="review_listing">
+            <li data-ng-show="pendingReview">
+                <div class="control-label">RA Facilitator</div>
+                <select kendo-drop-down-list
+                        class="dd_avatar txt"
+                        k-options="facilitatorOptions"
+                        k-ng-model="reviewerToTransfer"></select>
+            </li>
+            <li data-ng-show="pendingEndorse">
+                <div class="control-label">RA Endorser</div>
+                <select kendo-drop-down-list
+                        class="dd_avatar txt"
+                        k-options="endorsersOptions"
+                        k-ng-model="endorserToTransfer"
+                        k-filter="'contains'"></select>
+            </li>
+            <li data-ng-show="pendingApprove">
+                <div class="control-label">RA Approver</div>
+                <select kendo-drop-down-list
+                        class="dd_avatar txt"
+                        data-required-msg="Approver is required"
+                        k-options="approversOptions"
+                        k-ng-model="approverToTransfer"
+                        k-filter="'contains'"></select>
+            </li>
+            <li data-ng-show="pendingMOCApproval">
+                <div class="control-label">MOC Approver</div>
+                <select kendo-drop-down-list
+                        class="dd_avatar txt"
+                        data-required-msg="MOC Approver is required"
+                        k-options="mocApproversOptions"
+                        k-ng-model="mocApproverToTransfer"
+                        k-filter="'contains'"></select>
+            </li>
+            <li>
+                <div class="control-label">
+                    Comment <span>(optional)</span>
+                </div>
+                <textarea rows="5" class="k-editor-textarea txt" data-ng-model="adminComment" maxlength="2000"></textarea>
+            </li>
+        </ul>
+    </form>
+</div>
+<div id="transferResultForm" kendo-dialog="transferResultDialog" k-title="'RA Roles Transferred'" k-on-open="dialogVisible = true"
+     k-on-close="dialogVisible = false" k-width="435"
+     k-actions="transferResultActions" k-modal="true" k-visible="false">
+    <p>The following RA roles are now transferred and the new person in charge is notified.</p>
+    <ul class="review_listing">
+        <li data-ng-show="reviewerIsTransfered">
+            <div class="control-label">New Facilitator</div>
+            <p class="text_avatar">
+                <img data-ng-src="data:image/jpeg;base64,{{reviewerToTransfer.image}}" alt="{{reviewerToTransfer.userName}}" />
+                <a data-ng-href="/profile/{{reviewerToTransfer.userProfileId}}" data-ng-bind="reviewerToTransfer.userName"></a>
+            </p>
+        </li>
+        <li data-ng-show="endorserIsTransfered">
+            <div class="control-label">New Endorser</div>
+            <p class="text_avatar">
+                <img data-ng-src="data:image/jpeg;base64,{{endorserToTransfer.image}}" alt="{{endorserToTransfer.userName}}" />
+                <a data-ng-href="/profile/{{endorserToTransfer.userProfileId}}" data-ng-bind="endorserToTransfer.userName"></a>
+            </p>
+        </li>
+        <li data-ng-show="approverIsTransfered">
+            <div class="control-label">New Approver</div>
+            <p class="text_avatar">
+                <img data-ng-src="data:image/jpeg;base64,{{approverToTransfer.image}}" alt="{{approverToTransfer.userName}}" />
+                <a data-ng-href="/profile/{{approverToTransfer.userProfileId}}" data-ng-bind="approverToTransfer.userName"></a>
+            </p>
+        </li>
+        <li data-ng-show="mocApproverIsTransfered">
+            <div class="control-label">New MOC Approver</div>
+            <p class="text_avatar">
+                <img data-ng-src="data:image/jpeg;base64,{{mocApproverToTransfer.image}}" alt="{{mocApproverToTransfer.userName}}" />
+                <a data-ng-href="/profile/{{mocApproverToTransfer.userProfileId}}" data-ng-bind="mocApproverToTransfer.userName"></a>
+            </p>
+        </li>
+    </ul>
+</div>
